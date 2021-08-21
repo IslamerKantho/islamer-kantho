@@ -1,0 +1,70 @@
+// flex
+.flex 
+    display: flex
+.flex__wrap
+    flex-wrap: wrap
+.flex__nowrap 
+    flex-wrap: nowrap
+
+.justify_content_between 
+    justify-content: space-between
+
+
+@media screen and ( max-width: 767px )
+    .sm\:flex 
+        display: flex
+
+    // Wrap
+    .sm\:flex__wrap 
+        flex-wrap: wrap
+    .sm\:flex__nowrap 
+        flex-wrap: nowrap
+
+    // Justify Content
+    .sm\:justify_between 
+        justify-content: space-between 
+    .sm\:justify_center 
+        justify-content: center
+    .sm\:justify_end 
+        justify-content: flex-end
+
+@media screen and ( min-width: 768px ) and ( max-width: 1365px )
+    .md\:flex 
+        display: flex
+
+    // Wrap
+    .md\:flex__wrap 
+        flex-wrap: wrap
+    .md\:flex__nowrap 
+        flex-wrap: nowrap
+
+    // Justify Content
+    .md\:justify_between 
+        justify-content: space-between 
+    .md\:justify_center 
+        justify-content: center
+    .md\:justify_end 
+        justify-content: flex-end
+
+    .md\:flex-nowrap 
+        flex-wrap: nowrap
+@media screen and ( min-width: 1366px )
+    .lg\:flex 
+        display: flex
+
+    // Wrap
+    .lg\:flex__wrap 
+        flex-wrap: nowrap
+    .lg\:flex__wrap 
+        flex-wrap: nowrap
+
+    // Justify Content
+    .lg\:justify_between 
+        justify-content: space-between 
+    .lg\:justify_center 
+        justify-content: center
+    .lg\:justify_end 
+        justify-content: flex-end
+
+    .lg\:flex-nowrap 
+        flex-wrap: nowrap

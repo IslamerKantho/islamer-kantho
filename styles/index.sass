@@ -1,0 +1,413 @@
+@use './componets/_spacing'
+@use './componets/_typography'
+@use './componets/_buttons'
+@use './componets/_flex'
+@use  './componets/_sizing'
+@import '_colors.sass'
+
+
+* 
+    margin: 0
+    padding: 0
+
+*, *::before, *::after
+    box-sizing: border-box
+
+::selection 
+    color: #fff
+    background: #055547
+
+body
+    font-family: 'Inter', sans-serif  !important
+    font-size: 16px
+    background: $bg
+p 
+    font-size: 16px
+    line-height: 27px
+    font-weight: 400 
+
+h1, h2, h3, h4, h5, h6 , a
+    color: $primary
+
+img 
+    width: 100%
+    height: 100%
+    
+// List
+.ik_list_0
+    list-style: none 
+
+// Inputs 
+input[type="text"], input[type="email"], input[type="tel"], input[type="number"], input[type="url"]
+    width: 100%
+    margin-bottom: 12px
+    padding: 8px 15px
+    color: #fff
+    background: transparent
+    // border-left: none
+    // border-top: none
+    // border-right: none
+    // border-bottom: 1px solid #ffffff
+    border: 1px solid #8e8e93
+    outline: none
+
+input[type="submit"] 
+    padding: 8px 15px
+    color: #fff
+    background: transparent
+    border: 1px solid #ffffff
+
+// Single Article 
+.ik_sarticle_content h1, .ik_sarticle_content h2, .ik_sarticle_content h3, .ik_sarticle_content h4, .ik_sarticle_content h5, .ik_sarticle_content h6
+    margin-top: 30px
+    margin-bottom: 15px
+    font-size: 28px
+    font-weight: 600
+    line-height: 35px
+
+.ik_sarticle_content h1, .ik_sarticle_content h2, .ik_sarticle_content h3, .ik_sarticle_content h4, .ik_sarticle_content h5, .ik_sarticle_content h6, .ik_sarticle_content p 
+    margin-left: auto
+    margin-right: auto
+    @media screen and ( max-width: 767px )
+        width: 100%
+    @media screen and ( min-width: 768px ) and ( max-width: 1365px )
+        width: calc( 100% - 160px )
+    @media screen and ( min-width: 1366px )
+        width: 610px
+
+
+.ik_sarticle_content figure
+    margin-top: 20px
+    margin-bottom: 20px
+    @media screen and ( max-width: 767px )
+        width: 100%
+    @media screen and ( min-width: 768px ) and ( max-width: 1365px )
+        width: calc( 100vw - 80px )
+
+.ik_sarticle_content img, .ik_sarticle_content figure
+    margin-left: auto
+    margin-right: auto
+    @media screen and ( max-width: 767px )
+        width: 100%
+    @media screen and ( min-width: 768px ) and ( max-width: 1365px )
+        width: 100%
+    @media screen and ( min-width: 1366px )
+        width: 800px
+
+
+section, aside
+    .ik__header
+        width: 100%
+        .ik_title
+            font-size: 18px
+            line-height: 28px
+            @media screen and (max-width: 767px ) 
+                margin-bottom: 10px
+            @media screen and (min-width: 768px ) 
+                margin-bottom: 10px
+            font-weight: 700
+            color: #055547
+// *****************************************
+// Index page
+// *****************************************
+// Slider 
+@media screen and ( max-width: 767px )
+    .ik_full_width_carousel 
+        .container 
+            .ik_slide 
+                width: 100%
+                height: 100%
+                position: relative
+                display: block
+                .ik_bg 
+                    img
+                        height: 100% 
+                .ik_body 
+                    width: 100vw
+                    height: 100%
+                    position: absolute
+                    top: 0
+                    right: 0
+                    bottom: 0
+                    left: 0
+                    z-index: 0
+                    display: flex
+                    justify-content: flex-start
+                    align-items: center
+                    .ik_body_content 
+                        width: 100%
+                        height: 100%
+                        padding: 20px 20px 30px 20px
+                        display: flex
+                        flex-direction: column
+                        justify-content: flex-end
+                        background: linear-gradient(0deg, rgba(5,85,71,0.9) 52%, rgba(5,85,71,0.13489145658263302) 100%)
+                        .title 
+                            margin-bottom: 10px
+                            font-size: 16px
+                            line-height: 24px
+                            font-weight: 700
+                            color: #ffffff
+                        .excerpt 
+                            display: none
+                        .readmore
+                            display: none
+@media screen and ( min-width: 1366px )
+    .ik_full_width_carousel 
+        .container 
+            .ik_slide 
+                width: 100%
+                height: 100%
+                position: relative
+                display: block
+                .ik_bg 
+                    img 
+                .ik_body 
+                    width: 1220px
+                    height: 450px
+                    position: absolute
+                    top: 0
+                    right: 0
+                    bottom: 0
+                    left: 0
+                    z-index: 0
+                    display: flex
+                    justify-content: flex-start
+                    align-items: center
+                    .ik_body_content 
+                        height: calc(100% - 80px)
+                        width: 360px
+                        margin: 40px
+                        padding: 35px 30px
+                        display: flex
+                        flex-direction: column
+                        justify-content: space-between
+                        background: #fff
+                        .title 
+                            margin-bottom: 20px
+                            font-size: 24px
+                            line-height: 32px
+                            font-weight: 700
+                            color: #055547
+                        .excerpt 
+                            color: #2A2A2A
+                            font-size: 14px
+                            line-height: 24px
+                            font-weight: 400
+                            margin-bottom: 20px
+                        .readmore
+                            color: #055547
+                            font-size: 14px
+                            line-height: 24px
+                            font-weight: 700
+                            &:hover
+                                text-decoration: underline
+
+
+// Recomendad post card
+section.ik_recomendetion
+    .ik__header
+        width: 100%
+        .ik_title
+    .ik__body 
+        display: flex
+        flex-wrap: wrap
+        article.post_grid_card
+            margin-bottom: 15px 
+            &:last-of-type
+                margin-bottom: 0
+            a
+                .post_block
+                    height: 100%
+                    background: #fff
+                    border-radius: 5px
+                    box-shadow: 0px 0px 20px 0 rgb(0 0 0 / 15%)
+                    .img 
+                        border-bottom: 8px solid #055547
+                    .card_body
+                        padding: 20px
+                        .writer 
+                            font-size: 13px
+                            margin-bottom: 8px
+                            color: #000
+                            font-weight: 400
+                        .title 
+                            margin-bottom: 0 
+                            font-size: 15px
+                            line-height: 24px
+                            font-weight: 700
+                            color: #055547
+                        .excerpt 
+                            display: none
+
+@media screen and ( max-width: 767px ) 
+    section.ik_recomendetion
+        padding-top: 25px
+        padding-bottom: 25px
+        .ik__header
+        .ik__body 
+            flex-direction: column
+            article.post_grid_card 
+                width: 100%
+                a
+                    width: 100%
+                    .post_block
+                        width: 100%
+                        display: flex
+                        .img 
+                            width: 120px
+                            border-bottom: 0
+                            img
+                                border-radius: 5px
+                        .card_body
+                            width: calc(100% - 120px)
+                            padding: 10px
+                            .writer 
+                                font-size: 12px
+                            .title 
+
+
+@media screen and ( min-width: 1366px )   
+    section.ik_recomendetion
+        padding-bottom: 35px
+        .ik__header
+        .ik__body 
+            article.post_grid_card 
+                width: calc( 100% / 4)
+                padding-right: 20px
+                &::last-of-type
+                    margin-right: 0
+                a
+                    .post_block
+                        .img 
+                            img
+                                border-top-right-radius: 5px
+                                border-top-left-radius: 5px
+                        .card_body
+                            .writer 
+                                font-size: 13px
+                            .title 
+
+
+// Recent Articles
+.ik_recent_articles 
+    .ik__head
+        .title
+    .ik__body 
+        .ik_card_full_card  
+            width: calc( 100% - 20px )
+            margin-bottom: 25px
+            a 
+                .card_block 
+                    display: flex
+                    justify-content: space-between
+                    background: #fff
+                    box-shadow: 0px 0px 20px 0 rgb(0 0 0 / 15%)
+                    border-radius: 5px
+                    .img_wrapper 
+                        width: 286px
+                        img 
+                            border-radius: 5px
+                                
+                    .card_body
+                        width: calc( 100% - 286px )
+                        padding: 20px
+                        .category 
+                            font-size: 13px
+                            margin-bottom: 8px
+                            color: #000
+                            font-weight: 400
+                        .title 
+                            margin-bottom: 10px
+                            font-size: 15px
+                            line-height: 24px
+                            font-weight: 700
+                            color: #055547
+                        .excerpt
+                            font-size: 13px
+                            margin-bottom: 8px
+                            color: rgba(68,68,68,.8)
+                            font-weight: 400
+                            line-height: 24px
+
+@media screen and ( max-width: 767px )
+    .ik_recent_articles 
+        padding-top: 25px
+        padding-bottom: 25px
+        .ik__head
+            .title
+        .ik__body 
+            .ik_card_full_card  // Card
+                width: 100%
+                a 
+                    .card_block 
+                        flex-direction: column
+                        .img_wrapper 
+                            width: 100%
+                            img 
+                                    
+                        .card_body
+                            width: 100%
+                            .category 
+                            .title 
+                            .excerpt
+
+@media screen and ( min-width: 1366px )
+    .ik_recent_articles 
+        padding-bottom: 35px
+        .ik__head
+            .title
+        .ik__body 
+            .ik_card_full_card  // Card
+                width: calc( 100% - 20px )
+                a 
+                    .card_block 
+                        .img_wrapper 
+                            width: 286px
+                            img 
+                                    
+                        .card_body
+                            width: calc( 100% - 286px )
+                            .category 
+                            .title 
+                            .excerpt
+
+
+
+// ik_section_recent
+.ik_recomendad_site_card
+    margin-bottom: 15px
+    padding: 15px
+    display: flex
+    justify-content: space-between
+    background: #fff
+    -webkit-box-shadow: 0px 0px 20px 0 rgb(0 0 0 / 15%)
+    box-shadow: 0px 0px 20px 0 rgb(0 0 0 / 15%)
+    border-radius: 5px 
+    .ik_logo 
+        width: 45px
+        div 
+            width: 100%
+
+    .ik_body 
+        width: calc( 100% - 65px )
+        h3 
+            color: #055547
+            font-size: 16px
+            margin-bottom: 8px
+            line-height: 16px
+            font-weight: 700
+        p
+            margin-bottom: 0
+            font-size: 14px
+            line-height: 20px
+    
+
+
+// Sidebar 
+aside 
+    padding: 35px 0
+    position: sticky
+@media screen and ( max-width: 767px )
+@media screen and ( min-width: 768px ) and ( max-width: 1365px )
+@media screen and ( min-width: 1366px )
