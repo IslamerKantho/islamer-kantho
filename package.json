@@ -11,19 +11,19 @@
     "postinstall": "lerna bootstrap"
   },
   "dependencies": {
-    "@sanity/block-content-to-react": "^2.0.7",
+    "@sanity/block-content-to-react": "^3.0.0",
     "@sanity/client": "^2.8.0",
-    "@sanity/image-url": "^0.140.19",
+    "@sanity/image-url": "^1.0.1",
     "antd": "^4.16.8",
     "classnames": "^2.2.6",
     "date-fns": "^2.15.0",
-    "formik": "^2.2.9",
-    "next": "^10.2.0",
+    "next": "^11.1.2",
     "next-sanity": "^0.1.5",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-hook-form": "^7.3.6",
     "react-icons": "^4.2.0",
+    "react-indiana-drag-scroll": "^2.1.0",
     "sass": "^1.36.0",
     "swr": "^0.5.5"
   },

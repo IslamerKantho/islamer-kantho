@@ -1,4 +1,5 @@
 import { Row, Col, Typography, Avatar } from "antd"
+// import { Row, Col } from ''
 import Text from "antd/lib/typography/Text"
 import { imageBuilder } from "../../pages/api/sanity"
 import Image from 'next/image'
@@ -48,24 +49,41 @@ export default function ArticleHeader({ title, date, author, excerpt, category }
 
                     <Col>
                         <div className="ik_header_bottom_content">
-                            <Avatar 
-                                src={author.picture}
-                                style={style.avater, { verticalAlign: 'middle' }} 
-                                size="96" 
-                                gap={20}
-                            ></Avatar>
-                            <Text>{author.name}</Text>
-                            <FormatterDate dateString={date} />
+
+                            <div className="__left">
+                                <Avatar 
+                                    src={author.picture}
+                                    style={style.avater, { verticalAlign: 'middle' }} 
+                                    size="96" 
+                                    gap={20}
+                                ></Avatar>
+                            </div>
+
+                            <div className="__right">
+                                <Text>{author.name}</Text>
+                                <FormatterDate dateString={date} />
+                            </div>
+
                         </div>
                     </Col>
                 </Row>
-                
                 
             </div>
 
             <style jsx>{`
                 .ik_article_header {
                     height: 100%;
+                }
+
+                .ik_header_bottom_content {
+                    display: flex;
+                    flex-direction: row;
+                }
+                .__left {}
+                .__right {
+                    margin-left: 10px;
+                    display: flex;
+                    flex-direction: column;
                 }
             `}</style>
         </>

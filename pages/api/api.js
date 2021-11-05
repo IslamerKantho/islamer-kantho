@@ -19,7 +19,10 @@ const postFields = `
   _id,
   name,
   title,
-  categories,
+  'category': categories[0]-> {
+    title,
+    'slug': slug.current
+  },
   'date': {
     'createdAt': _createdAt, 
   	'updatedAt': _updatedAt
@@ -78,16 +81,13 @@ export async function getFeaturedPost(preview, range) {
 
 
 // Category List.
-export async function getCategoryList() {
-  const dataQuery = `*[_type='post'] | order(publishedAt desc)`
+export async function getCategoryList(preview) {
+  const dataQuery = `*[_type=='category'] | order(publishedAt desc)`
   const dataParams = `
     _id,
-    title,
-    'slug': slug.current,
-    excerpt,
-    'coverImage': mainImage,
+    title
   `
-  const featuredPost = await getClient(false).fetch(
+  const featuredPost = await getClient(preview).fetch(
     `${dataQuery} {
       // ${dataParams}
     }`
@@ -123,6 +123,7 @@ export async function getAllPosts(preview, range) {
 
   return getUniquePosts(results)
 }
+
 
 export async function getPostAndMorePosts(slug, preview) {
   const curClient = getClient(preview)

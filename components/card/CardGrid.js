@@ -15,7 +15,11 @@ export default function CardGrid({ cardData }) {
                     <a className="">
                         <div className="post_block">
                             <div className="img ik_rounded-md">
-                                <Image src={imageBuilder(article.coverImage).width(286).height(161).url()} width={286} height={161} layout="responsive" alt={article.slug} />
+                                {/* <Image src={imageBuilder(article.coverImage).width(286).height(161).url()} width={286} height={161} layout="responsive" alt={article.slug} /> */}
+                                { article.coverImage && (
+                                    <Image src={ imageBuilder(article?.coverImage).width(286).height(161).url() } width={286} height={161} layout="responsive" alt={article.slug} placeholder="blur" blurDataURL={ imageBuilder(article?.coverImage).width(286).height(161).url() } />
+                                )}
+                                
                             </div>
                             <div className="card_body ik_p-5 ik_flex ik_flex-col ik_justify-between">
                                 <div className="">
@@ -35,9 +39,6 @@ export default function CardGrid({ cardData }) {
                     </a>
                 </Link>
             </article>
-
-            <style jsx>{`
-            `}</style>
         </>
     )
 }

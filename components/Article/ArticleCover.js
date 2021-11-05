@@ -1,5 +1,5 @@
-import { imageBuilder } from "../../pages/api/sanity";
 import Image from 'next/image'
+import { imageBuilder } from "../../pages/api/sanity"
 
 
 export default function ArticleCover({src}) {
@@ -9,7 +9,16 @@ export default function ArticleCover({src}) {
 
     return (
         <>
-            <Image src={imageBuilder(src).width(660).height(372).url()} width={660} height={372} layout="responsive" />
+            <div className="ik_single_cover">
+                <Image src={imageBuilder(src).width(660).height(372).url()} width={660} height={372} />
+            </div>
+            
+            <style jsx>{`
+                .ik_single_cover {
+                    width: 100%;
+                    height: auto;
+                }
+            `}</style>
         </>
     )
 }

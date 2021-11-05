@@ -1,6 +1,7 @@
 import markdownStyles from '../../styles/markdownStyles.module.sass'
 import BlockContent from '@sanity/block-content-to-react'
 
+
 export default function SingleArticleContent({ content }) {
     const style = {
         content: {

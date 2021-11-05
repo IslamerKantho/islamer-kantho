@@ -15,16 +15,18 @@ export default function PrimaryNavigation() {
             </nav>
 
             <style jsx>{`
-                /* a {
-                    text-decoration: none;
+
+                .ik_nav_primary .ik_container {
+                    padding: 8px 0;
+                    text-align: center;
+                }
+                .ik_nav_primary .ik_container a {
+                    font-size: 28px;
+                    font-weight: 600;
+                    color: #055547;
                 }
 
-
-                .ik_nav_primary {
-                    width: 100%;
-                    height: 50px;
-                    border-bottom: 1px solid rgb(242, 242, 247);
-                }
+                /*
                 .ik_nav_primary .ik_container {
                     height: 100%;
                     display: flex;

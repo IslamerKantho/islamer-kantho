@@ -13,17 +13,18 @@ import { imageBuilder } from '../../pages/api/sanity'
 
 
 export default function Post({ post, morePosts, preview }) {
-  console.group('[slug].js')
-  console.log('Post: ', post)
-  console.groupEnd()
+  // console.group('[slug].js')
+  // console.log('Post: ', post)
+  // console.groupEnd()
 
   const router = useRouter()
   if (!router.isFallback && !post?.slug) {
     return <ErrorPage statusCode={404} />
   }
+
   return (
     <Layout preview={preview}>
-      <Container>
+      {/* <Container> */}
         {router.isFallback ? (
           <p>Loading…</p>
         ) : (
@@ -77,6 +78,7 @@ export default function Post({ post, morePosts, preview }) {
                             <Col lg={9} md={9} sm={24}>
                                 <ArticleHeader title={post.title} excerpt={post.excerpt} author={post.author} category={post.categories} date={post.date} />
                             </Col>
+                            
                             <Col lg={14} md={14} sm={24} offset={{lg: 1, md: 1, sm: 0}}>
                                 <ArticleCover src={post.coverImage} />
                             </Col>
@@ -113,7 +115,7 @@ export default function Post({ post, morePosts, preview }) {
             `}</style>
           </>
         )}
-      </Container>
+      {/* </Container> */}
     </Layout>
   )
 }

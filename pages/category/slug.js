@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import BlockGridPostCard from '../../components/Block/BlockGridPostCard'
-import { getAllPosts } from '../../lib/api'
+import { getAllPosts } from '../api/api'
 import Layout from '../../components/layout'
 
 

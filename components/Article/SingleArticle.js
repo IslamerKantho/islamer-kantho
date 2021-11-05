@@ -1,4 +1,3 @@
-import { Text } from 'antd'
 import ArticleHeader from './ArticleHeader'
 
 

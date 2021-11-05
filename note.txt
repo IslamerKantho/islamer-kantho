@@ -1,1 +1,9 @@
-[27072021] Stopped using tailwind.
+[27072021]
+
+[22082021]
+1. Moved from 3 column to 2 column.
+2. Removed Footer subscription from.
+3. Added Category API.
+
+[23092021]
+1. Having problem with <Image> in '/components/card/CardFullWide.js'. So temporarily i'm using <img>.

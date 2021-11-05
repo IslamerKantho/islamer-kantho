@@ -32,13 +32,13 @@ export default function Home({ featuredPosts, recommendedPosts, allPosts, previe
                 {/* Recomendad Articles */}
                 { recommendedPosts && (
                     <BlockGridPostCard key={`ik_block_grid_post_card_4x2`} postData={recommendedPosts} sectionTitle={{text:'নির্বাচিত লেখাসমুহ', orientation: 'center'}} />
-                )}
+                )} 
                 
 
                 {/* Image Banner */}
                 <BlockBanner />
 
-                <div className="sm:px_20">
+                <div className="">
                     <Container dataClasses="mx_auto">
                         <div className="flex sm:flex__wrap">
                             <div className="lg:w_3/4 sm:w__full">
@@ -73,4 +73,4 @@ export async function getStaticProps({ preview = false }) {
       props: { featuredPosts,recommendedPosts, allPosts, preview },
       revalidate: 1
     }
-  }
+}

@@ -1,8 +1,9 @@
-import Container from '../container'
+// Core Components
 import Image from 'next/image'
 import Link from 'next/link'
-import FormSubscribeMini from '../Form/FormSubscribeMini'
 import { Layout, Row, Col } from 'antd'
+// Custom Components
+import Container from '../container'
 
 
 export default function BlockFooter() {
@@ -11,85 +12,85 @@ export default function BlockFooter() {
     return (
         <>
             <Footer>
-                <Container>
-                    <Row>
-                        <Col lg={8} md={8} sm={24}>
+                <Container dataClasses="mx_auto">
+                    <Row justify="space-between">
+                        <Col lg={10} md={10} sm={24}>
                             <div className="ik_footer_weidget">
-                                <Image src={`/logo.png`} height="34.8" width="184" />
+                                <div className="footer_image">
+                                    <Image src={`/img/branding/logo.png`} height={34.8} width={184} layout="responsive" />
+                                </div>
+
                                 <p >ইসলামের কন্ঠ” এর মাধ্যমে জনসম্মুখে ‘আহলে সুন্নাত ওয়াল জামাআত এর আক্বীদাহ অনুযায়ী ইসলামের সঠিক চিত্র উপস্থাপন, সেই সাথে অপব্যাখ্যা ও ভ্রান্ত ধারনা নিরসনের লক্ষ্যে কাজ করা আমাদের একমাত্র উদ্দেশ্য।</p>
                             </div>
                         </Col>
 
-                        <Col lg={8} md={8} sm={24}>
+                        <Col span={{ lg:8, md:8, sm:24 }} >
                             <div className="ik_flex ik_justify_center">
-                                <ul className="ik__list ik_list_0">
-                                    <li>
-                                        <Link href={`/`}>
-                                            <a>
-                                                About us
-                                            </a>
-                                        </Link>
-                                    </li>
-                                    
-                                    <li>
-                                        <Link href={`/`}>
-                                            <a>
-                                                Contact us
-                                            </a>
-                                        </Link>
-                                    </li>
-                                    
-                                    <li>
-                                        <Link href={`/`}>
-                                            <a>
-                                                Newsroom
-                                            </a>
-                                        </Link>
-                                    </li>
-                                </ul>
+                                <Row>
+                                    <Col lg={12} md={12} sm={24}>
+                                        <ul className="ik__list ik_list_0">
+                                            <li>
+                                                <Link href={`/`}>
+                                                    <a>
+                                                        About us
+                                                    </a>
+                                                </Link>
+                                            </li>
+                                            
+                                            <li>
+                                                <Link href={`/`}>
+                                                    <a>
+                                                        Contact us
+                                                    </a>
+                                                </Link>
+                                            </li>
+                                            
+                                            <li>
+                                                <Link href={`/`}>
+                                                    <a>
+                                                        Newsroom
+                                                    </a>
+                                                </Link>
+                                            </li>
+                                        </ul>
+                                    </Col>
 
-                                <ul className="ik__list ik_list_0">
-                                    <li>
-                                        <Link href={`/`}>
-                                            <a>
-                                                Contribute
-                                            </a>
-                                        </Link>
-                                    </li>
-                                    
-                                    <li>
-                                        <Link href={`/`}>
-                                            <a>
-                                                Advertising
-                                            </a>
-                                        </Link>
-                                    </li>
-                                    
-                                    <li>
-                                        <Link href={`/`}>
-                                            <a>
-                                                Privacy Policy
-                                            </a>
-                                        </Link>
-                                    </li>
-                                    
-                                    <li>
-                                        <Link href={`/`}>
-                                            <a>
-                                                Terms
-                                            </a>
-                                        </Link>
-                                    </li>
-                                </ul>
-                            </div>
-                        </Col>
-
-                        <Col lg={8} md={8} sm={24}>
-                            <div className="ik_widget_subscribe">
-                                <h5>Sign up for our newsletter!</h5>
-                                <p className="mb__20">Join our mailing list and get the latest updates</p>
-                                <FormSubscribeMini />
-                                <p className="mt__20">Email us for general inquiries and copyright information</p>
+                                    <Col lg={12} md={12} sm={24}>
+                                        <ul className="ik__list ik_list_0">
+                                            <li>
+                                                <Link href={`/`}>
+                                                    <a>
+                                                        Contribute
+                                                    </a>
+                                                </Link>
+                                            </li>
+                                            
+                                            <li>
+                                                <Link href={`/`}>
+                                                    <a>
+                                                        Advertising
+                                                    </a>
+                                                </Link>
+                                            </li>
+                                            
+                                            <li>
+                                                <Link href={`/`}>
+                                                    <a>
+                                                        Privacy Policy
+                                                    </a>
+                                                </Link>
+                                            </li>
+                                            
+                                            <li>
+                                                <Link href={`/`}>
+                                                    <a>
+                                                        Terms
+                                                    </a>
+                                                </Link>
+                                            </li>
+                                        </ul>
+                                    </Col>
+                                </Row>
                             </div>
                         </Col>
                     </Row>
@@ -155,6 +156,12 @@ export default function BlockFooter() {
                     color: #8e8e93;
                  }
                  .ik_widget_subscribe {}
+
+                 .ik_footer_weidget {}
+                 .ik_footer_weidget .v {
+                     max-width: 300px;
+                     marign-bottom: 25px !important;
+                 }
             `}</style>
         </>
     )

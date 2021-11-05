@@ -1,8 +1,7 @@
 // Components
-import { Divider} from 'antd'
 // Custom Components 
 import Container from '../container'
-import CardGrid from '../card/CardGrid'
+import CardGrid from '../card/CardGrid' 
 
 
 export default function BlockGridPostCard({postData, sectionTitle}) {
@@ -30,8 +29,8 @@ export default function BlockGridPostCard({postData, sectionTitle}) {
             <style jsx>{`
                 @media ( max-width: 767px ) {
                     .ik_recomendetion {
-                        margin-left: 20px;
-                        margin-right: 20px;
+                        /* margin-left: 20px; */
+                        /* margin-right: 20px; */
                     }
                 }
             `}</style>

@@ -160,8 +160,9 @@ section, aside
                 height: 100%
                 position: relative
                 display: block
-                .ik_bg 
-                    img 
+                // .ik_bg 
+                //     img 
+                        
                 .ik_body 
                     width: 1220px
                     height: 450px
@@ -208,7 +209,7 @@ section, aside
 section.ik_recomendetion
     .ik__header
         width: 100%
-        .ik_title
+        // .ik_title
     .ik__body 
         display: flex
         flex-wrap: wrap
@@ -244,7 +245,7 @@ section.ik_recomendetion
     section.ik_recomendetion
         padding-top: 25px
         padding-bottom: 25px
-        .ik__header
+        // .ik__header
         .ik__body 
             flex-direction: column
             article.post_grid_card 
@@ -254,23 +255,25 @@ section.ik_recomendetion
                     .post_block
                         width: 100%
                         display: flex
+                        flex-direction: column
                         .img 
-                            width: 120px
+                            width: 100%
                             border-bottom: 0
                             img
                                 border-radius: 5px
                         .card_body
-                            width: calc(100% - 120px)
-                            padding: 10px
+                            width: 100%
+                            padding: 20px
                             .writer 
                                 font-size: 12px
-                            .title 
+                            // .title 
 
 
 @media screen and ( min-width: 1366px )   
     section.ik_recomendetion
+        padding-top: 35px
         padding-bottom: 35px
-        .ik__header
+        // .ik__header
         .ik__body 
             article.post_grid_card 
                 width: calc( 100% / 4)
@@ -286,13 +289,13 @@ section.ik_recomendetion
                         .card_body
                             .writer 
                                 font-size: 13px
-                            .title 
+                            // .title 
 
 
 // Recent Articles
 .ik_recent_articles 
-    .ik__head
-        .title
+    // .ik__head
+    //     .title
     .ik__body 
         .ik_card_full_card  
             width: calc( 100% - 20px )
@@ -334,8 +337,8 @@ section.ik_recomendetion
     .ik_recent_articles 
         padding-top: 25px
         padding-bottom: 25px
-        .ik__head
-            .title
+        // .ik__head
+        //     .title
         .ik__body 
             .ik_card_full_card  // Card
                 width: 100%
@@ -344,19 +347,20 @@ section.ik_recomendetion
                         flex-direction: column
                         .img_wrapper 
                             width: 100%
-                            img 
+                            // img 
                                     
                         .card_body
                             width: 100%
-                            .category 
-                            .title 
-                            .excerpt
+                            // .category 
+                            // .title 
+                            // .excerpt
 
 @media screen and ( min-width: 1366px )
     .ik_recent_articles 
+        padding-top: 35px
         padding-bottom: 35px
-        .ik__head
-            .title
+        // .ik__head
+        //     .title
         .ik__body 
             .ik_card_full_card  // Card
                 width: calc( 100% - 20px )
@@ -364,13 +368,13 @@ section.ik_recomendetion
                     .card_block 
                         .img_wrapper 
                             width: 286px
-                            img 
+                            // img 
                                     
                         .card_body
                             width: calc( 100% - 286px )
-                            .category 
-                            .title 
-                            .excerpt
+                            // .category 
+                            // .title 
+                            // .excerpt
 
 
 
@@ -408,6 +412,12 @@ section.ik_recomendetion
 aside 
     padding: 35px 0
     position: sticky
+
+
 @media screen and ( max-width: 767px )
 @media screen and ( min-width: 768px ) and ( max-width: 1365px )
 @media screen and ( min-width: 1366px )
+
+
+
+    
