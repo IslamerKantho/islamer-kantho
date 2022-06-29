@@ -12,7 +12,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import NextLink from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import MenuDrawer from "../MenuDrawer";
 
 const pages = ["Editoral", "About", "Contact"];
@@ -23,12 +23,6 @@ const Header = () => {
 	const [anchorElNav, setAnchorElNav] = useState(null);
 	const [anchorElUser, setAnchorElUser] = useState(null);
 	const [isCatDrawerOpen, setIsCatDrawerOpen] = useState(false);
-
-	useEffect(() => {
-		document.onscroll = () => {
-			console.log(window.scrollX);
-		};
-	}, []);
 
 	const openHandler = () => setIsCatDrawerOpen(true);
 	const closeHandler = () => setIsCatDrawerOpen(false);

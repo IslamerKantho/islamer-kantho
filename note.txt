@@ -12,3 +12,7 @@
 1. New git branch `dev` created for update.
 2. New `Header` component added.
 3. `Layout` component updated.
+
+[29062022]
+1. Updated `Next.Js ` version 11 to 12.
+2. Converted some file extension `.js` to `.jsx`.
