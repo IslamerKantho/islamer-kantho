@@ -33,20 +33,19 @@
   },
   "devDependencies": {
     "@sanity/cli": "^2.0.5",
-    "autoprefixer": "^10.3.1",
-    "lerna": "^4.0.0"
+    "autoprefixer": "^10.3.1"
   },
   "description": "This is a demo of how to add a simple comment section to blog post using [Next.js](https://nextjs.org), [Sanity.io](https://www.sanity.io), and [Vercel](https://vercel.com).",
   "main": "next.config.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/IslamerKantho/islamer-kantho.git"
+    "url": "git+https://github.com/abutahermuammad/islamer-kantho-new.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/IslamerKantho/islamer-kantho/issues"
+    "url": "https://github.com/abutahermuammad/islamer-kantho-new/issues"
   },
-  "homepage": "https://github.com/IslamerKantho/islamer-kantho#readme"
+  "homepage": "https://github.com/abutahermuammad/islamer-kantho-new#readme"
 }

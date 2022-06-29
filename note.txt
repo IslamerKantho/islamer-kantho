@@ -16,3 +16,5 @@
 [29062022]
 1. Updated `Next.Js ` version 11 to 12.
 2. Converted some file extension `.js` to `.jsx`.
+3. Removed `.studio` from working repository.
+4. Uninstalled `lerna`.
