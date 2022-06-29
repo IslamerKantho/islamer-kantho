@@ -7,3 +7,8 @@
 
 [23092021]
 1. Having problem with <Image> in '/components/card/CardFullWide.js'. So temporarily i'm using <img>.
+
+[29062022]
+1. New git branch `dev` created for update.
+2. New `Header` component added.
+3. `Layout` component updated.
