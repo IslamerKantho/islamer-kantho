@@ -18,3 +18,4 @@
 2. Converted some file extension `.js` to `.jsx`.
 3. Removed `.studio` from working repository.
 4. Uninstalled `lerna`.
+5. `package.json` updated with fresh commands.

@@ -2,13 +2,10 @@
   "name": "islamer-kantho",
   "version": "1.0.0",
   "scripts": {
-    "dev": "next",
-    "build": "npm run build:sanity && pwd && npm run build:web",
-    "build:web": "next build",
-    "start:web": "next start",
-    "build:sanity": "cd studio && sanity build ../public/studio -y && cd ..",
-    "start:sanity": "cp .env ./studio/.env.development && cd studio && sanity start",
-    "postinstall": "lerna bootstrap"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
     "@emotion/react": "^11.9.3",
