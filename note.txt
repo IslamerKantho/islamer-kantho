@@ -19,3 +19,4 @@
 3. Removed `.studio` from working repository.
 4. Uninstalled `lerna`.
 5. `package.json` updated with fresh commands.
+6. `SSG` added into `/category/[slug]` page.
