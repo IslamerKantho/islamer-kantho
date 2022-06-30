@@ -1,14 +1,13 @@
 import Head from "next/head";
 import BlockGridPostCard from "../../components/Block/BlockGridPostCard";
-import Layout from "../../components/layout";
+import Layout from "../../components/Layout";
+import { SIDEBAR_CATAGORY } from "../../db/categories.db";
 import { getAllPosts } from "../api/api";
 
-export default function PageArticles({ allPosts, preview }) {
+const PageArticles = ({ allPosts, preview }) => {
 	// console.group('Articles Page')
 	// console.log('Articles: ', allPosts)
-	// console.groupEnd()
-
-	// Router
+	// console.grou
 
 	return (
 		<>
@@ -21,13 +20,28 @@ export default function PageArticles({ allPosts, preview }) {
 			</Layout>
 		</>
 	);
-}
+};
 
-export async function getStaticProps({ preview = false }) {
+export async function getStaticProps({ params, preview = false }) {
 	const allPostRange = [0, 12]; // Recent Article Range
 	const allPosts = await getAllPosts(preview, allPostRange);
 	return {
 		props: { allPosts, preview },
-		revalidate: 1,
+		revalidate: 3600,
 	};
 }
+export async function getStaticPaths() {
+	const paths =
+		SIDEBAR_CATAGORY.map((cat) => ({
+			params: {
+				slug: `${cat.slug}`,
+			},
+		})) || [];
+
+	return {
+		paths,
+		fallback: true, // See the "fallback" section below
+	};
+}
+
+export default PageArticles;
