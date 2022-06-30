@@ -32,7 +32,6 @@ const MenuDrawer = ({ isVisible, openHandler, closeHandler }) => {
 					<ListItem key={i} disablePadding>
 						<ListItemButton
 							component="li"
-							// href={el.url}
 							sx={{
 								padding: 1,
 								borderBottom: "1px solid #055547",
@@ -49,7 +48,10 @@ const MenuDrawer = ({ isVisible, openHandler, closeHandler }) => {
 							{/* <ListItemIcon>
 								{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
 							</ListItemIcon> */}
-							<NextLink href={el.url} passHref>
+							<NextLink
+								href={`/category/${el.slug}`}
+								as={`/category/${el.slug}`}
+								passHref>
 								<ListItemText primary={el.title} />
 							</NextLink>
 						</ListItemButton>
