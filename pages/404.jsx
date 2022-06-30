@@ -7,7 +7,7 @@ const error404 = () => {
 	return (
 		<>
 			<Head>
-				<title>404 | ইসলামের কন্ঠ</title>0
+				<title>Error | ইসলামের কন্ঠ</title>0
 			</Head>
 
 			<Layout>

@@ -7,7 +7,7 @@ const Error = ({ statusCode }) => {
 	return (
 		<>
 			<Head>
-				<title>{statusCode} | ইসলামের কন্ঠ</title>0
+				<title>{statusCode} | ইসলামের কন্ঠ</title>
 			</Head>
 
 			<Layout>

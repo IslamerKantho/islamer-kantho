@@ -18,7 +18,7 @@
     "antd": "^4.16.8",
     "classnames": "^2.2.6",
     "date-fns": "^2.15.0",
-    "next": "12",
+    "next": "^12.2.0",
     "next-sanity": "^0.1.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -30,7 +30,10 @@
   },
   "devDependencies": {
     "@sanity/cli": "^2.0.5",
-    "autoprefixer": "^10.3.1"
+    "autoprefixer": "^10.3.1",
+    "eslint": "^8.18.0",
+    "eslint-config-next": "^12.2.0",
+    "eslint-config-prettier": "^8.5.0"
   },
   "description": "This is a demo of how to add a simple comment section to blog post using [Next.js](https://nextjs.org), [Sanity.io](https://www.sanity.io), and [Vercel](https://vercel.com).",
   "main": "next.config.js",
