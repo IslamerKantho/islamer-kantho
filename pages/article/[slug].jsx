@@ -6,7 +6,7 @@ import ArticleCover from "../../components/Article/ArticleCover";
 import ArticleHeader from "../../components/Article/ArticleHeader";
 import SingleArticleContent from "../../components/Article/SingleArticleContent";
 import Container from "../../components/container";
-import Layout from "../../components/layout";
+import Layout from "../../components/Layout";
 import { getAllPostsWithSlug, getPostAndMorePosts } from "../api/api";
 import { imageBuilder } from "../api/sanity";
 

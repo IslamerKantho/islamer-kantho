@@ -1,7 +1,7 @@
 // import '../styles/error404.sass'
 import Head from "next/head";
 import Link from "next/link";
-import Layout from "../components/layout";
+import Layout from "../components/Layout";
 
 const error404 = () => {
 	return (
