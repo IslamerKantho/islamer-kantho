@@ -88,7 +88,7 @@ export default function Post({ post, morePosts, preview }) {
 									</Col>
 
 									<Col lg={14} md={14} sm={24} offset={{ lg: 1, md: 1, sm: 0 }}>
-										<ArticleCover src={post.coverImage} />
+										<ArticleCover src={post.coverImage} title={post.title} />
 									</Col>
 								</Row>
 							</Container>

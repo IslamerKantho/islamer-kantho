@@ -1,9 +1,6 @@
 // Core Component
 import Head from "next/head";
 // API Content
-import { getAllPosts, getFeaturedPost, getRecommendedPost } from "./api/api";
-// Components
-import Layout from "antd/lib/layout/layout";
 import BlockBanner from "../components/Block/BlockBanner";
 import BlockCardWide10x from "../components/Block/BlockCardWide10x";
 import BlockCarouselFullWidth from "../components/Block/BlockCarouselFullWidth";
@@ -12,7 +9,9 @@ import BlockGridPostCard from "../components/Block/BlockGridPostCard";
 import BlockSidebar from "../components/Block/BlockSidebar";
 import Container from "../components/container";
 import Header from "../components/Header";
+import Layout from "../components/Layout";
 import SimpleCard from "../components/SimpleCard";
+import { getAllPosts, getFeaturedPost, getRecommendedPost } from "./api/api";
 
 export default function Home({
 	featuredPosts,
