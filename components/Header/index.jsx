@@ -15,11 +15,19 @@ import NextLink from "next/link";
 import { useState } from "react";
 import MenuDrawer from "../MenuDrawer";
 
-const pages = ["Editoral", "About", "Contact"];
+const pages = [
+	{
+		title: "Editorial",
+		url: "/",
+	},
+	{ title: "About", url: "/" },
+	{ title: "Contact", url: "" },
+	{ title: "Donate", url: "" },
+];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 const Header = () => {
-	const [backgrund, setBackgrund] = useState("#055547");
+	const [background, setBackground] = useState("#055547");
 	const [anchorElNav, setAnchorElNav] = useState(null);
 	const [anchorElUser, setAnchorElUser] = useState(null);
 	const [isCatDrawerOpen, setIsCatDrawerOpen] = useState(false);
@@ -48,13 +56,13 @@ const Header = () => {
 				position="sticky"
 				sx={{
 					padding: 0,
-					background: backgrund,
+					background: background,
 					borderBottom: "1px solid #000",
 					boxShadow: "none",
 				}}>
 				<Container maxWidth="xl">
 					<Toolbar disableGutters variant="dense">
-						{/* Desktop Category Drawer Toggle Button */}
+						{/* Desktop Category Drawer Toggler */}
 						<Button
 							variant="outlined"
 							startIcon={<MenuIcon />}
@@ -82,11 +90,10 @@ const Header = () => {
 									display: { xs: "none", md: "flex" },
 									fontFamily: "monospace",
 									fontWeight: 700,
-									letterSpacing: ".3rem",
 									color: "inherit",
 									textDecoration: "none",
 								}}>
-								LOGOO
+								ISLAMER KANTHO
 							</Typography>
 						</NextLink>
 
@@ -108,7 +115,7 @@ const Header = () => {
 								anchorEl={anchorElNav}
 								anchorOrigin={{
 									vertical: "bottom",
-									horizontal: "center",
+									horizontal: "left",
 								}}
 								keepMounted
 								transformOrigin={{
@@ -119,15 +126,19 @@ const Header = () => {
 								onClose={handleCloseNavMenu}
 								sx={{
 									display: { xs: "block", md: "none" },
-									marginLeft: "auto",
+									marginLeft: 0,
 									marginRight: "auto",
 								}}>
-								{pages.map((page) => (
+								{pages.map((page, i) => (
 									<MenuItem
-										key={page}
+										key={i}
 										onClick={handleCloseNavMenu}
-										sx={{ borderRight: "1px solid #ffffff" }}>
-										<Typography textAlign="center">{page}</Typography>
+										sx={{
+											fontWeight: "700",
+											fontSize: "14px",
+											lineHeight: "21px",
+										}}>
+										<Typography textAlign="center">{page.title}</Typography>
 									</MenuItem>
 								))}
 							</Menu>
@@ -153,38 +164,43 @@ const Header = () => {
 							LOGO
 						</Typography>
 
+						{/* Desktop menu */}
 						<Box
 							sx={{
 								flexGrow: 1,
 								display: { xs: "none", md: "flex" },
-								gap: 2,
+								gap: "20px",
 								alignItems: "center",
+								paddingLeft: "25px",
 								paddingRight: 20,
+								// borderLeft: "1px solid #fff",
 								// justifyContent: "space-between",
 							}}>
-							{pages.map((page) => (
+							{pages.map((page, i) => (
 								<Link
-									href="#"
+									href={pages.url}
 									underline="none"
-									key={page}
+									key={i}
 									sx={{
-										// marginLeft: 2,
-										paddingRight: 1.5,
+										// marginLeft: "20px",
+										// paddingRight: 1.5,
 										color: "white",
+										fontSize: "13px",
+										lineHeight: "21px",
 										display: "block",
-										fontWeight: 500,
-										borderRight: "1px solid #fff",
-										"&:first-of-type": {
-											marginLeft: "auto",
-											paddingLeft: 1.5,
-											borderLeft: "1px solid #fff",
-										},
-										borderRight: "1px solid #fff",
+										fontWeight: 700,
+										// borderRight: "1px solid #fff",
+										"&:first-of-type": {},
+										// borderRight: "1px solid #fff",
 										"&:last-of-type": {
 											marginRight: "auto",
 										},
+										":hover": {
+											color: "#FFF",
+											opacity: 0.8,
+										},
 									}}>
-									{page}
+									{page.title}
 								</Link>
 							))}
 						</Box>

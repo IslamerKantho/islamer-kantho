@@ -1,6 +1,7 @@
+import CloseIcon from "@mui/icons-material/Close";
 import MailIcon from "@mui/icons-material/Mail";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
-import { Typography } from "@mui/material";
+import { AppBar, IconButton, Toolbar, Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
@@ -23,36 +24,87 @@ const MenuDrawer = ({ isVisible, openHandler, closeHandler }) => {
 
 	const list = () => (
 		<Box
-			sx={{ width: "100%" }}
 			role="presentation"
 			onClick={toggleDrawer}
-			onKeyDown={toggleDrawer}>
+			onKeyDown={toggleDrawer}
+			sx={{ width: "320px" }}>
+			<AppBar
+				position="sticky"
+				sx={{
+					background: "#FFF",
+					boxShadow: "none",
+					pl: 2,
+					borderBottom: "1px solid rgb(233, 236, 239)",
+				}}>
+				<Toolbar disableGutters variant="dense">
+					<NextLink href="/" passHref>
+						<Typography
+							variant="h6"
+							noWrap
+							href={"/"}
+							component="a"
+							sx={{
+								mr: 2,
+								color: "#000000",
+								display: { xs: "none", md: "flex" },
+								fontWeight: 700,
+								fontSize: "20px",
+								lineHeight: "36px",
+								textDecoration: "none",
+							}}>
+							ISLAMER KANTHO
+						</Typography>
+					</NextLink>
+
+					<IconButton
+						sx={{ ml: "auto", mr: 2 }}
+						variant="text"
+						component="label">
+						<CloseIcon />
+					</IconButton>
+				</Toolbar>
+			</AppBar>
+
 			<List>
 				{SIDEBAR_CATAGORY.map((el, i) => (
 					<ListItem key={i} disablePadding>
 						<ListItemButton
 							component="li"
 							sx={{
-								padding: 1,
-								borderBottom: "1px solid #055547",
+								padding: "8px 2 8px 2",
+								borderBottom: "1px solid rgb(233, 236, 239)",
 								transition: "all .2s ease,visibility 0s",
 								position: "relative",
 								display: "block",
-								fontWeight: 500,
 								"&:hover": {
 									color: "#055547",
 									paddingLeft: "20px",
 									// background: "#055547",
 								},
 							}}>
-							{/* <ListItemIcon>
-								{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-							</ListItemIcon> */}
 							<NextLink
 								href={`/category/${el.slug}`}
 								as={`/category/${el.slug}`}
+								sx={{
+									fontWeight: 700,
+									fontSize: "14px",
+									fontFamily: "Inter",
+									lineHeight: "21px",
+									color: "#818181",
+								}}
 								passHref>
-								<ListItemText primary={el.title} />
+								{/* <ListItemText */}
+								<Typography
+									// primary={el.title}
+									sx={{
+										fontWeight: 700,
+										fontSize: "14px",
+										fontFamily: "Inter",
+										lineHeight: "21px",
+										color: "#818181",
+									}}>
+									{el.title}
+								</Typography>
 							</NextLink>
 						</ListItemButton>
 					</ListItem>
