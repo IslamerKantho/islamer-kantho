@@ -6,9 +6,10 @@ import BlockCardWide10x from "../components/Block/BlockCardWide10x";
 // import BlockCarouselFullWidth from "../components/Block/BlockCarouselFullWidth";
 import BlockGridPostCard from "../components/Block/BlockGridPostCard";
 import BlockSidebar from "../components/Block/BlockSidebar";
+import TrendingPosts from "../components/Block/TrendingPosts";
 import Container from "../components/container";
+import HeroBanner from "../components/HeroBanner";
 import Layout from "../components/Layout";
-import SimpleCard from "../components/SimpleCard";
 import { getAllPosts, getFeaturedPost, getRecommendedPost } from "./api/api";
 
 export default function Home({
@@ -25,8 +26,8 @@ export default function Home({
 
 			<Layout>
 				{/* <NavigationHeader /> */}
-				{/* <Header /> */}
-				<SimpleCard />
+				<HeroBanner post={featuredPosts[0]} />
+				<TrendingPosts posts={featuredPosts} />
 
 				{/* Featured Article Slider */}
 				{/* <BlockCarouselFullWidth
@@ -60,8 +61,6 @@ export default function Home({
 						</div>
 					</Container>
 				</div>
-
-				{/* Footer */}
 			</Layout>
 		</>
 	);
@@ -69,7 +68,7 @@ export default function Home({
 
 export async function getStaticProps({ preview = false }) {
 	const allPostRange = [0, 10]; // Recent Article Range
-	const featuredArticleRange = [0, 5]; // Featured Content Range.
+	const featuredArticleRange = [0, 6]; // Featured Content Range.
 
 	const featuredPosts = await getFeaturedPost(preview, featuredArticleRange);
 	const recommendedPosts = await getRecommendedPost(preview, [0, 7]);

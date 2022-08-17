@@ -6,6 +6,7 @@ import {
 	Card,
 	CardActionArea,
 	CardContent,
+	Chip,
 	Typography,
 } from "@mui/material";
 import Image from "next/image";
@@ -15,8 +16,12 @@ export default function CardGrid({ cardData }) {
 	const article = cardData;
 
 	return (
-		<article className="post_grid_card" key={article.slug}>
-			<NextLink as={`/article/${article.slug}`} href="/article/[slug]">
+		<Box
+			component="article"
+			className="post_grid_card"
+			key={article.slug}
+			sx={{ width: "100%" }}>
+			<NextLink as={`/article/${article.slug}`} href="/article/[slug]" passHref>
 				<Card
 					sx={{
 						width: "100%",
@@ -49,31 +54,23 @@ export default function CardGrid({ cardData }) {
 						</Box>
 						<CardContent
 							sx={{
+								minHeight: "122px",
 								padding: "20px",
 								background: "#fff",
 							}}>
 							{/* Meta */}
-							<Typography
-								variant="body1"
-								className="ik_meta__writer"
-								sx={{
-									fontSize: "13px",
-									lineHeight: "22px",
-									color: "text.primary",
-									textDecoration: "none",
-								}}>
-								হাফিজ মাওলানা মাহমুদুর রহমান
-							</Typography>
+
+							<Chip label="হাফিজ মাওলানা  মাহমুদুর রহমান" size="small" />
 
 							{/* Title */}
 							<Typography
 								variant="h3"
 								className="ik_meta__title"
 								sx={{
-									marginTop: "8px",
-									fontSize: "15px",
+									marginTop: "10px",
+									fontSize: "13px",
 									lineHeight: "24px",
-									fontWeight: "bold",
+									fontWeight: "700",
 									color: "#055547",
 								}}>
 								{article.title}
@@ -82,6 +79,6 @@ export default function CardGrid({ cardData }) {
 					</CardActionArea>
 				</Card>
 			</NextLink>
-		</article>
+		</Box>
 	);
 }

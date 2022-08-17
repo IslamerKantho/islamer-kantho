@@ -1,20 +1,19 @@
+import { createTheme, ThemeProvider } from "@material-ui/core/styles";
+import NextNProgress from "nextjs-progressbar";
 import "../styles/error404.sass";
 import "../styles/index.sass";
-// import 'tailwindcss/tailwind.css'
-import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
-import NextNProgress from "nextjs-progressbar";
 
-const theme = createMuiTheme({
+const theme = createTheme({
 	typography: {
 		fontFamily: ["Inter", "sans-serif"].join(","),
-		fontSize: "14px",
-		lineHeight: "21px",
+		fontSize: "13px",
+		lineHeight: "20px",
 	},
 	platte: {
 		main: "#055547",
 	},
 });
-function MyApp({ Component, pageProps }) {
+function App({ Component, pageProps }) {
 	return (
 		<>
 			<ThemeProvider theme={theme}>
@@ -25,4 +24,4 @@ function MyApp({ Component, pageProps }) {
 	);
 }
 
-export default MyApp;
+export default App;
