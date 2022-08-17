@@ -88,7 +88,6 @@ const Header = () => {
 								sx={{
 									mr: 2,
 									display: { xs: "none", md: "flex" },
-									fontFamily: "monospace",
 									fontWeight: 700,
 									color: "inherit",
 									textDecoration: "none",
@@ -150,18 +149,16 @@ const Header = () => {
 							variant="h5"
 							noWrap
 							component="a"
-							href=""
+							href="/"
 							sx={{
 								mr: 2,
 								display: { xs: "flex", md: "none" },
 								flexGrow: 1,
-								fontFamily: "monospace",
 								fontWeight: 700,
-								letterSpacing: ".3rem",
 								color: "inherit",
 								textDecoration: "none",
 							}}>
-							LOGO
+							Islamer Kantho
 						</Typography>
 
 						{/* Desktop menu */}
@@ -250,6 +247,7 @@ const Header = () => {
 				isVisible={isCatDrawerOpen}
 				openHandler={openHandler}
 				closeHandler={closeHandler}
+				sx={{ width: "300px" }}
 			/>
 		</>
 	);

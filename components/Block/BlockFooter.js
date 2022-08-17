@@ -1,19 +1,18 @@
 // Core Components
-import { Col, Layout, Row } from "antd";
+import { Grid } from "@mui/material";
+import { Row } from "antd";
 import Image from "next/image";
 import Link from "next/link";
-// Custom Components
+import PropTypes from "prop-types";
 import Container from "../container";
 
-export default function BlockFooter() {
-	const { Footer } = Layout;
-
+const BlockFooter = ({ className }) => {
 	return (
 		<>
-			<Footer>
+			<footer className={`ik_footer${className ? className : ""}`}>
 				<Container dataClasses="mx_auto">
-					<Row justify="space-between">
-						<Col lg={10} md={10} sm={24}>
+					<Grid Container spacing={2}>
+						<Grid item md={4} sx={12}>
 							<div className="ik_footer_weidget">
 								<div className="footer_image">
 									<Image
@@ -32,12 +31,12 @@ export default function BlockFooter() {
 									একমাত্র উদ্দেশ্য।
 								</p>
 							</div>
-						</Col>
+						</Grid>
 
-						<Col span={{ lg: 8, md: 8, sm: 24 }}>
+						<Grid columns={{ sx: 4, md: 4, sm: 12 }}>
 							<div className="ik_flex ik_justify_center">
 								<Row>
-									<Col lg={12} md={12} sm={24}>
+									<Grid lg={12} md={12} sm={24}>
 										<ul className="ik__list ik_list_0">
 											<li>
 												<Link href={`/`}>
@@ -57,9 +56,9 @@ export default function BlockFooter() {
 												</Link>
 											</li>
 										</ul>
-									</Col>
+									</Grid>
 
-									<Col lg={12} md={12} sm={24}>
+									<Grid lg={12} md={12} sm={24}>
 										<ul className="ik__list ik_list_0">
 											<li>
 												<Link href={`/`}>
@@ -85,13 +84,13 @@ export default function BlockFooter() {
 												</Link>
 											</li>
 										</ul>
-									</Col>
+									</Grid>
 								</Row>
 							</div>
-						</Col>
-					</Row>
+						</Grid>
+					</Grid>
 				</Container>
-			</Footer>
+			</footer>
 
 			<style jsx>{`
 				p {
@@ -110,7 +109,8 @@ export default function BlockFooter() {
 					color: rgb(142, 142, 147);
 				}
 				.ik_container_left {
-					width: calc(100% / 3);
+					width: 100%;
+					max-width: 360px;
 				}
 				.ik_container_middle {
 					width: calc(100% / 3);
@@ -164,4 +164,10 @@ export default function BlockFooter() {
 			`}</style>
 		</>
 	);
-}
+};
+
+BlockFooter.propTypes = {
+	className: PropTypes.string,
+};
+
+export default BlockFooter;

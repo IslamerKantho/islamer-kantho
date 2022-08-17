@@ -1,44 +1,87 @@
 // API
-import { imageBuilder } from '../../pages/api/sanity'
+import { imageBuilder } from "../../pages/api/sanity";
 // Components
-import Link from 'next/link'
-import Image from 'next/image'
-
+import {
+	Box,
+	Card,
+	CardActionArea,
+	CardContent,
+	Typography,
+} from "@mui/material";
+import Image from "next/image";
+import NextLink from "next/link";
 
 export default function CardGrid({ cardData }) {
-    const article = cardData;
+	const article = cardData;
 
-    return (
-        <>
-            <article className="post_grid_card" key={article.slug}>
-                <Link as={`/article/${article.slug}`} href="/article/[slug]">
-                    <a className="">
-                        <div className="post_block">
-                            <div className="img ik_rounded-md">
-                                {/* <Image src={imageBuilder(article.coverImage).width(286).height(161).url()} width={286} height={161} layout="responsive" alt={article.slug} /> */}
-                                { article.coverImage && (
-                                    <Image src={ imageBuilder(article?.coverImage).width(286).height(161).url() } width={286} height={161} layout="responsive" alt={article.slug} placeholder="blur" blurDataURL={ imageBuilder(article?.coverImage).width(286).height(161).url() } />
-                                )}
-                                
-                            </div>
-                            <div className="card_body ik_p-5 ik_flex ik_flex-col ik_justify-between">
-                                <div className="">
-                                    {/* Meta */}
-                                    <p className="writer">
-                                        হাফিজ মাওলানা মাহমুদুর রহমান
-                                    </p>
+	return (
+		<article className="post_grid_card" key={article.slug}>
+			<NextLink as={`/article/${article.slug}`} href="/article/[slug]">
+				<Card
+					sx={{
+						width: "100%",
+						background: "#fff",
+						borderRadius: "5px",
+						boxShadow: "0px 0px 20px 0 rgb(0 0 0 / 15%)",
+					}}>
+					<CardActionArea>
+						<Box
+							className="img ik_rounded-md"
+							sx={{ borderBottom: "8px solid #055547" }}>
+							{/* <Image src={imageBuilder(article.coverImage).width(286).height(161).url()} width={286} height={161} layout="responsive" alt={article.slug} /> */}
+							{article.coverImage && (
+								<Image
+									src={imageBuilder(article?.coverImage)
+										.width(286)
+										.height(161)
+										.url()}
+									width={286}
+									height={161}
+									layout="responsive"
+									alt={article.slug}
+									placeholder="blur"
+									blurDataURL={imageBuilder(article?.coverImage)
+										.width(286)
+										.height(161)
+										.url()}
+								/>
+							)}
+						</Box>
+						<CardContent
+							sx={{
+								padding: "20px",
+								background: "#fff",
+							}}>
+							{/* Meta */}
+							<Typography
+								variant="body1"
+								className="ik_meta__writer"
+								sx={{
+									fontSize: "13px",
+									lineHeight: "22px",
+									color: "text.primary",
+									textDecoration: "none",
+								}}>
+								হাফিজ মাওলানা মাহমুদুর রহমান
+							</Typography>
 
-                                    {/* Title */}
-                                    <h3 className="title">{article.title}</h3>
-
-                                    {/* Excerpt */}
-                                    <p className="excerpt ik_font-normal ik_text-13 ik_mb-3 ik_text-dark-alpha ik_leading-1.35">{article.excerpt}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </Link>
-            </article>
-        </>
-    )
+							{/* Title */}
+							<Typography
+								variant="h3"
+								className="ik_meta__title"
+								sx={{
+									marginTop: "8px",
+									fontSize: "15px",
+									lineHeight: "24px",
+									fontWeight: "bold",
+									color: "#055547",
+								}}>
+								{article.title}
+							</Typography>
+						</CardContent>
+					</CardActionArea>
+				</Card>
+			</NextLink>
+		</article>
+	);
 }

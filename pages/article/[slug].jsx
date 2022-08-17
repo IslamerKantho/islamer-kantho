@@ -1,11 +1,10 @@
-import { Col, Divider, Row } from "antd";
+import { Box, Container, Divider, Grid } from "@mui/material";
 import ErrorPage from "next/error";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import ArticleCover from "../../components/Article/ArticleCover";
 import ArticleHeader from "../../components/Article/ArticleHeader";
 import SingleArticleContent from "../../components/Article/SingleArticleContent";
-import Container from "../../components/container";
 import Layout from "../../components/Layout";
 import { getAllPostsWithSlug, getPostAndMorePosts } from "../api/api";
 import { imageBuilder } from "../api/sanity";
@@ -22,7 +21,6 @@ export default function Post({ post, morePosts, preview }) {
 
 	return (
 		<Layout preview={preview}>
-			{/* <Container> */}
 			{router.isFallback ? (
 				<p>Loading…</p>
 			) : (
@@ -74,10 +72,21 @@ export default function Post({ post, morePosts, preview }) {
 					</Head>
 
 					<article>
-						<section className="ik_article_header">
-							<Container>
-								<Row>
-									<Col lg={9} md={9} sm={24}>
+						<Box className="ik_article_header" component="section">
+							<Container
+								maxWidth="lg"
+								sx={{
+									paddingTop: "60px",
+									paddingBottom: "60px",
+								}}>
+								<Grid container spacing={5}>
+									<Grid
+										item
+										xs={12}
+										md={5}
+										sm={12}
+										justifyContent="center"
+										alignItems="center">
 										<ArticleHeader
 											title={post.title}
 											excerpt={post.excerpt}
@@ -85,26 +94,26 @@ export default function Post({ post, morePosts, preview }) {
 											category={post.categories}
 											date={post.date}
 										/>
-									</Col>
+									</Grid>
 
-									<Col lg={14} md={14} sm={24} offset={{ lg: 1, md: 1, sm: 0 }}>
+									<Grid item xs={12} md={7} sm={12}>
 										<ArticleCover src={post.coverImage} title={post.title} />
-									</Col>
-								</Row>
+									</Grid>
+								</Grid>
 							</Container>
-						</section>
+						</Box>
 
 						<Divider />
 
-						<section className="ik_sarticle_content">
+						<Box className="ik_sarticle_content" component="section">
 							<Container>
-								<Row justify="center" align="middle">
-									<Col lg={24} md={24} sm={24}>
+								<Grid container justify="center" align="middle">
+									<Grid item lg={24} md={24} sm={24}>
 										<SingleArticleContent content={post.body} />
-									</Col>
-								</Row>
+									</Grid>
+								</Grid>
 							</Container>
-						</section>
+						</Box>
 					</article>
 
 					{/* <Comments comments={post.comments} />
@@ -112,16 +121,8 @@ export default function Post({ post, morePosts, preview }) {
 
             <SectionSeparator />
             {morePosts.length > 0 && <MoreStories posts={morePosts} />} */}
-
-					<style jsx>{`
-						.ik_article_header {
-							padding-top: 80px;
-							padding-bottom: 40px;
-						}
-					`}</style>
 				</>
 			)}
-			{/* </Container> */}
 		</Layout>
 	);
 }

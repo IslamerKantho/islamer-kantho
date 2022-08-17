@@ -1,91 +1,126 @@
-import { Row, Col, Typography, Avatar } from "antd"
 // import { Row, Col } from ''
-import Text from "antd/lib/typography/Text"
-import { imageBuilder } from "../../pages/api/sanity"
-import Image from 'next/image'
-import FormatterDate from "../FormatterDate"
+import { Avatar, Box, Grid, Typography } from "@mui/material";
+import PropTypes from "prop-types";
+import FormatterDate from "../FormatterDate";
 
-export default function ArticleHeader({ title, date, author, excerpt, category }) {
-    // console.group('ArticleHeader')
-    // console.log('Title: ', title)
-    // console.log('Date: ', date)
-    // console.log('Author: ', author)
-    // console.log('Category: ', category)
-    // console.log('Excerpt: ', excerpt)
-    // console.groupEnd()
+const ArticleHeader = ({
+	className,
+	title,
+	date,
+	author,
+	excerpt,
+	category,
+}) => {
+	// console.group('ArticleHeader')
+	// console.log('Title: ', title)
+	// console.log('Date: ', date)
+	// console.log('Author: ', author)
+	// console.log('Category: ', category)
+	// console.log('Excerpt: ', excerpt)
+	// console.groupEnd()
 
-    const { Title, Text, Paragraph } = Typography
+	const style = {
+		mainHeader: {
+			fontSize: 34,
+			lineHeight: "42px",
+			fontWeight: 700,
+			color: "#2A2A2A",
+		},
+		headerRow: {
+			height: "100%",
+		},
+		avater: {
+			marginRight: 12,
+		},
+	};
 
-    const style = {
-        mainHeader: {
-            fontSize: 34,
-            lineHeight: '42px',
-            fontWeight: 700,
-            color: '#2A2A2A'
-        },
-        category: {
-            fontSize: 12,
-            lineHeight: '22px',
-            marginBottom: 10
-        },
-        headerRow: {
-            height: '100%'
-        },
-        avater: {
-            marginRight: 12
-        }
-    }
-    return (
-        <>
-            <div className="ik_article_header">
-                <Row style={style.headerRow} justify="space-between" align="middle">
-                    <Col>
-                        <div className="ik_header_top_content">
-                            <p style={style.category} className="ik_meta">হাদীস শরীফ {category?._ref}</p>
-                            <Title style={style.mainHeader} lavel={1}>{title}</Title>
-                            <Paragraph>{excerpt}</Paragraph>
-                        </div>
-                    </Col>
+	return (
+		<>
+			<div className={`ik_article_header${className ? className : ""} `}>
+				<Grid
+					container
+					spacing={5}
+					direction="column"
+					justifyContent="space-between"
+					alignItems="flex-start"
+					sx={{
+						height: "100%",
+					}}>
+					<Grid item>
+						<Box className="ik_header_top_content">
+							<Box className="ik_meta">
+								<Typography
+									className="ik_meta__cat"
+									variant="body2"
+									sx={{
+										fontSize: "12px",
+										lineHeight: "22px",
+										color: "#000000",
+									}}>
+									হাদীস শরীফ {category?._ref}
+								</Typography>
+							</Box>
 
-                    <Col>
-                        <div className="ik_header_bottom_content">
+							<Typography
+								className={`ik_article__title${className ? className : ""} `}
+								variant="h1"
+								sx={{
+									marginTop: "10px",
+									fontSize: "34px",
+									lineHeight: "42px",
+									color: "#000000",
+									fontWeight: 600,
+								}}>
+								{title}
+							</Typography>
 
-                            <div className="__left">
-                                <Avatar 
-                                    src={author.picture}
-                                    style={style.avater, { verticalAlign: 'middle' }} 
-                                    size="96" 
-                                    gap={20}
-                                ></Avatar>
-                            </div>
+							<Typography
+								className="ik_article__excerpt"
+								variant="body2"
+								sx={{
+									marginTop: "15px",
+									fontSize: "14px",
+									lineHeight: "22px",
+									color: "#000000",
+								}}>
+								{excerpt}
+							</Typography>
+						</Box>
+					</Grid>
 
-                            <div className="__right">
-                                <Text>{author.name}</Text>
-                                <FormatterDate dateString={date} />
-                            </div>
+					<Grid item>
+						<Grid container spacing={2} className="ik_header_bottom_content">
+							<Grid item>
+								<Avatar alt={author.name} src={author.picture} />
+							</Grid>
 
-                        </div>
-                    </Col>
-                </Row>
-                
-            </div>
+							<Grid item>
+								<Typography
+									className="ik_article__meta__author"
+									variant="body2"
+									style={style.category}>
+									{author.name}
+								</Typography>
 
-            <style jsx>{`
-                .ik_article_header {
-                    height: 100%;
-                }
+								<Typography className="ik_article__meta__date" variant="body2">
+									<FormatterDate dateString={date} />
+								</Typography>
+							</Grid>
+						</Grid>
+					</Grid>
+				</Grid>
+			</div>
+		</>
+	);
+};
 
-                .ik_header_bottom_content {
-                    display: flex;
-                    flex-direction: row;
-                }
-                .__left {}
-                .__right {
-                    margin-left: 10px;
-                    display: flex;
-                    flex-direction: column;
-                }
-            `}</style>
-        </>
-    )
-}
+ArticleHeader.propTypes = {
+	className: PropTypes.string,
+	title: PropTypes.string,
+	date: PropTypes.string,
+	author: PropTypes.object,
+	excerpt: PropTypes.string,
+	category: PropTypes.object,
+};
+
+export default ArticleHeader;

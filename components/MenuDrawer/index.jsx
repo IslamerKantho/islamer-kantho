@@ -3,7 +3,6 @@ import MailIcon from "@mui/icons-material/Mail";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import { AppBar, IconButton, Toolbar, Typography } from "@mui/material";
 import Box from "@mui/material/Box";
-import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -24,13 +23,14 @@ const MenuDrawer = ({ isVisible, openHandler, closeHandler }) => {
 
 	const list = () => (
 		<Box
+			width="300px"
 			role="presentation"
 			onClick={toggleDrawer}
-			onKeyDown={toggleDrawer}
-			sx={{ width: "320px" }}>
+			onKeyDown={toggleDrawer}>
 			<AppBar
 				position="sticky"
 				sx={{
+					width: "300px",
 					background: "#FFF",
 					boxShadow: "none",
 					pl: 2,
@@ -110,7 +110,9 @@ const MenuDrawer = ({ isVisible, openHandler, closeHandler }) => {
 					</ListItem>
 				))}
 			</List>
-			<Divider />
+
+			{/* <Divider /> */}
+
 			<List>
 				{SIDEBAR_LINKS.map((el, i) => (
 					<ListItem key={i} disablePadding>

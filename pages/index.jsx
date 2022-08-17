@@ -3,12 +3,10 @@ import Head from "next/head";
 // API Content
 import BlockBanner from "../components/Block/BlockBanner";
 import BlockCardWide10x from "../components/Block/BlockCardWide10x";
-import BlockCarouselFullWidth from "../components/Block/BlockCarouselFullWidth";
-import BlockFooter from "../components/Block/BlockFooter";
+// import BlockCarouselFullWidth from "../components/Block/BlockCarouselFullWidth";
 import BlockGridPostCard from "../components/Block/BlockGridPostCard";
 import BlockSidebar from "../components/Block/BlockSidebar";
 import Container from "../components/container";
-import Header from "../components/Header";
 import Layout from "../components/Layout";
 import SimpleCard from "../components/SimpleCard";
 import { getAllPosts, getFeaturedPost, getRecommendedPost } from "./api/api";
@@ -27,14 +25,14 @@ export default function Home({
 
 			<Layout>
 				{/* <NavigationHeader /> */}
-				<Header />
+				{/* <Header /> */}
 				<SimpleCard />
 
 				{/* Featured Article Slider */}
-				<BlockCarouselFullWidth
+				{/* <BlockCarouselFullWidth
 					key={`ik_block_carousel_full_width`}
 					dataSlides={featuredPosts}
-				/>
+				/> */}
 
 				{/* Recomendad Articles */}
 				{recommendedPosts && (
@@ -64,7 +62,6 @@ export default function Home({
 				</div>
 
 				{/* Footer */}
-				<BlockFooter />
 			</Layout>
 		</>
 	);
