@@ -27,6 +27,8 @@ export default function Home({
 			<Layout>
 				{/* <NavigationHeader /> */}
 				<HeroBanner post={featuredPosts[0]} />
+
+				{/* This will contain latest updated contents */}
 				<TrendingPosts posts={featuredPosts} />
 
 				{/* Featured Article Slider */}
@@ -35,7 +37,7 @@ export default function Home({
 					dataSlides={featuredPosts}
 				/> */}
 
-				{/* Recomendad Articles */}
+				{/* Recommended Articles */}
 				{recommendedPosts && (
 					<BlockGridPostCard
 						key={`ik_block_grid_post_card_4x2`}
