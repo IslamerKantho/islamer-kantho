@@ -13,7 +13,7 @@ const ArticleHeader = ({
 }) => {
 	const style = {
 		mainHeader: {
-			fontSize: 34,
+			fontSize: "34px",
 			lineHeight: "42px",
 			fontWeight: 700,
 			color: "#2A2A2A",
