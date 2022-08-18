@@ -1,4 +1,5 @@
 // Core Component
+import { Container, Grid } from "@mui/material";
 import Head from "next/head";
 // API Content
 import BlockBanner from "../components/Block/BlockBanner";
@@ -7,7 +8,6 @@ import BlockCardWide10x from "../components/Block/BlockCardWide10x";
 import BlockGridPostCard from "../components/Block/BlockGridPostCard";
 import BlockSidebar from "../components/Block/BlockSidebar";
 import TrendingPosts from "../components/Block/TrendingPosts";
-import Container from "../components/container";
 import HeroBanner from "../components/HeroBanner";
 import Layout from "../components/Layout";
 import { getAllPosts, getFeaturedPost, getRecommendedPost } from "./api/api";
@@ -42,27 +42,24 @@ export default function Home({
 					<BlockGridPostCard
 						key={`ik_block_grid_post_card_4x2`}
 						postData={recommendedPosts}
-						sectionTitle={{ text: "নির্বাচিত লেখাসমুহ", orientation: "center" }}
+						title="নির্বাচিত লেখাসমুহ"
 					/>
 				)}
 
 				{/* Image Banner */}
 				<BlockBanner />
 
-				<div className="">
-					<Container dataClasses="mx_auto">
-						<div className="flex sm:flex__wrap">
-							<div className="lg:w_3/4 sm:w__full">
-								{/* Recent Article Slider */}
-								<BlockCardWide10x postData={allPosts} />
-							</div>
+				<Container maxWidth="lg">
+					<Grid container>
+						<Grid item xs={12} md={9}>
+							<BlockCardWide10x postData={allPosts} />
+						</Grid>
 
-							<div className="lg:w_1/4 sm:w__full">
-								<BlockSidebar />
-							</div>
-						</div>
-					</Container>
-				</div>
+						<Grid item xs={12} md={3}>
+							<BlockSidebar />
+						</Grid>
+					</Grid>
+				</Container>
 			</Layout>
 		</>
 	);

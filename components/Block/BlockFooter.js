@@ -1,6 +1,5 @@
 // Core Components
-import { Grid } from "@mui/material";
-import { Row } from "antd";
+import { Box, Grid } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
 import PropTypes from "prop-types";
@@ -11,10 +10,10 @@ const BlockFooter = ({ className }) => {
 		<>
 			<footer className={`ik_footer${className ? className : ""}`}>
 				<Container dataClasses="mx_auto">
-					<Grid Container spacing={2}>
-						<Grid item md={4} sx={12}>
-							<div className="ik_footer_weidget">
-								<div className="footer_image">
+					<Grid container spacing={2}>
+						<Grid item md={4} xs={12}>
+							<Box className="ik_footer_weidget">
+								<Box className="footer_image">
 									<Image
 										src={`/img/branding/logo.png`}
 										alt="Islamer Kantho"
@@ -22,7 +21,7 @@ const BlockFooter = ({ className }) => {
 										width={184}
 										layout="responsive"
 									/>
-								</div>
+								</Box>
 
 								<p>
 									ইসলামের কন্ঠ” এর মাধ্যমে জনসম্মুখে ‘আহলে সুন্নাত ওয়াল জামাআত
@@ -30,13 +29,13 @@ const BlockFooter = ({ className }) => {
 									অপব্যাখ্যা ও ভ্রান্ত ধারনা নিরসনের লক্ষ্যে কাজ করা আমাদের
 									একমাত্র উদ্দেশ্য।
 								</p>
-							</div>
+							</Box>
 						</Grid>
 
-						<Grid columns={{ sx: 4, md: 4, sm: 12 }}>
-							<div className="ik_flex ik_justify_center">
-								<Row>
-									<Grid lg={12} md={12} sm={24}>
+						<Grid columns={{ xs: 4, md: 4, sm: 12 }}>
+							<Box className="ik_flex ik_justify_center">
+								<Grid container spacing={2}>
+									<Grid item lg={6} md={6} xs={12}>
 										<ul className="ik__list ik_list_0">
 											<li>
 												<Link href={`/`}>
@@ -58,7 +57,7 @@ const BlockFooter = ({ className }) => {
 										</ul>
 									</Grid>
 
-									<Grid lg={12} md={12} sm={24}>
+									<Grid item lg={12} md={12} sm={24}>
 										<ul className="ik__list ik_list_0">
 											<li>
 												<Link href={`/`}>
@@ -85,8 +84,8 @@ const BlockFooter = ({ className }) => {
 											</li>
 										</ul>
 									</Grid>
-								</Row>
-							</div>
+								</Grid>
+							</Box>
 						</Grid>
 					</Grid>
 				</Container>

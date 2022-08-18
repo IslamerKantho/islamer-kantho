@@ -60,7 +60,7 @@ export default function CardGrid({ cardData }) {
 							}}>
 							{/* Meta */}
 
-							<Chip label="হাফিজ মাওলানা  মাহমুদুর রহমান" size="small" />
+							<Chip label={article?.author?.name} size="small" />
 
 							{/* Title */}
 							<Typography

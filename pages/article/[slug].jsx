@@ -2,6 +2,7 @@ import { Box, Container, Divider, Grid } from "@mui/material";
 import ErrorPage from "next/error";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import PropTypes from "prop-types";
 import ArticleCover from "../../components/Article/ArticleCover";
 import ArticleHeader from "../../components/Article/ArticleHeader";
 import SingleArticleContent from "../../components/Article/SingleArticleContent";
@@ -9,11 +10,7 @@ import Layout from "../../components/Layout";
 import { getAllPostsWithSlug, getPostAndMorePosts } from "../api/api";
 import { imageBuilder } from "../api/sanity";
 
-export default function Post({ post, morePosts, preview }) {
-	// console.group('[slug].js')
-	// console.log('Post: ', post)
-	// console.groupEnd()
-
+export default function Post({ className, post, morePosts, preview, ...rest }) {
 	const router = useRouter();
 	if (!router.isFallback && !post?.slug) {
 		return <ErrorPage statusCode={404} />;
@@ -71,7 +68,7 @@ export default function Post({ post, morePosts, preview }) {
 						</script>
 					</Head>
 
-					<article>
+					<Box component="article" className={className} {...rest}>
 						<Box className="ik_article_header" component="section">
 							<Container
 								maxWidth="lg"
@@ -114,7 +111,7 @@ export default function Post({ post, morePosts, preview }) {
 								</Grid>
 							</Container>
 						</Box>
-					</article>
+					</Box>
 
 					{/* <Comments comments={post.comments} />
             <Form _id={post._id} />
@@ -151,3 +148,11 @@ export async function getStaticPaths() {
 		fallback: true,
 	};
 }
+
+Post.prototype = {
+	className: PropTypes.string,
+	post: PropTypes.object,
+	morePosts: PropTypes.array,
+	preview: PropTypes.bool,
+	rest: PropTypes.object,
+};

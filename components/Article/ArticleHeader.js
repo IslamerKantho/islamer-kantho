@@ -11,14 +11,6 @@ const ArticleHeader = ({
 	excerpt,
 	category,
 }) => {
-	// console.group('ArticleHeader')
-	// console.log('Title: ', title)
-	// console.log('Date: ', date)
-	// console.log('Author: ', author)
-	// console.log('Category: ', category)
-	// console.log('Excerpt: ', excerpt)
-	// console.groupEnd()
-
 	const style = {
 		mainHeader: {
 			fontSize: 34,
@@ -117,7 +109,7 @@ const ArticleHeader = ({
 ArticleHeader.propTypes = {
 	className: PropTypes.string,
 	title: PropTypes.string,
-	date: PropTypes.string,
+	date: PropTypes.object,
 	author: PropTypes.object,
 	excerpt: PropTypes.string,
 	category: PropTypes.object,

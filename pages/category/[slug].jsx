@@ -1,14 +1,11 @@
 import Head from "next/head";
+import PropsType from "prop-types";
 import BlockGridPostCard from "../../components/Block/BlockGridPostCard";
 import Layout from "../../components/Layout";
 import { SIDEBAR_CATAGORY } from "../../db/categories.db";
 import { getAllPosts } from "../api/api";
 
 const PageArticles = ({ allPosts, preview }) => {
-	// console.group('Articles Page')
-	// console.log('Articles: ', allPosts)
-	// console.grou
-
 	return (
 		<>
 			<Head>
@@ -16,7 +13,7 @@ const PageArticles = ({ allPosts, preview }) => {
 			</Head>
 
 			<Layout preview={preview}>
-				<BlockGridPostCard key={allPosts._id} postData={allPosts} />
+				<BlockGridPostCard key={allPosts?._id} postData={allPosts} />
 			</Layout>
 		</>
 	);
@@ -41,7 +38,13 @@ export async function getStaticPaths() {
 	return {
 		paths,
 		fallback: true, // See the "fallback" section below
+		revalidate: 1,
 	};
 }
+
+PageArticles.propTypes = {
+	allPosts: PropsType.object,
+	preview: PropsType.bool,
+};
 
 export default PageArticles;

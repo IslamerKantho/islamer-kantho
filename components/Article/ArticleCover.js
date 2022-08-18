@@ -1,14 +1,11 @@
 import Image from "next/image";
+import PropsType from "prop-types";
 import { imageBuilder } from "../../pages/api/sanity";
 
-export default function ArticleCover({ src, title }) {
-	// console.group('ArticleCover')
-	// console.log('src: ', src )
-	// console.groupEnd()
-
+const ArticleCover = ({ className, src, title, ...rest }) => {
 	return (
 		<>
-			<div className="ik_single_cover">
+			<div className={`ik_single_cover ${className}`} {...rest}>
 				<Image
 					src={imageBuilder(src).width(660).height(372).url()}
 					alt={title}
@@ -25,4 +22,13 @@ export default function ArticleCover({ src, title }) {
 			`}</style>
 		</>
 	);
-}
+};
+
+ArticleCover.propTypes = {
+	className: PropsType.string,
+	src: PropsType.object,
+	title: PropsType.string,
+	rest: PropsType.object,
+};
+
+export default ArticleCover;
