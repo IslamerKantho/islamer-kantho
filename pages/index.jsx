@@ -13,68 +13,68 @@ import Layout from "../components/Layout";
 import { getAllPosts, getFeaturedPost, getRecommendedPost } from "./api/api";
 
 export default function Home({
-	featuredPosts,
-	recommendedPosts,
-	allPosts,
-	preview,
+  featuredPosts,
+  recommendedPosts,
+  allPosts,
+  preview,
 }) {
-	return (
-		<>
-			<Head>
-				<title>ইসলামের কন্ঠ</title>0
-			</Head>
+  return (
+    <>
+      <Head>
+        <title>ইসলামের কন্ঠ</title>0
+      </Head>
 
-			<Layout>
-				{/* <NavigationHeader /> */}
-				<HeroBanner post={featuredPosts[0]} />
+      <Layout>
+        {/* <NavigationHeader /> */}
+        <HeroBanner post={featuredPosts[0]} />
 
-				{/* This will contain latest updated contents */}
-				<TrendingPosts posts={featuredPosts} />
+        {/* This will contain latest updated contents */}
+        <TrendingPosts posts={featuredPosts} />
 
-				{/* Featured Article Slider */}
-				{/* <BlockCarouselFullWidth
+        {/* Featured Article Slider */}
+        {/* <BlockCarouselFullWidth
 					key={`ik_block_carousel_full_width`}
 					dataSlides={featuredPosts}
 				/> */}
 
-				{/* Recommended Articles */}
-				{recommendedPosts && (
-					<BlockGridPostCard
-						key={`ik_block_grid_post_card_4x2`}
-						postData={recommendedPosts}
-						title="নির্বাচিত লেখাসমুহ"
-					/>
-				)}
+        {/* Recommended Articles */}
+        {recommendedPosts && (
+          <BlockGridPostCard
+            key={`ik_block_grid_post_card_4x2`}
+            postData={recommendedPosts}
+            title="নির্বাচিত লেখাসমুহ"
+          />
+        )}
 
-				{/* Image Banner */}
-				<BlockBanner />
+        {/* Image Banner */}
+        {/* <BlockBanner /> */}
 
-				<Container maxWidth="lg">
-					<Grid container>
-						<Grid item xs={12} md={9}>
-							<BlockCardWide10x postData={allPosts} />
-						</Grid>
+        <Container maxWidth="lg">
+          <Grid container>
+            <Grid item xs={12} md={9}>
+              <BlockCardWide10x postData={allPosts} />
+            </Grid>
 
-						<Grid item xs={12} md={3}>
-							<BlockSidebar />
-						</Grid>
-					</Grid>
-				</Container>
-			</Layout>
-		</>
-	);
+            <Grid item xs={12} md={3}>
+              <BlockSidebar />
+            </Grid>
+          </Grid>
+        </Container>
+      </Layout>
+    </>
+  );
 }
 
 export async function getStaticProps({ preview = false }) {
-	const allPostRange = [0, 10]; // Recent Article Range
-	const featuredArticleRange = [0, 6]; // Featured Content Range.
+  const allPostRange = [0, 10]; // Recent Article Range
+  const featuredArticleRange = [0, 6]; // Featured Content Range.
 
-	const featuredPosts = await getFeaturedPost(preview, featuredArticleRange);
-	const recommendedPosts = await getRecommendedPost(preview, [0, 7]);
-	const allPosts = await getAllPosts(preview, allPostRange);
+  const featuredPosts = await getFeaturedPost(preview, featuredArticleRange);
+  const recommendedPosts = await getRecommendedPost(preview, [0, 7]);
+  const allPosts = await getAllPosts(preview, allPostRange);
 
-	return {
-		props: { featuredPosts, recommendedPosts, allPosts, preview },
-		revalidate: 1,
-	};
+  return {
+    props: { featuredPosts, recommendedPosts, allPosts, preview },
+    revalidate: 1,
+  };
 }

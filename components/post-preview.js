@@ -1,7 +1,7 @@
-import FormatterDate from './FormatterDate'
-import CoverImage from './cover-image'
-import Link from 'next/link'
-import {imageBuilder} from '../lib/sanity'
+import FormatterDate from "./FormatterDate";
+import CoverImage from "./cover-image";
+import Link from "next/link";
+import { imageBuilder } from "../lib/sanity";
 export default function PostPreview({
   title,
   coverImage,
@@ -13,11 +13,16 @@ export default function PostPreview({
   return (
     <div>
       <div>
-        <CoverImage slug={slug} title={title} imageObject={coverImage} url={imageBuilder(coverImage).url()} />
+        <CoverImage
+          slug={slug}
+          title={title}
+          imageObject={coverImage}
+          url={imageBuilder(coverImage).url()}
+        />
       </div>
       <h3>
         <Link as={`/posts/${slug}`} href="/posts/[slug]">
-          <a>{title}</a>
+          {title}
         </Link>
       </h3>
       <div>
@@ -26,5 +31,5 @@ export default function PostPreview({
       <p>{excerpt}</p>
       {/* <Avatar name={author?.name} picture={author?.picture} /> */}
     </div>
-  )
+  );
 }
