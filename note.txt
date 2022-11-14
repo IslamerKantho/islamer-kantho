@@ -1,9 +1,12 @@
-[27072021]
+15/11/2022
+1. Fix: Homepage design.
 
-[22082021]
+[27/07/2021]
+
+[22/08/2021]
 1. Moved from 3 column to 2 column.
 2. Removed Footer subscription from.
 3. Added Category API.
 
-[23092021]
+[23/09/2021]
 1. Having problem with <Image> in '/components/card/CardFullWide.js'. So temporarily i'm using <img>.
