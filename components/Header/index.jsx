@@ -171,12 +171,12 @@ const Header = () => {
               class=""
               sx={{
                 flexGrow: 0,
-                display: { xs: "none", md: "flex" },
+                display: "flex",
                 gap: "20px",
                 alignItems: "center",
                 paddingLeft: "25px",
-                paddingRight: 10,
-                justifyContent: "space-between",
+                paddingRight: { xs: 0, md: 10 },
+                // justifyContent: "space-between",
               }}
             >
               <IconContext.Provider value={{ size: 20 }}>
