@@ -1,6 +1,6 @@
-export const truncate = (string) => {
-  if (string.length > 205) {
-    return string.substring(0, 205) + "...";
+export const truncate = (string, len = 205) => {
+  if (string.length > len) {
+    return string.substring(0, len) + "...";
   }
 
   return string;
