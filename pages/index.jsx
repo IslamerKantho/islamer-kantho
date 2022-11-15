@@ -1,5 +1,5 @@
 // Core Component
-import { Container, Grid } from "@mui/material";
+import { Container, Divider, Grid } from "@mui/material";
 import Head from "next/head";
 // API Content
 import BlockBanner from "../components/Block/BlockBanner";
@@ -33,9 +33,9 @@ export default function Home({
 
         {/* Featured Article Slider */}
         {/* <BlockCarouselFullWidth
-					key={`ik_block_carousel_full_width`}
-					dataSlides={featuredPosts}
-				/> */}
+          key={`ik_block_carousel_full_width`}
+          dataSlides={featuredPosts}
+        /> */}
 
         {/* Recommended Articles */}
         {recommendedPosts && (
@@ -49,6 +49,7 @@ export default function Home({
         {/* Image Banner */}
         {/* <BlockBanner /> */}
 
+        <Divider />
         <Container maxWidth="lg">
           <Grid container>
             <Grid item xs={12} md={9}>
