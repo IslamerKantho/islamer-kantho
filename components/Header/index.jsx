@@ -236,7 +236,6 @@ const Header = () => {
         isVisible={isCatDrawerOpen}
         openHandler={openHandler}
         closeHandler={closeHandler}
-        sx={{ width: "300px" }}
       />
     </>
   );
