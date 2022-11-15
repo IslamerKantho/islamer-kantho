@@ -9,25 +9,28 @@ import {
 import Image from "next/image";
 import NextLink from "next/link";
 import { imageBuilder } from "../../../pages/api/sanity";
+import { truncate } from "../../../utils/string.utils";
+import S from "./CardFullWide.module.sass";
 
 const CardFullWide = ({ className, postData, ...rest }) => {
   return (
     <Card
-      className={`ik_c__fullCard ${className ? className : ""}`}
+      className={[S.__card, className]}
       elevation={0}
       component="article"
       {...rest}
     >
-      <Box className="ik_fullCard__container">
+      <Box className={S.__container}>
         {postData.coverImage && (
           <CardMedia
-            className="ik_fullCard__thumbnail"
+            className={S.__thumbnail}
             alt="Live from space album cover"
             sx={{ width: "330px" }}
           >
             {/* <Image src={ imageBuilder(postData?.coverImage).width(286).height(180).url() } width={286} height={180} layout="responsive" alt={postData?.slug} /> */}
 
             <Image
+              className={S.__img}
               src={imageBuilder(postData?.coverImage)
                 .width(286)
                 .height(180)
@@ -44,35 +47,32 @@ const CardFullWide = ({ className, postData, ...rest }) => {
           </CardMedia>
         )}
 
-        <CardContent className="ik_fullCard__body">
-          <Box className="ik_fullCard__meta">
+        <CardContent className={S.__cardBody}>
+          <Box className={S.__meta}>
             <Chip
-              className="ik_fullCard__meta__cat"
+              className={S.__metaCat}
               label={postData?.category?.title}
               size="small"
             />
           </Box>
 
-          <NextLink
-            as={`/article/${postData?.slug}`}
-            href={`/article/[slug]`}
-            passHref
+          <Typography
+            variant="h3"
+            // component="a"
+            className={S.__title}
           >
-            <Typography
-              variant="h3"
-              // component="a"
-              className="ik_fullCard__title"
+            <NextLink
+              className={S.__titleLink}
+              as={`/article/${postData?.slug}`}
+              href={`/article/[slug]`}
+              passHref
             >
               {postData?.title}
-            </Typography>
-          </NextLink>
+            </NextLink>
+          </Typography>
 
-          <Typography
-            variant="body1"
-            className="ik_fullCard__description"
-            // noWrap
-          >
-            {postData?.excerpt}
+          <Typography className={S.__description} paragraph>
+            {truncate(postData?.excerpt)}
           </Typography>
         </CardContent>
       </Box>
