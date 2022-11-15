@@ -1,16 +1,16 @@
 // Core Components
-import { Box, Grid } from "@mui/material";
+import { Box, Container, Grid } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
 import PropTypes from "prop-types";
-import Container from "../container";
+import S from "./BlockFooter.module.sass";
 
 const BlockFooter = ({ className }) => {
   return (
     <>
-      <footer className={`ik_footer${className ? className : ""}`}>
-        <Container dataClasses="mx_auto">
-          <Grid container spacing={2}>
+      <footer className={[S.__footer, className]}>
+        <Container className={S.__container}>
+          <Grid className={S.__grid} container spacing={2}>
             <Grid item md={4} xs={12}>
               <Box className="ik_footer_weidget">
                 <Box className="footer_image">
@@ -81,16 +81,6 @@ const BlockFooter = ({ className }) => {
           font-size: 12px;
           line-height: 18px;
           color: #aeaeb2;
-        }
-        a {
-          text-decoration: none;
-        }
-
-        footer {
-          padding: 40px 0;
-          width: 100%;
-          background-color: rgb(0, 0, 0);
-          color: rgb(142, 142, 147);
         }
         .ik_container_left {
           width: 100%;

@@ -3,19 +3,20 @@
 import { Box, Grid } from "@mui/material";
 import HijriCalender from "../../HijriCalender";
 import PrayerTime from "../../PrayerTime";
+import S from "./BlockSidebar.module.sass";
 
-export default function BlockSidebar() {
-	return (
-		<>
-			<Box component="aside">
-				<Grid container spacing={2}>
-					{/* Prayer Time */}
-					<PrayerTime />
+const BlockSidebar = () => {
+  return (
+    <>
+      <Box className={S.__section} component="aside">
+        <Grid className={S.__grid} container spacing={2}>
+          {/* Prayer Time */}
+          <PrayerTime />
 
-					{/* Hijro Calender */}
-					<HijriCalender />
+          {/* Hijro Calender */}
+          <HijriCalender />
 
-					{/* <div className="ik_aside_recomendad">
+          {/* <div className="ik_aside_recomendad">
                     <div className="ik__header">
                         <h4 className="ik_title">Recomendad websites</h4>
                     </div>
@@ -23,8 +24,10 @@ export default function BlockSidebar() {
                     <CardRecomentdadWebsite />
                     <CardRecomentdadWebsite />
                 </div> */}
-				</Grid>
-			</Box>
-		</>
-	);
-}
+        </Grid>
+      </Box>
+    </>
+  );
+};
+
+export default BlockSidebar;

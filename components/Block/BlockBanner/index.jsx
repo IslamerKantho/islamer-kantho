@@ -1,12 +1,10 @@
-// Core Components
 import Image from "next/image";
-// Custom Components
-import Container from "../container";
+import S from "./BlockBanner.module.sass";
 
-export default function BlockBanner() {
+const BlockBanner = () => {
   return (
     <>
-      <section className="ik_mt-8">
+      <section className={S.__section}>
         {/* <Container dataClasses="mx_auto"> */}
         <Image
           src={`/img/banner.jpg`}
@@ -18,4 +16,6 @@ export default function BlockBanner() {
       </section>
     </>
   );
-}
+};
+
+export default BlockBanner;

@@ -9,8 +9,8 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import PropsType from "prop-types";
 import React from "react";
+import { memo } from "react";
 import { imageBuilder } from "../../../pages/api/sanity";
 import { dateFormatter } from "../../../utils/date.utils";
 import S from "./TrendingPosts.module.sass";
@@ -66,10 +66,4 @@ const TrendingPosts = ({ className, posts, ...rest }) => {
   );
 };
 
-TrendingPosts.PropsType = {
-  className: PropsType.string,
-  posts: PropsType.array,
-  rest: PropsType.object,
-};
-
-export default TrendingPosts;
+export default memo(TrendingPosts);
