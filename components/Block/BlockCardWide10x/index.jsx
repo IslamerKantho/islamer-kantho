@@ -1,5 +1,4 @@
 import { Grid } from "@mui/material";
-import PropTypes from "prop-types";
 import CardFullWide from "../../card/CardFullWide";
 import SectionWidget from "../../SectionWidget";
 import S from "./BlockCardWide10x.module.sass";
@@ -19,10 +18,6 @@ const BlockCardWide10x = ({ className, title, postData, ...rest }) => {
       </SectionWidget>
     </>
   );
-};
-
-BlockCardWide10x.propTypes = {
-  postData: PropTypes.array.isRequired,
 };
 
 export default BlockCardWide10x;

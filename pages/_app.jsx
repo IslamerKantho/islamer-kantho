@@ -1,10 +1,17 @@
-import { createTheme, ThemeProvider } from "@material-ui/core/styles";
+import {
+  createTheme,
+  ServerStyleSheets,
+  ThemeProvider,
+} from "@material-ui/core/styles";
 import NextNProgress from "nextjs-progressbar";
 import "../styles/error404.sass";
 import "../styles/index.sass";
 import { Inter } from "@next/font/google";
+import Head from "next/head";
 
 const inter = Inter();
+const sheets = new ServerStyleSheets();
+const css = sheets.toString();
 
 const theme = createTheme({
   palette: {
@@ -27,6 +34,9 @@ const theme = createTheme({
 function App({ Component, pageProps }) {
   return (
     <>
+      <Head>
+        <style id="jss-server-side">{css}</style>
+      </Head>
       {/* <div className={inter.className}> */}
       <ThemeProvider theme={theme}>
         <NextNProgress />
