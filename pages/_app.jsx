@@ -35,14 +35,13 @@ function App({ Component, pageProps }) {
   return (
     <>
       <Head>
-        <style id="jss-server-side">{css}</style>
+        <style id="jsx-server-side">{css}</style>
       </Head>
-      {/* <div className={inter.className}> */}
+
       <ThemeProvider theme={theme}>
         <NextNProgress />
         <Component {...pageProps} />
       </ThemeProvider>
-      {/* </div> */}
 
       <style jsx global>{`
         html,
