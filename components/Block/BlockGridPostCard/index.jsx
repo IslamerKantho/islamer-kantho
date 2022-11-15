@@ -1,25 +1,25 @@
 import { Box, Container, Grid } from "@mui/material";
-import PropTypes from "prop-types";
 import CardGrid from "../../card/CardGrid";
 import SectionWidget from "../../SectionWidget";
+import S from "./BlockGridPostCard.module.sass";
 
 const BlockGridPostCard = ({ className, postData, title, ...rest }) => {
   const allPosts = postData;
 
   return (
     <>
-      <Box component="section">
-        <Container maxWidth="lg">
+      <Box component={S.__section}>
+        <Container className={S.__container} maxWidth="lg">
           <SectionWidget
-            className={`ik_recommend${className ? className : ""}`}
+            className={[S.__recommend, className]}
             title={title}
             {...rest}
           >
-            <Grid className="ik_recommend__row" container spacing={2}>
+            <Grid className={S.__row} container spacing={2}>
               {allPosts &&
                 allPosts.map((article) => (
                   <Grid
-                    className="ik_recommend__col"
+                    className={S.__col}
                     item
                     key={article._id}
                     xs={12}
@@ -35,13 +35,6 @@ const BlockGridPostCard = ({ className, postData, title, ...rest }) => {
       </Box>
     </>
   );
-};
-
-BlockGridPostCard.propTypes = {
-  className: PropTypes.string,
-  postData: PropTypes.array.isRequired,
-  sectionTitle: PropTypes.object,
-  rest: PropTypes.object,
 };
 
 export default BlockGridPostCard;
