@@ -180,7 +180,7 @@ const Header = () => {
             >
               <IconContext.Provider value={{ size: 20 }}>
                 <Link
-                  href="/"
+                  href="/search"
                   underline="none"
                   sx={{
                     cursor: "pointer",
@@ -204,7 +204,7 @@ const Header = () => {
                 </Link>
 
                 <Link
-                  href="/"
+                  href="/studio"
                   underline="none"
                   sx={{
                     cursor: "pointer",
