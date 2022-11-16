@@ -1,25 +1,54 @@
 
-
 // .markdown p, .markdown ul, .markdown ol, .markdown blockquote 
 
-.markdown h2 
-  margin-bottom: 10px
-  font-size: 20px
+.markdown h1, .markdown h2, .markdown h3, .markdown h4, .markdown h5, .markdown h6, .markdown p, .markdown p, .markdown ul, .markdown ol, .markdown blockquote
+  margin-left: auto
+  margin-right: auto
+  @media screen and ( max-width: 767px )
+    width: 100%
+  @media screen and ( min-width: 768px ) and ( max-width: 1365px )
+    width: calc( 100% - 160px )
+  @media screen and ( min-width: 1366px )
+    width: 610px
+
+.markdown h1, .markdown h2, .markdown h3, .markdown h4, .markdown h5, .markdown h6
+  margin-top: 30px
+  margin-bottom: 20px
+  position: relative
+  font-size: 18px
+  font-weight: 700
+  line-height: 30px
+
+// .markdown h2
+//   margin-bottom: 10px
+//   font-size: 20px
 
 // .markdown h3 
 
-
-.markdown p 
-  margin-bottom: 10px
+.markdown p
+  margin-bottom: 20px
   color: #2A2A2A
   font-size: 15px
   line-height: 28px
   font-weight: 400
-  a 
+  a
     color: #2A2A2A
-  strong 
+  strong
     font-weight: 600
 
-.markdown p:last-of-type 
-  margin-bottom: 60px
-  
+// .markdown p:last-of-type
+//   margin-bottom: 60px
+
+.markdown ul
+  font-size: 15px
+
+.markdown blockquote
+  margin-top: 30px
+  margin-bottom: 30px
+  padding: 40px
+  text-align: center
+  font-size: 20px
+  line-height: auto
+  font-weight: 500
+  background: rgba(0,0,0,0.05)
+  border: 1px solid rgba(0,0,0,0.12)

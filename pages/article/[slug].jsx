@@ -11,36 +11,36 @@ import { getAllPostsWithSlug, getPostAndMorePosts } from "../api/api";
 import { imageBuilder } from "../api/sanity";
 
 export default function Post({ className, post, morePosts, preview, ...rest }) {
-	const router = useRouter();
-	if (!router.isFallback && !post?.slug) {
-		return <ErrorPage statusCode={404} />;
-	}
+  const router = useRouter();
+  if (!router.isFallback && !post?.slug) {
+    return <ErrorPage statusCode={404} />;
+  }
 
-	return (
-		<Layout preview={preview}>
-			{router.isFallback ? (
-				<p>Loading…</p>
-			) : (
-				<>
-					<Head>
-						<title>{post.title} | ইসলামের কন্ঠ</title>
+  return (
+    <Layout preview={preview}>
+      {router.isFallback ? (
+        <p>Loading…</p>
+      ) : (
+        <>
+          <Head>
+            <title>{post.title} | ইসলামের কন্ঠ</title>
 
-						<meta property="og:title" content={post.title} />
-						<meta property="og:site_name" content="ইসলামের কন্ঠ" />
-						<meta
-							property="og:url"
-							content={`https://islamerkantho.com/article/${post.slug}`}
-						/>
-						<meta property="og:description" content={post.excerpt} />
-						<meta property="og:type" content="article" />
-						<meta
-							property="og:image"
-							content={imageBuilder(post.coverImage).url()}
-						/>
+            <meta property="og:title" content={post.title} />
+            <meta property="og:site_name" content="ইসলামের কন্ঠ" />
+            <meta
+              property="og:url"
+              content={`https://islamerkantho.com/article/${post.slug}`}
+            />
+            <meta property="og:description" content={post.excerpt} />
+            <meta property="og:type" content="article" />
+            <meta
+              property="og:image"
+              content={imageBuilder(post.coverImage).url()}
+            />
 
-						{/* Google JSON+ID */}
-						<script type="application/ld+json">
-							{`{
+            {/* Google JSON+ID */}
+            <script type="application/ld+json">
+              {`{
                   "@context": "https://schema.org",
                   "@type": "BlogPosting",
                   "mainEntityOfPage": {
@@ -65,94 +65,97 @@ export default function Post({ className, post, morePosts, preview, ...rest }) {
                   "datePublished": "${post.date.createdAt}",
                   "dateModified": "${post.date.updatedAt}"
                 }`}
-						</script>
-					</Head>
+            </script>
+          </Head>
 
-					<Box component="article" className={className} {...rest}>
-						<Box className="ik_article_header" component="section">
-							<Container
-								maxWidth="lg"
-								sx={{
-									paddingTop: "60px",
-									paddingBottom: "60px",
-								}}>
-								<Grid container spacing={5}>
-									<Grid
-										item
-										xs={12}
-										md={5}
-										sm={12}
-										justifyContent="center"
-										alignItems="center">
-										<ArticleHeader
-											title={post.title}
-											excerpt={post.excerpt}
-											author={post.author}
-											category={post.categories}
-											date={post.date}
-										/>
-									</Grid>
+          <Box component="article" className={className} {...rest}>
+            <Box className="ik_article_header" component="section">
+              <Container
+                maxWidth="lg"
+                sx={{
+                  paddingTop: "60px",
+                  paddingBottom: "60px",
+                }}
+              >
+                <Grid container spacing={5}>
+                  <Grid
+                    item
+                    xs={12}
+                    md={5}
+                    sm={12}
+                    justifyContent="center"
+                    alignItems="center"
+                  >
+                    <ArticleHeader
+                      title={post.title}
+                      excerpt={post.excerpt}
+                      author={post.author}
+                      category={post.categories}
+                      date={post.date}
+                    />
+                  </Grid>
 
-									<Grid item xs={12} md={7} sm={12}>
-										<ArticleCover src={post.coverImage} title={post.title} />
-									</Grid>
-								</Grid>
-							</Container>
-						</Box>
+                  <Grid item xs={12} md={7} sm={12}>
+                    <ArticleCover src={post.coverImage} title={post.title} />
+                  </Grid>
+                </Grid>
+              </Container>
+            </Box>
 
-						<Divider />
+            <Divider />
 
-						<Box className="ik_sarticle_content" component="section">
-							<Container>
-								<Grid container justify="center" align="middle">
-									<Grid item lg={24} md={24} sm={24}>
-										<SingleArticleContent content={post.body} />
-									</Grid>
-								</Grid>
-							</Container>
-						</Box>
-					</Box>
+            <Box className="ik_sarticle_content" component="section">
+              <Container
+                sx={{
+                  paddingTop: "40px",
+                  paddingBottom: "40px",
+                }}
+              >
+                <SingleArticleContent content={post.body} />
+              </Container>
+            </Box>
+          </Box>
 
-					{/* <Comments comments={post.comments} />
+          {/* <Comments comments={post.comments} />
             <Form _id={post._id} />
 
             <SectionSeparator />
             {morePosts.length > 0 && <MoreStories posts={morePosts} />} */}
-				</>
-			)}
-		</Layout>
-	);
+        </>
+      )}
+    </Layout>
+  );
 }
 
 export async function getStaticProps({ params, preview = false }) {
-	const data = await getPostAndMorePosts(params.slug, preview);
-	return {
-		props: {
-			preview,
-			post: data?.post || null,
-			morePosts: data?.morePosts || null,
-		},
-		revalidate: 1,
-	};
+  const data = await getPostAndMorePosts(params.slug, preview);
+  return {
+    props: {
+      preview,
+      post: data?.post || null,
+      morePosts: data?.morePosts || null,
+    },
+    revalidate: 1,
+  };
 }
 
 export async function getStaticPaths() {
-	const allPosts = await getAllPostsWithSlug();
-	return {
-		paths:
-			allPosts?.map((post) => ({
-				params: {
-					slug: post.slug,
-				},
-			})) || [],
-		fallback: true,
-	};
+  const allPosts = await getAllPostsWithSlug();
+  return {
+    paths:
+      allPosts?.map((post) => ({
+        params: {
+          slug: post.slug,
+        },
+      })) || [],
+    fallback: true,
+  };
 }
 
 Post.prototype = {
-	className: PropTypes.string,
-	post: PropTypes.object,
-	morePosts: PropTypes.array,
-	preview: PropTypes.bool,
-	rest: PropTypes.object,
+  className: PropTypes.string,
+  post: PropTypes.object,
+  morePosts: PropTypes.array,
+  preview: PropTypes.bool,
+  rest: PropTypes.object,
 };
