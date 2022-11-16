@@ -9,7 +9,7 @@ import "../styles/index.sass";
 import { Inter } from "@next/font/google";
 import Head from "next/head";
 
-const inter = Inter();
+const inter = Inter({ weight: ["400", "500", "600", "700"] });
 const sheets = new ServerStyleSheets();
 const css = sheets.toString();
 

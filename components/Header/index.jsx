@@ -168,7 +168,6 @@ const Header = () => {
 
             {/* Desktop Toolbar Profile Area */}
             <Box
-              class=""
               sx={{
                 flexGrow: 0,
                 display: "flex",

@@ -4,45 +4,103 @@ import Link from "next/link";
 import PropTypes from "prop-types";
 import { memo } from "react";
 import { imageBuilder } from "../../pages/api/sanity";
-import S from "./HeroBanner.module.sass";
 
 const HeroBanner = ({ className, post, ...rest }) => {
   return (
-    <Box className={[S.__heroBanner, className]} component="section" {...rest}>
-      <Box className={S.__bg}>
+    <Box
+      className={className}
+      component="section"
+      sx={{
+        width: "100%",
+        minHeight: { xs: "350px", sm: "450px" },
+        position: "relative",
+        display: "block",
+        borderBottom: "6px solid #055547",
+        overflow: "hidden",
+      }}
+      {...rest}
+    >
+      <Box
+        sx={{
+          width: "100%",
+          position: "absolute",
+          top: 0,
+          right: 0,
+          left: 0,
+          bottom: 0,
+          zIndex: -1,
+          "&::after": {
+            // content: "",
+            position: "absolute",
+            top: 0,
+            right: 0,
+            left: 0,
+            bottom: 0,
+            background:
+              "linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.7) 100%)",
+          },
+        }}
+      >
         <Image
-          className={S.__bg__image}
           alt={post?.title}
           src={imageBuilder(post?.coverImage).height(450).width(1600).url()}
           layout="fill"
+          style={{ objectFit: "cover", objectPosition: "center" }}
         />
       </Box>
 
-      <Box className={S.__content}>
-        <Container className={S.__container} maxWidth="lg">
+      <Box
+        sx={{
+          height: { xs: "350px", md: "450px" },
+        }}
+      >
+        <Container
+          maxWidth="lg"
+          sx={{
+            height: "100%",
+            minHeight: { xs: "350px", sm: "450px" },
+            paddingTop: { xs: "20px", sm: "40px" },
+            paddingBottom: { xs: "20px", sm: "40px" },
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "flex-end",
+            alignItems: "flex-start",
+          }}
+        >
           <Typography
-            className={S.__title}
             href={`/article/${post.slug}`}
             title={post?.title}
             variant="h1"
             component={Link}
+            sx={{
+              maxWidth: { md: "825px" },
+              fontSize: { xs: "26px", sm: "32px", md: "42px" },
+              lineHeight: { xs: "26px", sm: "55px" },
+              fontWeight: "bold",
+              color: "white",
+              textDecoration: "none",
+            }}
           >
             {post?.title}
           </Typography>
 
-          <Typography className={S.__description} variant="body1" component="p">
+          <Typography
+            variant="body1"
+            component="p"
+            sx={{
+              maxWidth: { md: "825px" },
+              marginTop: { xs: "10px", md: "20px" },
+              fontSize: { xs: "13px", sm: "15px" },
+              lineHeight: { xs: "23px", sm: "25px" },
+              color: "rgb(255 255 255 / 80%)",
+            }}
+          >
             {post?.excerpt}
           </Typography>
         </Container>
       </Box>
     </Box>
   );
-};
-
-HeroBanner.propTypes = {
-  className: PropTypes.string,
-  post: PropTypes.object,
-  rest: PropTypes.object,
 };
 
 export default memo(HeroBanner);

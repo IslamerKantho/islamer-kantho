@@ -76,6 +76,6 @@ export async function getStaticProps({ preview = false }) {
 
   return {
     props: { featuredPosts, recommendedPosts, allPosts, preview },
-    revalidate: 1,
+    revalidate: 60 * 60 * 6,
   };
 }
