@@ -13,46 +13,82 @@ import React from "react";
 import { memo } from "react";
 import { imageBuilder } from "../../../pages/api/sanity";
 import { dateFormatter } from "../../../utils/date.utils";
-import S from "./TrendingPosts.module.sass";
 
 const TrendingPosts = ({ className, posts, ...rest }) => {
   return (
     <Box
-      className={[S.__trendingPosts, className]}
+      className={className}
       component="section"
+      sx={{
+        paddingTop: "40px",
+        paddingBottom: "40px",
+        borderBottom: "1px solid rgb(230, 230, 230)",
+      }}
       {...rest}
     >
-      <Container className={S.__container} maxWidth="lg">
-        <Grid className={S.__row} container spacing={2}>
+      <Container maxWidth="lg">
+        <Grid container spacing={2}>
           {posts.map((post, index) => (
-            <Grid className={S.__col} key={index} item xs={12} sm={6} md={4}>
-              <Card elevation={0} className={S.__card}>
-                <CardActionArea className={S.__action}>
+            <Grid key={index} item xs={12} sm={6} md={4}>
+              <Card elevation={0}>
+                <CardActionArea
+                  sx={{
+                    minHeight: "154px",
+                    padding: "20px",
+                    backgroundColor: "#f5f5f5",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "flex-start",
+                    justifyContent: "space-between",
+                  }}
+                >
                   <Box>
                     <Chip
-                      className={S.__date}
                       label={dateFormatter(
                         post?.date?.updatedAt
                           ? post?.date?.updatedAt
                           : post?.date?.createdAt
                       )}
                       size="small"
+                      sx={{
+                        color: "#797979",
+                        fontSize: "12px",
+                      }}
                     />
 
-                    <Typography className={S.__title} component="h3">
+                    <Typography
+                      component="h3"
+                      sx={{
+                        marginTop: "10px",
+                        fontSize: "15px",
+                        lineHeight: "25px",
+                        color: "#292929",
+                        fontWeight: "700",
+                      }}
+                    >
                       {post?.title}
                     </Typography>
                   </Box>
 
-                  <Stack className={S.__meta} direction="row" spacing={2}>
+                  <Stack direction="row" spacing={2} sx={{ marginTop: "10px" }}>
                     <Avatar
-                      className={S.__avatar}
                       src={imageBuilder(post?.author?.image)
                         .width(20)
                         .height(20)
                         .url()}
+                      sx={{
+                        height: "20px",
+                        width: "20px",
+                      }}
                     />
-                    <Typography className={S.__authorName} variant="body2">
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        fontSize: "13px",
+                        lineHight: "13px",
+                        color: "#797979",
+                      }}
+                    >
                       {post?.author?.name} • {post?.category?.title}
                     </Typography>
                   </Stack>
