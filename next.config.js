@@ -1,9 +1,17 @@
-const nextPWA = require("next-pwa");
 const runtimeCaching = require("next-pwa/cache");
+const nextPWA = require("next-pwa")({
+  disable: process.env.NODE_ENV === "development",
+  dest: "public",
+  register: true,
+  skipWaiting: true,
+  runtimeCaching,
+});
 
 module.exports = nextPWA({
   images: {
     domains: ["cdn.sanity.io", "images.unsplash.com"],
+    formats: ["image/avif", "image/webp"],
+    minimumCacheTTL: 2592000,
   },
   compiler: {
     emotion: true,
@@ -12,12 +20,5 @@ module.exports = nextPWA({
     fontLoaders: [
       { loader: "@next/font/google", options: { subsets: ["latin"] } },
     ],
-  },
-  pwa: {
-    disable: process.env.NODE_ENV === "development",
-    dest: "public",
-    register: true,
-    skipWaiting: true,
-    runtimeCaching,
   },
 });
