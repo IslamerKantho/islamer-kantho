@@ -3,13 +3,12 @@
 import { Box, Grid } from "@mui/material";
 import HijriCalender from "../../HijriCalender";
 import PrayerTime from "../../PrayerTime";
-import S from "./BlockSidebar.module.sass";
 
 const BlockSidebar = () => {
   return (
     <>
-      <Box className={S.__section} component="aside">
-        <Grid className={S.__grid} container spacing={2}>
+      <Box component="aside">
+        <Grid container spacing={2}>
           {/* Prayer Time */}
           <PrayerTime />
 

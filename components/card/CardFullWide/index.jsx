@@ -15,22 +15,36 @@ import S from "./CardFullWide.module.sass";
 const CardFullWide = ({ className, postData, ...rest }) => {
   return (
     <Card
-      className={[S.__card, className]}
+      className={className}
       elevation={0}
       component="article"
+      sx={{
+        position: "relative",
+        display: "block",
+      }}
       {...rest}
     >
-      <Box className={S.__container}>
+      <Box
+        className={S.__container}
+        sx={{
+          width: "100%",
+          display: "flex",
+          flex: "auto 0 1",
+          flexDirection: { xs: "column", sm: "row" },
+        }}
+      >
         {postData.coverImage && (
           <CardMedia
             className={S.__thumbnail}
             alt="Live from space album cover"
-            sx={{ width: "330px" }}
+            sx={{
+              width: { xs: "100%", md: "330px" },
+              borderRadius: "10px",
+            }}
           >
             {/* <Image src={ imageBuilder(postData?.coverImage).width(286).height(180).url() } width={286} height={180} layout="responsive" alt={postData?.slug} /> */}
 
             <Image
-              className={S.__img}
               src={imageBuilder(postData?.coverImage)
                 .width(286)
                 .height(180)
@@ -43,11 +57,16 @@ const CardFullWide = ({ className, postData, ...rest }) => {
                 .width(286)
                 .height(180)
                 .url()}
+              sx={{ borderRadius: "10px" }}
             />
           </CardMedia>
         )}
 
-        <CardContent className={S.__cardBody}>
+        <CardContent
+          sx={{
+            width: { xs: "100%", md: "calc(100% - 330px)" },
+          }}
+        >
           <Box className={S.__meta}>
             <Chip
               className={S.__metaCat}
@@ -58,20 +77,41 @@ const CardFullWide = ({ className, postData, ...rest }) => {
 
           <Typography
             variant="h3"
-            // component="a"
-            className={S.__title}
+            sx={{
+              marginTop: "15px",
+              position: "relative",
+              fontWeight: "600",
+              fontSize: "16px",
+              lineHeight: "23px",
+              cursor: "pointer",
+              fontWeight: 700,
+            }}
           >
             <NextLink
-              className={S.__titleLink}
               as={`/article/${postData?.slug}`}
               href={`/article/[slug]`}
               passHref
+              style={{
+                fontSize: "inherit",
+                lineHeight: "inherit",
+                color: "#055547",
+                textDecoration: "none",
+              }}
             >
               {postData?.title}
             </NextLink>
           </Typography>
 
-          <Typography className={S.__description} paragraph>
+          <Typography
+            className={S.__description}
+            paragraph
+            sx={{
+              marginTop: "10px",
+              marginBottom: "0",
+              fontSize: "14px",
+              lineBreak: "anywhere",
+            }}
+          >
             {truncate(postData?.excerpt)}
           </Typography>
         </CardContent>
