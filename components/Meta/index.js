@@ -31,7 +31,7 @@ const Meta = () => {
         href={`/img/branding/favicon.png`}
       />
 
-      <link rel="manifest" href="/site.webmanifest" />
+      {/* <link rel="manifest" href="/site.webmanifest" /> */}
       <link
         rel="mask-icon"
         href={`/img/branding/favicon.png`}
