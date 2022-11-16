@@ -1,5 +1,5 @@
 // Core Component
-import { Container, Divider, Grid } from "@mui/material";
+import { Box, Container, Divider, Grid } from "@mui/material";
 import Head from "next/head";
 // API Content
 import BlockBanner from "../components/Block/BlockBanner";
@@ -40,7 +40,6 @@ export default function Home({
         {/* Recommended Articles */}
         {recommendedPosts && (
           <BlockGridPostCard
-            key={`ik_block_grid_post_card_4x2`}
             postData={recommendedPosts}
             title="নির্বাচিত লেখাসমুহ"
           />
@@ -51,17 +50,20 @@ export default function Home({
         <BlockBanner />
 
         <Divider />
-        <Container maxWidth="lg">
-          <Grid container>
-            <Grid item xs={12} md={9}>
-              <BlockCardWide10x postData={allPosts} />
-            </Grid>
 
-            <Grid item xs={12} md={3}>
-              <BlockSidebar />
+        <Box component="section">
+          <Container maxWidth="lg">
+            <Grid container spacing={5}>
+              <Grid item xs={12} md={9}>
+                <BlockCardWide10x postData={allPosts} />
+              </Grid>
+
+              <Grid item xs={12} md={3}>
+                <BlockSidebar />
+              </Grid>
             </Grid>
-          </Grid>
-        </Container>
+          </Container>
+        </Box>
       </Layout>
     </>
   );

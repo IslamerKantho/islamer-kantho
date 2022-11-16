@@ -10,7 +10,6 @@ import Image from "next/image";
 import NextLink from "next/link";
 import { imageBuilder } from "../../../pages/api/sanity";
 import { truncate } from "../../../utils/string.utils";
-import S from "./CardFullWide.module.sass";
 
 const CardFullWide = ({ className, postData, ...rest }) => {
   return (
@@ -25,7 +24,6 @@ const CardFullWide = ({ className, postData, ...rest }) => {
       {...rest}
     >
       <Box
-        className={S.__container}
         sx={{
           width: "100%",
           display: "flex",
@@ -35,11 +33,11 @@ const CardFullWide = ({ className, postData, ...rest }) => {
       >
         {postData.coverImage && (
           <CardMedia
-            className={S.__thumbnail}
             alt="Live from space album cover"
             sx={{
               width: { xs: "100%", md: "330px" },
               borderRadius: "10px",
+              overflow: "hidden",
             }}
           >
             {/* <Image src={ imageBuilder(postData?.coverImage).width(286).height(180).url() } width={286} height={180} layout="responsive" alt={postData?.slug} /> */}
@@ -67,12 +65,8 @@ const CardFullWide = ({ className, postData, ...rest }) => {
             width: { xs: "100%", md: "calc(100% - 330px)" },
           }}
         >
-          <Box className={S.__meta}>
-            <Chip
-              className={S.__metaCat}
-              label={postData?.category?.title}
-              size="small"
-            />
+          <Box>
+            <Chip label={postData?.category?.title} size="small" />
           </Box>
 
           <Typography
@@ -103,7 +97,6 @@ const CardFullWide = ({ className, postData, ...rest }) => {
           </Typography>
 
           <Typography
-            className={S.__description}
             paragraph
             sx={{
               marginTop: "10px",
