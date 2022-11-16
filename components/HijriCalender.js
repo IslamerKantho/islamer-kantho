@@ -1,22 +1,39 @@
-import React from 'react'
+import { Box, Typography } from "@mui/material";
+import React, { memo } from "react";
 
 const HijriCalender = () => {
-    return (
-        <>
-            <div className="ik_prayer_time">
-                <div className="ik__header">
-                    <h4 className="ik_title">হিজরি ক্যালেন্ডার </h4>
-                </div>
-                <iframe style={{ width: '100%', height: '312px', border: '1px solid #ddd'}} scrolling="no" src="https://www.islamicfinder.org/islamic-calendar/widgetGregorian?type=Hijri"> </iframe>
-            </div>
+  return (
+    <>
+      <Box
+        sx={{
+          marginTop: 4,
+        }}
+      >
+        <Box
+          sx={{
+            color: "#055547",
+            marginBottom: "10px",
+          }}
+        >
+          <Typography
+            sx={{
+              color: "#055547",
+              fontSize: "18px",
+              lineHeight: "28px",
+              fontWeight: 700,
+            }}
+          >
+            হিজরি ক্যালেন্ডার
+          </Typography>
+        </Box>
+        <iframe
+          style={{ width: "100%", height: "320px", border: "1px solid #ddd" }}
+          scrolling="no"
+          src="https://www.islamicfinder.org/islamic-calendar/widgetGregorian?type=Hijri"
+        />
+      </Box>
+    </>
+  );
+};
 
-            <style jsx>{`
-                .ik_prayer_time {
-                    margin-top: 35px;
-                }
-            `}</style>
-        </>
-    )
-}
-
-export default HijriCalender
+export default memo(HijriCalender);

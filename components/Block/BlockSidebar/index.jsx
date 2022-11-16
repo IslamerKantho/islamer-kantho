@@ -1,5 +1,3 @@
-// Core Components
-// Custom Components
 import { Box, Grid } from "@mui/material";
 import HijriCalender from "../../HijriCalender";
 import PrayerTime from "../../PrayerTime";
@@ -7,7 +5,15 @@ import PrayerTime from "../../PrayerTime";
 const BlockSidebar = () => {
   return (
     <>
-      <Box component="aside">
+      <Box
+        component="aside"
+        sx={{
+          width: "100%",
+          padding: "40px 0",
+          position: "relative",
+          display: "block",
+        }}
+      >
         <Grid container spacing={2}>
           {/* Prayer Time */}
           <PrayerTime />
