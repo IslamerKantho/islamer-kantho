@@ -9,6 +9,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
+import Link from "next/link";
 import React from "react";
 import { memo } from "react";
 import { imageBuilder } from "../../../pages/api/sanity";
@@ -32,6 +33,8 @@ const TrendingPosts = ({ className, posts, ...rest }) => {
             <Grid key={index} item xs={12} sm={6} md={4}>
               <Card elevation={0}>
                 <CardActionArea
+                  href={`/article/${post?.slug}`}
+                  component={Link}
                   sx={{
                     minHeight: "154px",
                     padding: "20px",
