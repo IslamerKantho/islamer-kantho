@@ -1,6 +1,13 @@
 {
   "short_name": "Islamer Kantho",
   "name": "Islamer Kantho",
+  "id": "/",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "theme_color": "#055547",
+  "background_color": "#ffffff",
+  "orientation": "portrait",
   "icons": [
     {
       "src": "/img/branding/favicon.png",
@@ -17,9 +24,5 @@
       "type": "image/png",
       "sizes": "32x32"
     }
-  ],
-  "start_url": ".",
-  "display": "standalone",
-  "theme_color": "#055547",
-  "background_color": "#ffffff"
+  ]
 }
