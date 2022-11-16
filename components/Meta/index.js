@@ -1,4 +1,5 @@
 import Head from "next/head";
+import { memo } from "react";
 
 const CONSTANT = {
   title: "ইসলামের কন্ঠ",
@@ -8,7 +9,7 @@ const CONSTANT = {
   url: "https://islamerkantho.com",
 };
 
-export default function Meta() {
+const Meta = () => {
   return (
     <Head>
       <link
@@ -126,4 +127,6 @@ export default function Meta() {
       <link rel='apple-touch-startup-image' href='/images/apple_splash_640.png' sizes='640x1136' /> */}
     </Head>
   );
-}
+};
+
+export default memo(Meta);

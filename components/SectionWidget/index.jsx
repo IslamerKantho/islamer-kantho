@@ -1,10 +1,9 @@
 import { Box, Container, Typography } from "@mui/material";
 import PropTypes from "prop-types";
 
-const SectionWidget = ({ className, title, children, ...rest }) => {
+const SectionWidget = ({ title, children, ...rest }) => {
   return (
     <Box
-      className={className}
       sx={{
         width: "100%",
         padding: "40px 0",

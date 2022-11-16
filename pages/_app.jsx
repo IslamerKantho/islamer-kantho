@@ -11,8 +11,8 @@ import Head from "next/head";
 import Meta from "../components/Meta";
 
 const inter = Inter({ weight: ["400", "500", "600", "700"] });
-const sheets = new ServerStyleSheets();
-const css = sheets.toString();
+// const sheets = new ServerStyleSheets();
+// const css = sheets.toString();
 
 const theme = createTheme({
   palette: {
@@ -35,10 +35,10 @@ const theme = createTheme({
 function App({ Component, pageProps }) {
   return (
     <>
-      <Head>
-        <Meta />
+      {/* <Head>
         <style id="jsx-server-side">{css}</style>
-      </Head>
+      </Head> */}
+      <Meta />
 
       <ThemeProvider theme={theme}>
         <NextNProgress />
