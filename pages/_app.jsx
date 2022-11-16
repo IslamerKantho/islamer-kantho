@@ -8,6 +8,7 @@ import "../styles/error404.sass";
 import "../styles/index.sass";
 import { Inter } from "@next/font/google";
 import Head from "next/head";
+import Meta from "../components/Meta";
 
 const inter = Inter({ weight: ["400", "500", "600", "700"] });
 const sheets = new ServerStyleSheets();
@@ -35,6 +36,7 @@ function App({ Component, pageProps }) {
   return (
     <>
       <Head>
+        <Meta />
         <style id="jsx-server-side">{css}</style>
       </Head>
 

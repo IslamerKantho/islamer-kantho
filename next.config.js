@@ -1,4 +1,8 @@
-module.exports = {
+const pwa = require("next-pwa")({
+  dest: "public",
+});
+
+module.exports = pwa({
   images: {
     domains: ["cdn.sanity.io", "images.unsplash.com"],
   },
@@ -10,4 +14,4 @@ module.exports = {
       { loader: "@next/font/google", options: { subsets: ["latin"] } },
     ],
   },
-};
+});

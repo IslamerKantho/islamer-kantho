@@ -1,0 +1,25 @@
+{
+  "short_name": "Islamer Kantho",
+  "name": "Islamer Kantho",
+  "icons": [
+    {
+      "src": "/img/branding/favicon.png",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "/img/branding/favicon.png",
+      "type": "image/png",
+      "sizes": "16x16"
+    },
+    {
+      "src": "/img/branding/favicon.png",
+      "type": "image/png",
+      "sizes": "32x32"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#055547",
+  "background_color": "#ffffff"
+}
