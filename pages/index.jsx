@@ -46,8 +46,9 @@ export default function Home({
           />
         )}
 
+        <Divider />
         {/* Image Banner */}
-        {/* <BlockBanner /> */}
+        <BlockBanner />
 
         <Divider />
         <Container maxWidth="lg">
