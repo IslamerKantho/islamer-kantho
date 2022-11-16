@@ -1,22 +1,46 @@
 import { Box, Container, Typography } from "@mui/material";
 import PropTypes from "prop-types";
-import S from "./SectionWidget.module.sass";
 
 const SectionWidget = ({ className, title, children, ...rest }) => {
   return (
-    <Box className={[S.__section, className]} {...rest}>
+    <Box
+      className={className}
+      sx={{
+        width: "100%",
+        padding: "40px 0",
+      }}
+      {...rest}
+    >
       {title && (
-        <Box className={S.__head}>
-          <Container className={S.__headContainer} maxWidth="lg" disableGutters>
-            <Typography className={S.__headTitle} variant="h4" component="h4">
+        <Box
+          sx={{
+            width: "100%",
+          }}
+        >
+          <Container maxWidth="lg" disableGutters>
+            <Typography
+              variant="h4"
+              component="h4"
+              sx={{
+                marginBottom: "20px",
+                color: "#055547",
+                fontSize: "18px",
+                lineHeight: "28px",
+                fontWeight: "bold",
+              }}
+            >
               {title}
             </Typography>
           </Container>
         </Box>
       )}
 
-      <Box className={S.__body}>
-        <Container className={S.__bodyContainer} maxWidth="lg" disableGutters>
+      <Box
+        sx={{
+          width: "100%",
+        }}
+      >
+        <Container maxWidth="lg" disableGutters>
           {children}
         </Container>
       </Box>
