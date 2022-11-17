@@ -73,11 +73,11 @@ export default function Post({ className, post, morePosts, preview, ...rest }) {
               <Container
                 maxWidth="lg"
                 sx={{
-                  paddingTop: "60px",
-                  paddingBottom: "60px",
+                  paddingTop: { xs: "20px", md: "60px" },
+                  paddingBottom: { md: "60px" },
                 }}
               >
-                <Grid container spacing={5}>
+                <Grid container spacing={{ xs: 2, md: 5 }}>
                   <Grid
                     item
                     xs={12}
@@ -107,8 +107,8 @@ export default function Post({ className, post, morePosts, preview, ...rest }) {
             <Box className="ik_sarticle_content" component="section">
               <Container
                 sx={{
-                  paddingTop: "40px",
-                  paddingBottom: "40px",
+                  paddingTop: { xs: "20px", md: "40px" },
+                  paddingBottom: { xs: "20px", md: "40px" },
                 }}
               >
                 <SingleArticleContent content={post.body} />
