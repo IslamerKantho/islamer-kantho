@@ -8,11 +8,13 @@ import "../styles/error404.sass";
 import "../styles/index.sass";
 import { Inter } from "@next/font/google";
 import Meta from "../components/Meta";
+import localFont from "@next/font/local";
 
 const inter = Inter({ weight: ["400", "500", "600", "700"] });
+const bangla = localFont({ src: "../assets/fonts/SolaimanLipi.ttf" });
+
 // const sheets = new ServerStyleSheets();
 // const css = sheets.toString();
-
 const theme = createTheme({
   palette: {
     type: "light",
@@ -25,7 +27,8 @@ const theme = createTheme({
   },
   typography: {
     // fontFamily: ["Inter", "sans-serif"].join(","),
-    fontFamily: [inter.style.fontFamily, "sans-serif"].join(","),
+    // fontFamily: [inter.style.fontFamily, "sans-serif"].join(","),
+    fontFamily: [bangla.style.fontFamily, "sans-serif"].join(","),
     fontSize: 13,
     lineHeight: 20,
   },
@@ -56,7 +59,7 @@ function App({ Component, pageProps }) {
         p,
         span,
         a {
-          font-family: ${inter.style.fontFamily} !important;
+          font-family: ${bangla.style.fontFamily};
         }
       `}</style>
     </>
