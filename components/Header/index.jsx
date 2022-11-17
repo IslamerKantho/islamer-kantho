@@ -12,7 +12,6 @@ import { useState } from "react";
 import MenuDrawer from "../MenuDrawer";
 import { BiSearch } from "react-icons/bi";
 import { IconContext } from "react-icons";
-import S from "./Header.module.sass";
 import { SiPhpmyadmin } from "react-icons/si";
 
 const pages = [
@@ -48,13 +47,12 @@ const Header = () => {
           boxShadow: "none",
         }}
       >
-        <Container className={S.__container} maxWidth="xl">
-          <Toolbar className={S.__toolbar} disableGutters variant="dense">
+        <Container maxWidth="xl">
+          <Toolbar disableGutters variant="dense">
             {/*************************************
              * Desktop Area Started
              ************************************/}
             <Button
-              className={S.__d__toggler}
               variant="outlined"
               startIcon={<RiMenuLine />}
               onClick={openHandler}
