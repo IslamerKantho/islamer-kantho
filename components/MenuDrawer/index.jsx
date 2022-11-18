@@ -148,6 +148,8 @@ const MenuDrawer = ({ isVisible, openHandler, closeHandler }) => {
           sx: {
             width: { xs: "100%", sm: 400 },
             maxWidth: { xs: "100%", sm: 400 },
+            display: "block",
+            overflowX: "hidden",
           },
         }}
       >
