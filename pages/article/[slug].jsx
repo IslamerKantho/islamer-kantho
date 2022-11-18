@@ -3,6 +3,7 @@ import ErrorPage from "next/error";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import PropTypes from "prop-types";
+import { useEffect } from "react";
 import ArticleCover from "../../components/Article/ArticleCover";
 import ArticleHeader from "../../components/Article/ArticleHeader";
 import SingleArticleContent from "../../components/Article/SingleArticleContent";

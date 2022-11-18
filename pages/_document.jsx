@@ -5,7 +5,7 @@ export default class MyDocument extends Document {
     return (
       <Html lang="bn">
         <Head>
-          <meta name="theme-color" content="#055547" />
+          <meta name="theme-color" content="#000" />
           <meta name="manifest" content="/manifest.json" />
         </Head>
 
