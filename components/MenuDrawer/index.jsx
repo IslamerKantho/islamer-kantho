@@ -148,7 +148,6 @@ const MenuDrawer = ({ isVisible, openHandler, closeHandler }) => {
           sx: {
             width: { xs: "100%", sm: 400 },
             maxWidth: { xs: "100%", sm: 400 },
-            display: "block",
             overflowX: "hidden",
           },
         }}
@@ -160,6 +159,7 @@ const MenuDrawer = ({ isVisible, openHandler, closeHandler }) => {
               key={i}
               title={SIDE_MENU[k].title}
               list={SIDE_MENU[k].list}
+              color={SIDE_MENU[k].color}
             />
           ) : (
             <></>

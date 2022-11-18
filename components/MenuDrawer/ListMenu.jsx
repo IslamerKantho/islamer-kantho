@@ -4,7 +4,7 @@ import { IconContext } from "react-icons";
 import { SIDEBAR_CATAGORY } from "../../db/categories.db";
 import { ImBook } from "react-icons/im";
 
-const ListMenu = ({ title, list }) => {
+const ListMenu = ({ title, list, color }) => {
   return (
     <>
       <Box
@@ -21,11 +21,11 @@ const ListMenu = ({ title, list }) => {
           <Typography
             sx={{
               paddingBottom: "8px",
-              color: "#111",
-              fontSize: "14px",
+              color: color ? color : "#111",
+              fontSize: "16px",
               lineHeight: "16px",
               fontWeight: 700,
-              borderBottom: "1px solid #eee",
+              borderBottom: `1px solid ${color ? `${color}38` : "#eee"}`,
             }}
           >
             {title}
@@ -86,7 +86,8 @@ const ListMenu = ({ title, list }) => {
                   >
                     <IconContext.Provider
                       value={{
-                        color: "#333",
+                        // color: "#333",
+                        color: color ? color : "#333",
                         style: {
                           width: "16px",
                           height: "16px",

@@ -4,6 +4,7 @@
 export const SIDE_MENU = {
   article: {
     title: "প্রবন্ধ",
+    color: "#055547",
     list: [
       {
         _id: "",
@@ -49,6 +50,7 @@ export const SIDE_MENU = {
   },
   ask: {
     title: "জীবন জিজ্ঞাসা",
+    color: "#055547",
     list: [
       {
         _id: "",
@@ -104,6 +106,7 @@ export const SIDE_MENU = {
   },
   student: {
     title: "শিক্ষার্থীদের পাতা",
+    color: "#055547",
     list: [
       {
         _id: "",
