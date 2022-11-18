@@ -7,7 +7,6 @@ export default class MyDocument extends Document {
         <Head>
           <meta name="theme-color" content="#055547" />
           <meta name="manifest" content="/manifest.json" />
-          {/* {this.props.emotionStyleTags} */}
         </Head>
 
         <body>

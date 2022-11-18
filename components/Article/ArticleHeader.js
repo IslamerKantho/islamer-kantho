@@ -11,21 +11,6 @@ const ArticleHeader = ({
   excerpt,
   category,
 }) => {
-  const style = {
-    mainHeader: {
-      fontSize: "34px",
-      lineHeight: "42px",
-      fontWeight: 700,
-      color: "#2A2A2A",
-    },
-    headerRow: {
-      height: "100%",
-    },
-    avater: {
-      marginRight: 12,
-    },
-  };
-
   return (
     <>
       <div className={`ik_article_header${className ? className : ""} `}>
@@ -62,7 +47,7 @@ const ArticleHeader = ({
                   marginTop: "10px",
                   fontSize: { xs: "24px", md: "34px" },
                   lineHeight: { xs: "32px", md: "42px" },
-                  color: "#000000",
+                  color: "#2A2A2A",
                   fontWeight: 700,
                 }}
               >
@@ -74,8 +59,8 @@ const ArticleHeader = ({
                 variant="body2"
                 sx={{
                   marginTop: "15px",
-                  fontSize: "14px",
-                  lineHeight: "22px",
+                  fontSize: "15px",
+                  lineHeight: "25px",
                   color: "#000000",
                 }}
               >
@@ -87,14 +72,14 @@ const ArticleHeader = ({
           <Grid item>
             <Stack direction="row" spacing={2}>
               <Box>
-                <Avatar alt={author.name} src={author.picture} />
+                <Avatar alt={author.name} src={author.picture} sx={{}} />
               </Box>
 
               <Box>
                 <Typography
                   className="ik_article__meta__author"
                   variant="body2"
-                  style={style.category}
+                  sx={{}}
                 >
                   {author.name}
                 </Typography>

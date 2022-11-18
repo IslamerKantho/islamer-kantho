@@ -6,15 +6,14 @@ import {
 import NextNProgress from "nextjs-progressbar";
 import "../styles/error404.sass";
 import "../styles/index.sass";
-import { Inter } from "@next/font/google";
 import Meta from "../components/Meta";
-import localFont from "@next/font/local";
+import { Roboto } from "@next/font/google";
 
-const inter = Inter({ weight: ["400", "500", "600", "700"] });
-const bangla = localFont({ src: "../assets/fonts/SolaimanLipi.ttf" });
+// const bangla = localFont({ src: "../assets/fonts/SolaimanLipi.ttf" });
+const bangla = Roboto({
+  weight: ["400", "500", "700"],
+});
 
-// const sheets = new ServerStyleSheets();
-// const css = sheets.toString();
 const theme = createTheme({
   palette: {
     type: "light",
@@ -28,7 +27,7 @@ const theme = createTheme({
   typography: {
     // fontFamily: ["Inter", "sans-serif"].join(","),
     // fontFamily: [inter.style.fontFamily, "sans-serif"].join(","),
-    fontFamily: [bangla.style.fontFamily, "sans-serif"].join(","),
+    fontFamily: `"Helvetica","Roboto","Arial",sans-serif`,
     fontSize: 13,
     lineHeight: 20,
   },
@@ -37,9 +36,6 @@ const theme = createTheme({
 function App({ Component, pageProps }) {
   return (
     <>
-      {/* <Head>
-        <style id="jsx-server-side">{css}</style>
-      </Head> */}
       <Meta />
 
       <ThemeProvider theme={theme}>
@@ -59,7 +55,11 @@ function App({ Component, pageProps }) {
         p,
         span,
         a {
-          font-family: ${bangla.style.fontFamily};
+           {
+            /* font-family: ${bangla.style.fontFamily}; */
+          }
+          font-family: "Helvetica", ${bangla.style.fontFamily}, "Arial",
+            sans-serif;
         }
       `}</style>
     </>
