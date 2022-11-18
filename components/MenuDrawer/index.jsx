@@ -66,7 +66,7 @@ const MenuDrawer = ({ isVisible, openHandler, closeHandler }) => {
               textDecoration: "none",
             }}
           >
-            ISLAMER KANTHO
+            ইসলামের কন্ঠ
           </Typography>
         </NextLink>
 
