@@ -81,7 +81,7 @@ const Header = () => {
                 textDecoration: "none",
               }}
             >
-              ISLAMER KANTHO
+              ইসলামের কন্ঠ
             </Typography>
             {/*************************************/}
 
@@ -120,7 +120,7 @@ const Header = () => {
                 textDecoration: "none",
               }}
             >
-              ISLAMER KANTHO
+              ইসলামের কন্ঠ
             </Typography>
             {/*************************************/}
 
