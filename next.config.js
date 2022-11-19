@@ -31,4 +31,11 @@ module.exports = {
       },
     ];
   },
+  experimental: {
+    modularizeImports: {
+      'my-library/?(((\\w*)?/?)*)': {
+        transform: 'my-library/{{ matches.[1] }}/{{member}}',
+      },
+    },
+  },
 };
