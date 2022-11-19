@@ -17,9 +17,4 @@ module.exports = nextPWA({
   compiler: {
     emotion: true,
   },
-  experimental: {
-    fontLoaders: [
-      { loader: "@next/font/google", options: { subsets: ["latin"] } },
-    ],
-  },
 });

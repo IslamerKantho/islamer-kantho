@@ -9,11 +9,12 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import NextLink from "next/link";
 import { useState } from "react";
-import MenuDrawer from "../MenuDrawer";
 import { BiSearch } from "react-icons/bi";
 import { IconContext } from "react-icons";
 import { SiPhpmyadmin } from "react-icons/si";
-
+import dynamic from "next/dynamic";
+import { memo } from "react";
+const MenuDrawer = dynamic(() => import("../MenuDrawer"));
 const pages = [
   {
     title: "সম্পাদকীয়",
@@ -34,10 +35,6 @@ const Header = () => {
 
   const openHandler = () => setIsCatDrawerOpen(true);
   const closeHandler = () => setIsCatDrawerOpen(false);
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
 
   return (
     <>
@@ -240,4 +237,4 @@ const Header = () => {
     </>
   );
 };
-export default Header;
+export default memo(Header);

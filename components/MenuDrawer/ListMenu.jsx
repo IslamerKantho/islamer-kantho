@@ -3,6 +3,7 @@ import Link from "next/link";
 import { IconContext } from "react-icons";
 import { SIDEBAR_CATAGORY } from "../../db/categories.db";
 import { ImBook } from "react-icons/im";
+import { memo } from "react";
 
 const ListMenu = ({ title, list, color, ...rest }) => {
   return (
@@ -110,4 +111,4 @@ const ListMenu = ({ title, list, color, ...rest }) => {
   );
 };
 
-export default ListMenu;
+export default memo(ListMenu);

@@ -12,7 +12,7 @@ const HeroBanner = ({ className, post, ...rest }) => {
       component="section"
       sx={{
         width: "100%",
-        minHeight: { xs: "350px", sm: "450px" },
+        minHeight: { xs: "350px", sm: "calc(94vh - 6px)" },
         position: "relative",
         display: "block",
         borderBottom: "6px solid #055547",
@@ -43,7 +43,8 @@ const HeroBanner = ({ className, post, ...rest }) => {
       >
         <Image
           alt={post?.title}
-          src={imageBuilder(post?.coverImage).height(450).width(1600).url()}
+          // src={imageBuilder(post?.coverImage).height(450).width(1600).url()}
+          src={imageBuilder(post?.coverImage).height(1080).width(1920).url()}
           layout="fill"
           style={{ objectFit: "cover", objectPosition: "center" }}
         />
@@ -51,20 +52,23 @@ const HeroBanner = ({ className, post, ...rest }) => {
 
       <Box
         sx={{
-          height: { xs: "350px", md: "450px" },
+          height: { xs: "350px", md: "calc(94vh - 6px)" },
+          background: "#00000065",
         }}
       >
         <Container
           maxWidth="lg"
           sx={{
             height: "100%",
-            minHeight: { xs: "350px", sm: "450px" },
-            paddingTop: { xs: "20px", sm: "40px" },
-            paddingBottom: { xs: "20px", sm: "40px" },
+            minHeight: { xs: "350px", sm: "calc(94vh - 6px)" },
+            paddingTop: { xs: "20px", sm: "40px", md: "100px" },
+            paddingBottom: { xs: "20px", sm: "40px", md: "80px" },
             display: "flex",
             flexDirection: "column",
             justifyContent: "flex-end",
             alignItems: "flex-start",
+            // justifyContent: "center",
+            // alignItems: "center",
           }}
         >
           <Typography

@@ -1,16 +1,22 @@
 // Core Component
 import { Box, Container, Divider, Grid } from "@mui/material";
 import Head from "next/head";
-// API Content
-import BlockBanner from "../components/Block/BlockBanner";
-import BlockCardWide10x from "../components/Block/BlockCardWide10x";
-// import BlockCarouselFullWidth from "../components/Block/BlockCarouselFullWidth";
-import BlockGridPostCard from "../components/Block/BlockGridPostCard";
-import BlockSidebar from "../components/Block/BlockSidebar";
-import TrendingPosts from "../components/Block/TrendingPosts";
 import HeroBanner from "../components/HeroBanner";
 import Layout from "../components/Layout";
 import { getAllPosts, getFeaturedPost, getRecommendedPost } from "./api/api";
+import daynamic from "next/dynamic";
+
+const TrendingPosts = daynamic(() =>
+  import("../components/Block/TrendingPosts")
+);
+const BlockSidebar = daynamic(() => import("../components/Block/BlockSidebar"));
+const BlockGridPostCard = daynamic(() =>
+  import("../components/Block/BlockGridPostCard")
+);
+const BlockBanner = daynamic(() => import("../components/Block/BlockBanner"));
+const BlockCardWide10x = daynamic(() =>
+  import("../components/Block/BlockCardWide10x")
+);
 
 export default function Home({
   featuredPosts,

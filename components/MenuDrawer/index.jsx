@@ -19,9 +19,9 @@ import {
   SIDEBAR_LINKS,
   SIDE_MENU,
 } from "../../db/categories.db";
-import { FaHotjar } from "react-icons/fa";
-import { IconContext } from "react-icons";
-import ListMenu from "./ListMenu";
+import daynamic from "next/dynamic";
+import { memo } from "react";
+const ListMenu = daynamic(() => import("./ListMenu"));
 
 const MenuDrawer = ({ isVisible, openHandler, closeHandler }) => {
   const toggleDrawer = (e) => {
@@ -92,34 +92,6 @@ const MenuDrawer = ({ isVisible, openHandler, closeHandler }) => {
     </AppBar>
   );
 
-  const options = (
-    <List>
-      {SIDEBAR_LINKS.map((el, i) => (
-        <ListItem key={i} disablePadding>
-          <ListItemButton sx={{ py: 0.5, minHeight: 32, color: "#e3e3e3" }}>
-            <ListItemIcon
-              sx={{
-                color: "inherit",
-              }}
-            >
-              <InboxIcon
-                sx={{
-                  width: "30px",
-                  height: "30px",
-                  padding: "4px",
-                  borderRadius: "50%",
-                  color: "#1A1A1A",
-                  background: "#e3e3e3",
-                }}
-              />
-            </ListItemIcon>
-            <ListItemText primary={el.title} sx={{ color: "#383838" }} />
-          </ListItemButton>
-        </ListItem>
-      ))}
-    </List>
-  );
-
   const footer = (
     <>
       <Box
@@ -165,14 +137,10 @@ const MenuDrawer = ({ isVisible, openHandler, closeHandler }) => {
             <></>
           )
         )}
-        {/* {cats} */}
-        {/* {list} */}
-        {/* <Cats />  */}
-        {/* Footer */}
         {footer}
       </Drawer>
     </>
   );
 };
 
-export default MenuDrawer;
+export default memo(MenuDrawer);
