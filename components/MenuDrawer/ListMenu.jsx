@@ -4,10 +4,11 @@ import { IconContext } from "react-icons";
 import { SIDEBAR_CATAGORY } from "../../db/categories.db";
 import { ImBook } from "react-icons/im";
 
-const ListMenu = ({ title, list, color }) => {
+const ListMenu = ({ title, list, color, ...rest }) => {
   return (
     <>
       <Box
+        {...rest}
         sx={{
           marginBottom: "10px",
         }}

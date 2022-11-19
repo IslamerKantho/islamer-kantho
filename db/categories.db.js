@@ -1,6 +1,3 @@
-//
-//
-
 export const SIDE_MENU = {
   article: {
     title: "প্রবন্ধ",
@@ -135,13 +132,36 @@ export const SIDE_MENU = {
       },
     ],
   },
-  editorial: {
-    title: "সম্পাদকীয়",
-    url: [],
-  },
   archive: {
-    title: "আর্কাইভ",
-    url: [],
+    title: "অন্যান্য",
+    color: "#055547",
+    list: [
+      {
+        _id: "",
+        title: "সম্পাদকীয়",
+        slug: "sompadokiyo",
+      },
+      {
+        _id: "",
+        title: "আর্কাইভ",
+        slug: "archive",
+      },
+      {
+        _id: "",
+        title: "লেখা পাঠানোর নিয়মাবলী",
+        slug: "lekha-patanur-niyomaboli",
+      },
+      {
+        _id: "",
+        title: "আমাদের পরিচিতি",
+        slug: "amader-porichithi",
+      },
+      {
+        _id: "",
+        title: "যোগাযোগের মাধ্যেম",
+        slug: "jugajuger-maddyom",
+      },
+    ],
   },
 };
 

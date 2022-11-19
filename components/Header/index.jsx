@@ -16,12 +16,15 @@ import { SiPhpmyadmin } from "react-icons/si";
 
 const pages = [
   {
-    title: "Editorial",
-    url: "/",
+    title: "সম্পাদকীয়",
+    url: "/sompadokiyo",
   },
-  { title: "About", url: "/" },
-  { title: "Contact", url: "" },
-  { title: "Donate", url: "" },
+  {
+    title: "আর্কাইভ",
+    url: "/archive",
+  },
+  { title: "আমাদের পরিচিতি", url: "amader-bisoye" },
+  { title: "যোগাযোগের মাধ্যম", url: "jugajuger-maddyom" },
 ];
 
 const Header = () => {
