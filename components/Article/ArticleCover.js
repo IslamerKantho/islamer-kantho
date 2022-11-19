@@ -17,6 +17,9 @@ const ArticleCover = ({ className, src, title, ...rest }) => {
           alt={title}
           width={660}
           height={372}
+          style={{
+            borderRadius: "8px",
+          }}
         />
       </div>
 

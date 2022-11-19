@@ -3,7 +3,11 @@ import React, { memo } from "react";
 
 const PrayerTime = () => {
   return (
-    <Box sx={{}}>
+    <Box
+      sx={{
+        width: "100%",
+      }}
+    >
       <Box
         sx={{
           color: "#055547",
@@ -21,13 +25,19 @@ const PrayerTime = () => {
           নামাজের সময়সূচি{" "}
         </Typography>
       </Box>
-      <iframe
-        style={{ width: "100%", height: "328px", border: "1px solid #ddd" }}
+
+      <Box
+        component="iframe"
+        style={{
+          width: "100%",
+          height: "328px",
+          border: "1px solid #ddd",
+          borderRadius: "8px",
+          overflow: "hidden",
+        }}
         scrolling="no"
         src="https://www.islamicfinder.org/prayer-widget/1185099/shafi/5/0/18/18"
-      >
-        {" "}
-      </iframe>
+      />
     </Box>
   );
 };

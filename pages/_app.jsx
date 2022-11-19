@@ -8,6 +8,7 @@ import "../styles/error404.sass";
 import "../styles/index.sass";
 import Meta from "../components/Meta";
 import { Roboto } from "@next/font/google";
+import daynamic from "next/dynamic";
 
 // const bangla = localFont({ src: "../assets/fonts/SolaimanLipi.ttf" });
 const bangla = Roboto({

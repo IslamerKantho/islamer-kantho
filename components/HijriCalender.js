@@ -7,6 +7,7 @@ const HijriCalender = () => {
       <Box
         sx={{
           marginTop: 4,
+          width: "100%",
         }}
       >
         <Box
@@ -26,8 +27,16 @@ const HijriCalender = () => {
             হিজরি ক্যালেন্ডার
           </Typography>
         </Box>
-        <iframe
-          style={{ width: "100%", height: "320px", border: "1px solid #ddd" }}
+
+        <Box
+          component="iframe"
+          style={{
+            width: "100%",
+            height: "328px",
+            border: "1px solid #ddd",
+            borderRadius: "8px",
+            overflow: "hidden",
+          }}
           scrolling="no"
           src="https://www.islamicfinder.org/islamic-calendar/widgetGregorian?type=Hijri"
         />

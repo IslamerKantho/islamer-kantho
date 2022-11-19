@@ -34,7 +34,7 @@ const ArticleHeader = ({
                     fontSize: "13px",
                     lineHeight: "22px",
                     color: "#fff",
-                    borderRadius: 0,
+                    borderRadius: "4px",
                     background: "#1A1A1A",
                   }}
                 />
