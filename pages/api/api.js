@@ -1,15 +1,15 @@
 import client, { previewClient } from "./sanity";
 
 const getUniquePosts = (posts) => {
-	const slugs = new Set();
-	return posts.filter((post) => {
-		if (slugs.has(post.slug)) {
-			return false;
-		} else {
-			slugs.add(post.slug);
-			return true;
-		}
-	});
+  const slugs = new Set();
+  return posts.filter((post) => {
+    if (slugs.has(post.slug)) {
+      return false;
+    } else {
+      slugs.add(post.slug);
+      return true;
+    }
+  });
 };
 
 // API Client.
@@ -33,13 +33,13 @@ const postFields = `
   'author': author->{name, 'picture': image.asset->url},
 `;
 
-// Featured Posts.
+// Recommended Posts.
 export async function getRecommendedPost(preview, range) {
-	// Defining Data range.
-	let dataRange = (n) => (n ? `[${n[0]}...${n[1]}]` : `[]`);
+  // Defining Data range.
+  let dataRange = (n) => (n ? `[${n[0]}...${n[1]}]` : `[]`);
 
-	const dataQuery = `*[_type == "post" && recommended ] | order(publishedAt desc)`;
-	const dataParams = `
+  const dataQuery = `*[_type == "post" && recommended ] | order(publishedAt desc)`;
+  const dataParams = `
     _id,
     'date': {
       'createdAt': _createdAt, 
@@ -55,22 +55,22 @@ export async function getRecommendedPost(preview, range) {
     excerpt,
     'coverImage': mainImage,
   `;
-	const featuredPost = await getClient(preview).fetch(
-		`${dataQuery} {
+  const featuredPost = await getClient(preview).fetch(
+    `${dataQuery} {
       ${dataParams}
     } ${dataRange(range)}`
-	);
+  );
 
-	return getUniquePosts(featuredPost);
+  return getUniquePosts(featuredPost);
 }
 
 // Featured Posts.
 export async function getFeaturedPost(preview, range) {
-	// Defining Data range.
-	let dataRange = (n) => (n ? `[${n[0]}...${n[1]}]` : `[]`);
+  // Defining Data range.
+  let dataRange = (n) => (n ? `[${n[0]}...${n[1]}]` : `[]`);
 
-	const dataQuery = `*[_type == "post" && featured ] | order(publishedAt desc)`;
-	const dataParams = `
+  const dataQuery = `*[_type == "post" && featured ] | order(publishedAt desc)`;
+  const dataParams = `
     _id,
     title,
     'date': {
@@ -87,64 +87,73 @@ export async function getFeaturedPost(preview, range) {
     excerpt,
     'coverImage': mainImage,
   `;
-	const featuredPost = await getClient(preview).fetch(
-		`${dataQuery} {
+  const featuredPost = await getClient(preview).fetch(
+    `${dataQuery} {
       ${dataParams}
     } ${dataRange(range)}`
-	);
+  );
 
-	return getUniquePosts(featuredPost);
+  return getUniquePosts(featuredPost);
 }
 
 // Category List.
 export async function getCategoryList(preview) {
-	const dataQuery = `*[_type=='category'] | order(publishedAt desc)`;
-	const dataParams = `
+  const dataQuery = `*[_type=='category'] | order(publishedAt desc)`;
+  const dataParams = `
     _id,
     title
   `;
-	const featuredPost = await getClient(preview).fetch(
-		`${dataQuery} {
+  const featuredPost = await getClient(preview).fetch(
+    `${dataQuery} {
       // ${dataParams}
     }`
-	);
+  );
 
-	return getUniquePosts(featuredPost);
+  return getUniquePosts(featuredPost);
 }
 
 export async function getPreviewPostBySlug(slug) {
-	const data = await getClient(true).fetch(
-		`*[_type == "post" && slug.current == $slug] | order(publishedAt desc){
+  const data = await getClient(true).fetch(
+    `*[_type == "post" && slug.current == $slug] | order(publishedAt desc){
       ${postFields}
       body
     }`,
-		{ slug }
-	);
-	return data[0];
+    { slug }
+  );
+  return data[0];
 }
 
 export async function getAllPostsWithSlug() {
-	const data = await client.fetch(`*[_type == "post"]{ 'slug': slug.current }`);
-	return data;
+  const data = await client.fetch(`*[_type == "post"]{ 'slug': slug.current }`);
+  return data;
 }
 
+/**
+ *
+ * @param {boolean} preview
+ * @param {array} range
+ * @returns
+ */
 export async function getAllPosts(preview, range) {
-	let dataRange = (n) => (n ? `[${n[0]}...${n[1]}]` : `[]`);
-
-	const results = await getClient(preview)
-		.fetch(`*[_type == "post"] | order(publishedAt desc){
+  let dataRange = (n) => (n ? `[${n[0]}...${n[1]}]` : `[]`);
+  const query = `{
+    "data": *[_type == "post"] | order(publishedAt desc){
       ${postFields}
-    } ${dataRange(range)}`);
+    } ${dataRange(range)},
+   "length": count(*[_type=="post"])
+   }`;
 
-	return getUniquePosts(results);
+  const results = await getClient(preview).fetch(query);
+
+  return { length: results.length, data: getUniquePosts(results.data) };
 }
 
 export async function getPostAndMorePosts(slug, preview) {
-	const curClient = getClient(preview);
-	const [post, morePosts] = await Promise.all([
-		curClient
-			.fetch(
-				`*[_type == "post" && slug.current == $slug] | order(_updatedAt desc) {
+  const curClient = getClient(preview);
+  const [post, morePosts] = await Promise.all([
+    curClient
+      .fetch(
+        `*[_type == "post" && slug.current == $slug] | order(_updatedAt desc) {
         ${postFields}
         body,
         'comments': *[
@@ -158,16 +167,16 @@ export async function getPostAndMorePosts(slug, preview) {
           _createdAt
         }
       }`,
-				{ slug }
-			)
-			.then((res) => res?.[0]),
-		curClient.fetch(
-			`*[_type == "post" && slug.current != $slug] | order(publishedAt desc, _updatedAt desc){
+        { slug }
+      )
+      .then((res) => res?.[0]),
+    curClient.fetch(
+      `*[_type == "post" && slug.current != $slug] | order(publishedAt desc, _updatedAt desc){
         ${postFields}
         body,
       }[0...2]`,
-			{ slug }
-		),
-	]);
-	return { post, morePosts: getUniquePosts(morePosts) };
+      { slug }
+    ),
+  ]);
+  return { post, morePosts: getUniquePosts(morePosts) };
 }
