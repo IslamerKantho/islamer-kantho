@@ -1,7 +1,6 @@
-import { Box, Container, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import Link from "next/link";
 import { IconContext } from "react-icons";
-import { SIDEBAR_CATAGORY } from "../../db/categories.db";
 import { ImBook } from "react-icons/im";
 import { memo } from "react";
 
@@ -58,7 +57,7 @@ const ListMenu = ({ title, list, color, ...rest }) => {
                 }}
               >
                 <Box
-                  href={`/category/${e.slug}`}
+                  href={`/category${e.slug}`}
                   component={Link}
                   sx={{
                     padding: "7px 0 7px 16px",
