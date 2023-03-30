@@ -72,7 +72,7 @@ const HeroBanner = ({ className, post, ...rest }) => {
           }}
         >
           <Typography
-            href={`/article/${post.slug}`}
+            href={`/article/${post?.slug}`}
             title={post?.title}
             variant="h1"
             component={Link}
