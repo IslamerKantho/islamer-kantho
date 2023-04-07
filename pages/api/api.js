@@ -1,5 +1,9 @@
 import client, { previewClient } from "./sanity";
 
+// Initialization
+const MAX_POSTS = 10;
+const MIN_POSTS = 0;
+
 const getUniquePosts = (posts) => {
   const slugs = new Set();
   return posts.filter((post) => {
@@ -19,7 +23,7 @@ const postFields = `
   _id,
   name,
   title,
-  'category': categories[0]-> {
+  'category': categories[]-> {
     title,
     'slug': slug.current
   },
@@ -129,18 +133,72 @@ export async function getAllPostsWithSlug() {
 }
 
 /**
+ * Get all posts.
+ *
+ * @param {boolean} preview
+ * @param {number} offset
+ * @param {number} limit
+ * @returns
+ */
+export async function getAllPosts(preview = false, offset, limit) {
+  let totalPosts = 0;
+  let offsetValue = parseInt(offset);
+  let limitValue = parseInt(limit);
+
+  // When offset value less than 0, set it to 0.
+  if (!offsetValue ||  offsetValue < MIN_POSTS ) offsetValue = MIN_POSTS;
+
+  // When limit is less than minimum valid limit or exceed a maximum valid limit, set it to 10.
+  if (!limitValue ||  limitValue <= MIN_POSTS || limitValue >  MAX_POSTS ) limitValue = MAX_POSTS;
+
+  // Defining Data range.
+  const range = `[${offsetValue}...${offsetValue + limitValue + 1}]`;
+
+  const query = `*[_type == "post"] | order(publishedAt desc) {
+      _id,
+      name,
+      title,
+      'category': categories[0]-> {
+        title,
+        'slug': slug.current
+      },
+      'date': {
+        'createdAt': _createdAt, 
+        'updatedAt': _updatedAt
+      },
+      excerpt,
+      'slug': slug.current,
+      'coverImage': mainImage,
+      'author': author->{_id, name, 'picture': image.asset->url},
+    } ${range}`;
+  const results = await getClient(preview).fetch(query);
+
+  // Get total posts.
+  totalPosts = await results.length;
+
+  // Remove extra post from the result. Which used for pagination.
+  await results.splice(limitValue);
+
+  // Check if there are more posts to fetch.
+  const isPaginate = totalPosts > limitValue;
+
+  return { data: getUniquePosts(results), isPaginate, offset: offsetValue + limitValue, length: results.length };
+}
+
+/**
  *
  * @param {boolean} preview
  * @param {array} range
  * @returns
  */
-export async function getAllPosts(preview, range) {
+export async function getAllPostsByCategory(preview, category, range) {
   let dataRange = (n) => (n ? `[${n[0]}...${n[1]}]` : `[]`);
+  let filter = `_type == "post" && "${category}" in (categories[]->slug.current)`;
   const query = `{
-    "data": *[_type == "post"] | order(publishedAt desc){
+    "data": *[${filter}] | order(publishedAt desc){
       ${postFields}
     } ${dataRange(range)},
-   "length": count(*[_type=="post"])
+   "length": count(*[${filter}])
    }`;
 
   const results = await getClient(preview).fetch(query);

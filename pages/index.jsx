@@ -1,8 +1,7 @@
 // Core Component
-import { Box, Button, Container, Divider, Grid } from "@mui/material";
+import { Box, Container, Divider, Grid } from "@mui/material";
 import Head from "next/head";
 import { useEffect } from "react";
-import { useMemo } from "react";
 import { useCallback } from "react";
 import { useState } from "react";
 // API Content
@@ -39,48 +38,38 @@ export default function Home({
   featuredPosts,
   recommendedPosts,
   allPosts,
-  length,
-  preview,
+  preview
 }) {
   const [featuredPost, setFeaturedPost] = useState(featuredPosts);
   const [recommendedPost, setRecommendedPost] = useState(recommendedPosts);
   const [recentArticles, setRecentArticles] = useState(allPosts);
-  const [pagination, setPagination] = useState({
-    page: 1,
-    postPerPage: 10,
-    totalPost: length,
-    totalPage: 0,
-  });
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    // Calculating & Updating total page number.
-    setPagination({
-      ...pagination,
-      totalPage: Math.ceil(
-        parseInt(pagination.totalPost) / parseInt(pagination.postPerPage)
-      ),
-    });
-  }, [pagination.totalPost, pagination.postPerPage]);
+    console.log(allPosts)
+  }, [allPosts]);
 
   /**
    * Load more button
    */
-  const loadArticleHandler = useCallback(async () => {
-    await fetch(
-      `/api/articles?page=${pagination.page + 1}&limit=${
-        pagination.postPerPage
-      }`
+  const loadMoreHandler = useCallback(() => {
+    setLoading(true);
+    fetch(
+      `/api/articles?offset=${recentArticles.offset}&limit=10`
     )
       .then((data) => data.json())
       .then((data) => {
-        setPagination({ ...pagination, page: pagination.page + 1 }); // Updating page number.
-        setRecentArticles([...recentArticles, ...data.data]); // Adding content to the state.
+        console.log("DATA", data)
+        setRecentArticles({...recentArticles, data:[...recentArticles.data, ... data.data], isPaginate: data.isPaginate, offset: data.offset}); // Adding content to the state.
+        setLoading(false);
+        console.log("FINAL DATA", recentArticles)
       })
-      // .then((posts) => console.log("Pagination: ", posts))
-      .catch((err) => console.error("Something wrong!"));
+      .catch((err) => {
+        console.error("Something wrong!");
+        setLoading(false);
+      });
 
-    console.log("Pagination: ", pagination);
-  }, [pagination]);
+  }, [recentArticles]);
 
   return (
     <>
@@ -93,12 +82,12 @@ export default function Home({
         <HeroBanner post={featuredPost[0]} />
 
         {/* This will contain latest updated contents */}
-        <TrendingPosts posts={featuredPost} />
+        <TrendingPosts posts={featuredPost.slice(1)} />
 
         {/* Recommended Articles */}
         {recommendedPost && (
           <BlockGridPostCard
-            postData={recommendedPost}
+            posts={recommendedPost}
             title="নির্বাচিত লেখাসমুহ"
           />
         )}
@@ -114,10 +103,10 @@ export default function Home({
             <Grid container spacing={5}>
               <Grid item xs={12} md={8.5}>
                 <BlockCardWide10x
-                  page={pagination.page}
-                  totalPage={pagination.totalPage}
-                  nextPage={loadArticleHandler}
-                  postData={recentArticles}
+                  posts={recentArticles.data}
+                  isPaginate={recentArticles.isPaginate}
+                  loading={loading}
+                  onLoadMore={loadMoreHandler}
                 />
               </Grid>
 
@@ -133,15 +122,14 @@ export default function Home({
 }
 
 export async function getStaticProps({ preview = false }) {
-  const allPostRange = [0, 10]; // Recent Article Range
-  const featuredArticleRange = [0, 6]; // Featured Content Range.
+  const featuredArticleRange = [0, 7]; // Featured Content Range.
 
   const featuredPosts = await getFeaturedPost(preview, featuredArticleRange);
   const recommendedPosts = await getRecommendedPost(preview, [0, 7]);
-  const { data, length } = await getAllPosts(preview, allPostRange);
+  const allPosts = await getAllPosts(preview, 0, 10);
 
   return {
-    props: { featuredPosts, recommendedPosts, allPosts: data, length, preview },
+    props: { featuredPosts, recommendedPosts, allPosts,  preview },
     revalidate: 60 * 60 * 6,
   };
 }

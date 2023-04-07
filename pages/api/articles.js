@@ -1,37 +1,27 @@
 import Cors from "cors";
 import { getAllPosts } from "./api";
 
+const MAX_POSTS = 10;
+const MIN_POSTS = 0;
+
 // Initializing the cors middleware
 // You can read more about the available options here: https://github.com/expressjs/cors#configuration-options
-const cors = Cors({
-  methods: ["POST", "GET"],
-});
-
-// Helper method to wait for a middleware to execute before continuing
-// And to throw an error when an error happens in a middleware
-function runMiddleware(req, res, fn) {
-  return new Promise((resolve, reject) => {
-    fn(req, res, (result) => {
-      if (result instanceof Error) {
-        return reject(result);
-      }
-
-      return resolve(result);
-    });
-  });
-}
+// const cors = Cors({
+//   methods: ["POST"],
+// });
 
 export default async function handler(req, res) {
-  const { page, limit } = await req.query;
+  let { offset, limit, category } = await req.query;
 
-  const lowerLimit = await ((page - 1) * limit);
-  const upperLimit = await (page * limit);
+  // When offset value less than 0, set it to 0.
+  if ( !offset || offset < 0 ) offset = 0;
 
-  console.log(req.query);
-  // Run the middleware
-  await runMiddleware(req, res, cors);
-  const response = await getAllPosts(false, [lowerLimit, upperLimit]);
+  // When limit is less than minimum valid limit or exceed a maximum valid limit, set it to 10.
+  if ( !limit || limit <= MIN_POSTS || limit >  MAX_POSTS ) limit = MAX_POSTS;
 
-  // Rest of the API logic
-  res.status(200).json(response);
+  console.log("PARAMS: ", req.query);
+
+  return getAllPosts(false, offset, limit).then((response) => {
+    return res.status(200).json(response);
+  });
 }

@@ -2,17 +2,15 @@ import { Box, Container, Grid } from "@mui/material";
 import CardGrid from "../../card/CardGrid";
 import SectionWidget from "../../SectionWidget";
 
-const BlockGridPostCard = ({ className, postData, title, ...rest }) => {
-  const allPosts = postData;
-
+const BlockGridPostCard = ({ className, posts, title, ...rest }) => {
   return (
     <>
       <Box component="section">
         <Container maxWidth="lg">
           <SectionWidget title={title} {...rest}>
             <Grid container spacing={2}>
-              {allPosts &&
-                allPosts.map((article) => (
+              {posts &&
+                posts?.map((article) => (
                   <Grid
                     item
                     key={article._id}
