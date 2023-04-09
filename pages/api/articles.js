@@ -21,7 +21,7 @@ export default async function handler(req, res) {
 
   console.log("PARAMS: ", req.query);
 
-  return getAllPosts(false, offset, limit).then((response) => {
+  return getAllPosts(false, offset, limit, category).then((response) => {
     return res.status(200).json(response);
   });
 }

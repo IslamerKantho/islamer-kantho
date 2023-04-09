@@ -138,12 +138,14 @@ export async function getAllPostsWithSlug() {
  * @param {boolean} preview
  * @param {number} offset
  * @param {number} limit
+ * @param {string} category
  * @returns
  */
-export async function getAllPosts(preview = false, offset, limit) {
+export async function getAllPosts(preview = false, offset, limit, category) {
   let totalPosts = 0;
   let offsetValue = parseInt(offset);
   let limitValue = parseInt(limit);
+  let categoryValue = category ?  `&& "${category}" in (categories[]->slug.current)` : "";
 
   // When offset value less than 0, set it to 0.
   if (!offsetValue ||  offsetValue < MIN_POSTS ) offsetValue = MIN_POSTS;
@@ -154,7 +156,7 @@ export async function getAllPosts(preview = false, offset, limit) {
   // Defining Data range.
   const range = `[${offsetValue}...${offsetValue + limitValue + 1}]`;
 
-  const query = `*[_type == "post"] | order(publishedAt desc) {
+  const query = `*[_type == "post" ${categoryValue}] | order(publishedAt desc) {
       _id,
       name,
       title,
@@ -187,8 +189,9 @@ export async function getAllPosts(preview = false, offset, limit) {
 
 /**
  *
- * @param {boolean} preview
  * @param {array} range
+ * @param {string} category
+ * @param {boolean} preview
  * @returns
  */
 export async function getAllPostsByCategory(preview, category, range) {

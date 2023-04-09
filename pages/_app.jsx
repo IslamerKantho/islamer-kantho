@@ -1,6 +1,5 @@
 import {
     createTheme,
-    ServerStyleSheets,
     ThemeProvider,
 } from "@material-ui/core/styles";
 import NextNProgress from "nextjs-progressbar";
@@ -8,11 +7,10 @@ import "../styles/error404.sass";
 import "../styles/index.sass";
 import Meta from "../components/Meta";
 import {Roboto} from "@next/font/google";
-import daynamic from "next/dynamic";
 import {DevSupport} from "@react-buddy/ide-toolbox-next";
 import {ComponentPreviews, useInitial} from "../components/dev";
 
-// const bangla = localFont({ src: "../assets/fonts/SolaimanLipi.ttf" });
+// const bangle = localFont({ src: "../assets/fonts/SolaimanLipi.ttf" });
 const bangla = Roboto({
     weight: ["400", "500", "700"],
 });
@@ -42,7 +40,7 @@ function App({Component, pageProps}) {
             <Meta/>
 
             <ThemeProvider theme={theme}>
-                <NextNProgress/>
+                <NextNProgress />
                 <DevSupport ComponentPreviews={ComponentPreviews}
                             useInitialHook={useInitial}
                 >
