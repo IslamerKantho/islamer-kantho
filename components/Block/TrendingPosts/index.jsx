@@ -3,7 +3,6 @@ import {
   Box,
   Card,
   CardActionArea,
-  Chip,
   Container,
   Grid,
   Stack,
@@ -13,7 +12,6 @@ import Link from "next/link";
 import React from "react";
 import { memo } from "react";
 import { imageBuilder } from "../../../pages/api/sanity";
-import { dateFormatter } from "../../../utils/date.utils";
 
 const TrendingPosts = ({ className, posts, ...rest }) => {
   return (
@@ -21,9 +19,8 @@ const TrendingPosts = ({ className, posts, ...rest }) => {
       className={className}
       component="section"
       sx={{
-        paddingTop: "40px",
-        paddingBottom: "40px",
-        borderBottom: "1px solid rgb(230, 230, 230)",
+        paddingTop: "16px",
+        paddingBottom: "20px",
       }}
       {...rest}
     >
@@ -31,13 +28,20 @@ const TrendingPosts = ({ className, posts, ...rest }) => {
         <Grid container spacing={2}>
           {posts.map((post, index) => (
             <Grid key={index} item xs={12} sm={6} md={4}>
-              <Card elevation={0}>
+              <Card elevation={0} sx={{
+                transition: "all 0.3s ease-in-out",
+                borderRadius: "4px",
+                "&:hover": {
+                    transform: "translateY(-5px)",
+                    transition: "all 0.3s ease-in-out"
+                }
+              }}>
                 <CardActionArea
                   href={`/article/${post?.slug}`}
                   component={Link}
                   sx={{
-                    minHeight: "154px",
-                    padding: "20px",
+                    minHeight: "134px",
+                    padding: "16px",
                     backgroundColor: "#f5f5f5",
                     display: "flex",
                     flexDirection: "column",
@@ -46,26 +50,25 @@ const TrendingPosts = ({ className, posts, ...rest }) => {
                   }}
                 >
                   <Box>
-                    <Chip
-                      label={dateFormatter(
-                        post?.date?.updatedAt
-                          ? post?.date?.updatedAt
-                          : post?.date?.createdAt
-                      )}
-                      size="small"
-                      sx={{
-                        color: "#797979",
-                        fontSize: "12px",
-                      }}
-                    />
+                    <Typography
+                        component="p"
+                        sx={{
+                          fontSize: "12px",
+                          lineHeight: "20px",
+                          color: "#797979",
+                          fontWeight: "700",
+                        }}
+                    >
+                      {post?.category?.title}
+                    </Typography>
 
                     <Typography
                       component="h3"
                       sx={{
-                        marginTop: "10px",
+                        marginTop: "4px",
                         fontSize: "15px",
                         lineHeight: "25px",
-                        color: "#292929",
+                        color: "#055547",
                         fontWeight: "700",
                       }}
                     >
@@ -85,14 +88,15 @@ const TrendingPosts = ({ className, posts, ...rest }) => {
                       }}
                     />
                     <Typography
-                      variant="body2"
-                      sx={{
-                        fontSize: "13px",
-                        lineHight: "13px",
-                        color: "#797979",
-                      }}
+                        variant="body2"
+                        sx={{
+                          marginBottom: "2px",
+                          fontSize: "13px",
+                          lineHeight: "16px",
+                          color: "#797979",
+                        }}
                     >
-                      {post?.author?.name} • {post?.category?.title}
+                      {post?.author?.name}
                     </Typography>
                   </Stack>
                 </CardActionArea>

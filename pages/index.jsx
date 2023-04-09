@@ -1,9 +1,6 @@
-import { Box, Container, Divider, Grid } from "@mui/material";
+import { Box, Container, Grid } from "@mui/material";
 import Head from "next/head";
-import { useCallback } from "react";
-import { useState } from "react";
-import BlockBanner from "../components/Block/BlockBanner";
-import BlockCardWide10x from "../components/Block/BlockCardWide10x";
+import { useCallback, useState} from "react";
 // import BlockCarouselFullWidth from "../components/Block/BlockCarouselFullWidth";
 import BlockGridPostCard from "../components/Block/BlockGridPostCard";
 import BlockSidebar from "../components/Block/BlockSidebar";
@@ -15,8 +12,8 @@ import {
   getFeaturedPost,
   getRecommendedPost
 } from "./api/api";
-// import dynamic from “next/dynamic”;
-
+import DottedDivider from "../components/Elements/DottedDivider";
+import dynamic from "next/dynamic";
 // const TrendingPosts = dynamic(() =>
 //   import("../components/Block/TrendingPosts")
 // );
@@ -24,10 +21,10 @@ import {
 // const BlockGridPostCard = dynamic(() =>
 //   import("../components/Block/BlockGridPostCard")
 // );
-// const BlockBanner = dynamic(() => import("../components/Block/BlockBanner"));
-// const BlockCardWide10x = dynamic(() =>
-//   import("../components/Block/BlockCardWide10x")
-// );
+const BlockBanner = dynamic(() => import("../components/Block/BlockBanner"));
+const BlockCardWide10x = dynamic(() =>
+  import("../components/Block/BlockCardWide10x")
+);
 
 export default function Home({
   featuredPosts,
@@ -69,11 +66,9 @@ export default function Home({
       </Head>
 
       <Layout>
-        {/* <NavigationHeader /> */}
         <HeroBanner post={featuredPost[0]} />
-
-        {/* This will contain latest updated contents */}
         <TrendingPosts posts={featuredPost.slice(1)} />
+        <DottedDivider />
 
         {/* Recommended Articles */}
         {recommendedPost && (
@@ -83,11 +78,9 @@ export default function Home({
           />
         )}
 
-        <Divider />
-        {/* Image Banner */}
+        <DottedDivider />
         <BlockBanner />
-
-        <Divider />
+        <DottedDivider />
 
         <Box component="section">
           <Container maxWidth="lg">
