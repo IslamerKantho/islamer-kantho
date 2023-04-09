@@ -12,7 +12,7 @@ module.exports = nextPWA({
   images: {
     domains: ["cdn.sanity.io", "images.unsplash.com"],
     formats: ["image/avif", "image/webp"],
-    minimumCacheTTL: 2592000,
+    minimumCacheTTL: 604800,
   },
   compiler: {
     emotion: true,
