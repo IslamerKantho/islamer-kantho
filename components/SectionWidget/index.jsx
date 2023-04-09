@@ -6,7 +6,7 @@ const SectionWidget = ({ title, children, ...rest }) => {
     <Box
       sx={{
         width: "100%",
-        padding: "40px 0",
+        padding: "26px 0",
       }}
       {...rest}
     >

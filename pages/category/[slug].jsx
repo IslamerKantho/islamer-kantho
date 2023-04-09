@@ -1,47 +1,35 @@
 import { Box, Button, Container } from "@mui/material";
-import { arDZ } from "date-fns/locale";
 import Head from "next/head";
-import PropsType from "prop-types";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback } from "react";
 import BlockGridPostCard from "../../components/Block/BlockGridPostCard";
 import Layout from "../../components/Layout";
-import { getAllPostsByCategory } from "../api/api";
+import {getAllPosts} from "../api/api";
 
-const PageArticles = ({ posts, length, slug, preview }) => {
-  const [articles, setArticles] = useState(posts);
-  const [pagination, setPagination] = useState({
-    page: 1,
-    postPerPage: 12,
-    totalPost: length,
-    totalPage: 0,
-  });
-
-  useEffect(() => {
-    // Calculating & Updating total page number.
-    setPagination({
-      ...pagination,
-      totalPage: Math.ceil(
-        parseInt(pagination.totalPost) / parseInt(pagination.postPerPage)
-      ),
-    });
-  }, []);
+const PageArticles = ({ data, slug, preview }) => {
+  const [articles, setArticles] = useState(data);
+  const [loading, setLoading] = useState(false);
 
   /**
-   * Load more button
+   * Load More Handler
    */
-  const loadArticleHandler = useCallback(async () => {
-    await fetch(
-      `/api/articles?page=${pagination.page + 1}&category=${slug}&limit=${
-        pagination.postPerPage
-      }`
+  const loadMoreHandler = useCallback(() => {
+    setLoading(true);
+    fetch(
+        `/api/articles?offset=${articles.offset}&limit=8&category=${slug}`
     )
-      .then((data) => data.json())
-      .then((data) => {
-        setPagination({ ...pagination, page: pagination.page + 1 }); // Updating page number.
-        setArticles([...articles, ...data.data]); // Adding content to the state.
-      })
-      .catch((err) => console.error("Something wrong!"));
-  }, [pagination, articles]);
+        .then((data) => data.json())
+        .then((data) => {
+          console.log("DATA", data)
+          setArticles({...articles, data:[...articles.data, ... data.data], isPaginate: data.isPaginate, offset: data.offset}); // Adding content to the state.
+          setLoading(false);
+          console.log("FINAL DATA", articles)
+        })
+        .catch(() => {
+          console.error("Something wrong!");
+          setLoading(false);
+        });
+
+  }, [articles, slug]);
 
   return (
     <>
@@ -50,40 +38,44 @@ const PageArticles = ({ posts, length, slug, preview }) => {
       </Head>
 
       <Layout preview={preview}>
-        <BlockGridPostCard posts={articles} />
+        <BlockGridPostCard
+            posts={articles.data}
+        />
 
         {/* Pagination  */}
-        <Container maxWidth="sm">
-          {pagination.page < pagination.totalPage && (
-            <Box
-              sx={{
-                width: "100%",
-                paddingTop: "10px",
-                paddingBottom: "30px",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <Button
-                variant="contained"
-                color="primary"
-                disableElevation
-                fullWidth
-                onClick={loadArticleHandler}
-                sx={{
-                  padding: { sm: "10px" },
-                  background: "#055547",
-                  "&:hover": {
-                    background: "#055547ee",
-                  },
-                }}
+          {articles.isPaginate  && (
+              <Container
+                  maxWidth="sm"
+                  sx={{ marginBottom: "30px" }}
               >
-                Load more
-              </Button>
-            </Box>
+                  <Box
+                      sx={{
+                          width: "100%",
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                      }}
+                  >
+                      <Button
+                          variant="contained"
+                          color="primary"
+                          disableElevation
+                          fullWidth
+                          disabled={loading}
+                          onClick={loadMoreHandler}
+                          sx={{
+                              padding: { sm: "10px" },
+                              background: "#055547",
+                              "&:hover": {
+                                  background: "#055547ee",
+                              },
+                          }}
+                      >
+                          Load more
+                      </Button>
+                  </Box>
+              </Container>
           )}
-        </Container>
       </Layout>
     </>
   );
@@ -92,27 +84,16 @@ const PageArticles = ({ posts, length, slug, preview }) => {
 export async function getServerSideProps(ctx) {
   ctx.res.setHeader(
     "Cache-Control",
-    "public, s-maxage=10, stale-while-revalidate=59"
+    "public, s-maxage=604800, stale-while-revalidate=86400"
   );
 
   const preview = false;
   const { slug } = ctx.query;
-  console.log(ctx.query);
-  const allPostRange = [0, 12]; // Recent Article Range
-  const { data, length } = await getAllPostsByCategory(
-    preview,
-    slug,
-    allPostRange
-  );
+  const articles = await getAllPosts(false, 0, 8, slug);
 
   return {
-    props: { posts: data, length, slug, preview },
+    props: { data: articles, slug, preview },
   };
 }
-
-PageArticles.propTypes = {
-  allPosts: PropsType.object,
-  preview: PropsType.bool,
-};
 
 export default PageArticles;

@@ -57,7 +57,7 @@ const ListMenu = ({ title, list, color, ...rest }) => {
                 }}
               >
                 <Box
-                  href={`/category${e.slug}`}
+                  href={`/category/${e.slug}`}
                   component={Link}
                   sx={{
                     padding: "7px 0 7px 16px",
