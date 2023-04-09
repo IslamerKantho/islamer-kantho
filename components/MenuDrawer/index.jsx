@@ -15,7 +15,7 @@ import daynamic from "next/dynamic";
 import { memo } from "react";
 const ListMenu = daynamic(() => import("./ListMenu"));
 
-const MenuDrawer = ({ isVisible, openHandler, closeHandler }) => {
+const MenuDrawer = ({ isVisible,  closeHandler }) => {
   const toggleDrawer = (e) => {
     if (e.type === "keydown" && (e.key === "Tab" || e.key === "Shift")) {
       return;
