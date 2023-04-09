@@ -10,7 +10,7 @@ import NextLink from "next/link";
 import { useState } from "react";
 import { BiSearch } from "react-icons/bi";
 import { IconContext } from "react-icons";
-import { SiPhpmyadmin } from "react-icons/si";
+import { FiUser } from "react-icons/fi";
 import dynamic from "next/dynamic";
 import { memo } from "react";
 const MenuDrawer = dynamic(() => import("../MenuDrawer"));
@@ -194,7 +194,8 @@ const Header = () => {
                 </Link>
 
                 <Link
-                  href="/studio"
+                  href="https://ik.sanity.studio"
+                  target={"_blank"}
                   underline="none"
                   sx={{
                     cursor: "pointer",
@@ -212,7 +213,7 @@ const Header = () => {
                     },
                   }}
                 >
-                  <SiPhpmyadmin title="Studio" />
+                  <FiUser title="Studio" />
                 </Link>
               </IconContext.Provider>
             </Box>
