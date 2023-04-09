@@ -25,22 +25,6 @@ export default function PrimaryNavigation() {
           font-weight: 600;
           color: #055547;
         }
-
-        /*
-                .ik_nav_primary .ik_container {
-                    height: 100%;
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    
-                }
-                
-                .ik_nav_primary .ik_container .ik_nav_brand,
-                .ik_nav_primary .ik_container .ik_nav_brand a {
-                    color: #2A2A2A;
-                    font-size: 22px;
-                    font-weight: 600;
-                } */
       `}</style>
     </>
   );

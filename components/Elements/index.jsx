@@ -1,1 +1,3 @@
-export DottedDivider from './DottedDivider';
+import DottedDivider from "./DottedDivider";
+
+export default {DottedDivider}

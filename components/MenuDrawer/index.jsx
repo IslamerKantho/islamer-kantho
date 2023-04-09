@@ -37,7 +37,8 @@ const MenuDrawer = ({ isVisible, openHandler, closeHandler }) => {
       position="sticky"
       sx={{
         width: { xs: "100%", sm: "400px" },
-        background: "#FFF",
+          color: "#fff",
+        background: "#055547",
         boxShadow: "none",
         pl: 2,
         borderBottom: "1px solid rgb(233, 236, 239)",
@@ -46,7 +47,7 @@ const MenuDrawer = ({ isVisible, openHandler, closeHandler }) => {
       <Toolbar
         disableGutters
         variant="dense"
-        role="presentation"
+        role=""
         onClick={toggleDrawer}
         onKeyDown={toggleDrawer}
       >
@@ -58,7 +59,7 @@ const MenuDrawer = ({ isVisible, openHandler, closeHandler }) => {
             component="a"
             sx={{
               mr: 2,
-              color: "#000000",
+              color: "#fff",
               display: "flex",
               fontWeight: 700,
               fontSize: "20px",
@@ -76,6 +77,7 @@ const MenuDrawer = ({ isVisible, openHandler, closeHandler }) => {
           sx={{
             ml: "auto",
             mr: 2,
+            color: "#fff",
           }}
         >
           {/* <IconContext.Provider> */}
@@ -83,7 +85,7 @@ const MenuDrawer = ({ isVisible, openHandler, closeHandler }) => {
             sx={{
               padding: "2px",
               borderRadius: "50%",
-              background: "#e3e3e3",
+              background: "#03483c",
             }}
           />
           {/* </IconContext.Provider> */}

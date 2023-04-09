@@ -52,20 +52,15 @@ const Header = () => {
             {/*************************************
              * Desktop Area Started
              ************************************/}
-            <Button
-              variant="outlined"
-              startIcon={<RiMenuLine />}
+            <IconButton
               onClick={openHandler}
               sx={{
-                display: { xs: "none", md: "flex" },
                 mr: 2,
-                borderRadius: 0,
                 color: "#FFF",
-                borderColor: "#FFF",
               }}
             >
-              MENU
-            </Button>
+                <RiMenuLine />
+            </IconButton>
 
             {/* <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} /> */}
             <Typography
