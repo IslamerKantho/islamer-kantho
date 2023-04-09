@@ -15,7 +15,6 @@ import {
   getFeaturedPost,
   getRecommendedPost
 } from "./api/api";
-
 // import dynamic from “next/dynamic”;
 
 // const TrendingPosts = dynamic(() =>
@@ -42,7 +41,7 @@ export default function Home({
   const [loading, setLoading] = useState(false);
 
   /**
-   * Load more button
+   * Load More Handler
    */
   const loadMoreHandler = useCallback(() => {
     setLoading(true);
