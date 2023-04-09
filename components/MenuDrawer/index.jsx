@@ -1,13 +1,7 @@
 import CloseIcon from "@mui/icons-material/Close";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
 import {
   AppBar,
   IconButton,
-  List,
-  ListItemButton,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
   Toolbar,
   Typography,
 } from "@mui/material";
@@ -15,8 +9,6 @@ import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import NextLink from "next/link";
 import {
-  SIDEBAR_CATAGORY,
-  SIDEBAR_LINKS,
   SIDE_MENU,
 } from "../../db/categories.db";
 import daynamic from "next/dynamic";

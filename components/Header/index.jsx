@@ -2,7 +2,6 @@ import { RiMenuLine } from "react-icons/ri";
 import { Link } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import IconButton from "@mui/material/IconButton";
 import Toolbar from "@mui/material/Toolbar";
@@ -29,10 +28,8 @@ const pages = [
 ];
 
 const Header = () => {
-  const [background, setBackground] = useState("#055547");
-  const [anchorElNav, setAnchorElNav] = useState(null);
+  const [background] = useState("#055547");
   const [isCatDrawerOpen, setIsCatDrawerOpen] = useState(false);
-
   const openHandler = () => setIsCatDrawerOpen(true);
   const closeHandler = () => setIsCatDrawerOpen(false);
 
