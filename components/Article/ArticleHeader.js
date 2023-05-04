@@ -2,6 +2,7 @@
 import { Avatar, Box, Chip, Grid, Stack, Typography } from "@mui/material";
 import PropTypes from "prop-types";
 import FormatterDate from "../FormatterDate";
+import { getFinalDate } from "../../utils/date.utils";
 
 const ArticleHeader = ({
   className,
@@ -45,8 +46,8 @@ const ArticleHeader = ({
                 variant="h1"
                 sx={{
                   marginTop: "10px",
-                  fontSize: { xs: "24px", md: "34px" },
-                  lineHeight: { xs: "32px", md: "42px" },
+                  fontSize: { xs: "24px !important" },
+                  lineHeight: { xs: "32px !important" },
                   color: "#2A2A2A",
                   fontWeight: 700,
                 }}
@@ -59,8 +60,8 @@ const ArticleHeader = ({
                 variant="body2"
                 sx={{
                   marginTop: "15px",
-                  fontSize: "15px",
-                  lineHeight: "25px",
+                  fontSize: "13px",
+                  lineHeight: "23px",
                   color: "#000000",
                 }}
               >
@@ -79,13 +80,15 @@ const ArticleHeader = ({
                 <Typography
                   className="ik_article__meta__author"
                   variant="body2"
-                  sx={{}}
+                  sx={{
+                    marginBottom: "6px", fontSize: "13px", lineHeight: "16px"
+                  }}
                 >
                   {author.name}
                 </Typography>
 
-                <Typography className="ik_article__meta__date" variant="body2">
-                  <FormatterDate dateString={date} />
+                <Typography className="ik_article__meta__date" variant="body2" sx={{fontSize: "12px", lineHeight: "16px", opacity: 0.8}}>
+                  {getFinalDate(date)}
                 </Typography>
               </Box>
             </Stack>

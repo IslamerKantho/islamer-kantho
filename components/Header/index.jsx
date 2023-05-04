@@ -112,7 +112,6 @@ const Header = () => {
                 alignItems: "center",
                 paddingLeft: "25px",
                 paddingRight: 20,
-                // justifyContent: "space-between",
               }}
             >
               {pages.map((page, i) => (

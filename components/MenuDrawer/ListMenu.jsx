@@ -1,5 +1,4 @@
-import { Box, Typography } from "@mui/material";
-import Link from "next/link";
+import { Box, Typography, Link } from "@mui/material";
 import { IconContext } from "react-icons";
 import { ImBook } from "react-icons/im";
 import { memo } from "react";
@@ -56,9 +55,13 @@ const ListMenu = ({ title, list, color, ...rest }) => {
                   float: "left",
                 }}
               >
-                <Box
+                <Link
+                  // href={{
+                  //   pathname: "/category/[slug]",
+                  //   query: { slug: e.slug },
+                  // }}
                   href={`/category/${e.slug}`}
-                  component={Link}
+                  // component={Link}
                   sx={{
                     padding: "7px 0 7px 16px",
                     color: "#111",
@@ -68,12 +71,15 @@ const ListMenu = ({ title, list, color, ...rest }) => {
                     alignItems: "center",
                     fontSize: "14px",
                     lineHeight: "36px",
+                    textDecoration: "none",
                     transform: "translate3d(0, 0, 0)",
                     borderRight: "1px solid #eee",
                     overflow: "hidden",
                   }}
                 >
+                  {/* Menu Icon */}
                   <Box
+                    component="span"
                     sx={{
                       width: "36px",
                       height: "36px",
@@ -87,7 +93,6 @@ const ListMenu = ({ title, list, color, ...rest }) => {
                   >
                     <IconContext.Provider
                       value={{
-                        // color: "#333",
                         color: color ? color : "#333",
                         style: {
                           width: "16px",
@@ -99,8 +104,9 @@ const ListMenu = ({ title, list, color, ...rest }) => {
                     </IconContext.Provider>
                   </Box>
 
+                  {/* Menu Title */}
                   {e.title}
-                </Box>
+                </Link>
               </Box>
             ))}
           </Box>

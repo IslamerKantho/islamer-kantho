@@ -1,21 +1,14 @@
 import CloseIcon from "@mui/icons-material/Close";
-import {
-  AppBar,
-  IconButton,
-  Toolbar,
-  Typography,
-} from "@mui/material";
+import { AppBar, IconButton, Toolbar, Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import NextLink from "next/link";
-import {
-  SIDE_MENU,
-} from "../../db/categories.db";
+import { SIDE_MENU } from "../../db/categories.db";
 import daynamic from "next/dynamic";
 import { memo } from "react";
 const ListMenu = daynamic(() => import("./ListMenu"));
 
-const MenuDrawer = ({ isVisible,  closeHandler }) => {
+const MenuDrawer = ({ isVisible, closeHandler }) => {
   const toggleDrawer = (e) => {
     if (e.type === "keydown" && (e.key === "Tab" || e.key === "Shift")) {
       return;
@@ -29,7 +22,7 @@ const MenuDrawer = ({ isVisible,  closeHandler }) => {
       position="sticky"
       sx={{
         width: { xs: "100%", sm: "400px" },
-          color: "#fff",
+        color: "#fff",
         background: "#055547",
         boxShadow: "none",
         pl: 2,
@@ -102,8 +95,6 @@ const MenuDrawer = ({ isVisible,  closeHandler }) => {
     </>
   );
 
-  // <Divider />
-
   return (
     <>
       <Drawer
@@ -119,17 +110,16 @@ const MenuDrawer = ({ isVisible,  closeHandler }) => {
         }}
       >
         {topBar} {/* Top Bar */}
-        {Object.keys(SIDE_MENU).map((k, i) =>
-          SIDE_MENU[k].list ? (
-            <ListMenu
-              key={i}
-              title={SIDE_MENU[k].title}
-              list={SIDE_MENU[k].list}
-              color={SIDE_MENU[k].color}
-            />
-          ) : (
-            <></>
-          )
+        {Object.keys(SIDE_MENU).map(
+          (k, i) =>
+            SIDE_MENU[k].list && (
+              <ListMenu
+                key={i}
+                title={SIDE_MENU[k].title}
+                list={SIDE_MENU[k].list}
+                color={SIDE_MENU[k].color}
+              />
+            )
         )}
         {footer}
       </Drawer>

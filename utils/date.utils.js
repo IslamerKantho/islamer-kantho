@@ -7,3 +7,11 @@ export const dateFormatter = (dateString) => {
 	const date = parseISO(dateString);
 	return <time dateTime={dateString}>{format(date, "LLLL	d, yyyy")}</time>;
 };
+
+export const getFinalDate = (dateObj) => {
+	if (dateObj.updatedAt) {
+		return dateFormatter(dateObj.updatedAt);
+	}
+
+	return dateFormatter(dateObj.createdAt);
+};
