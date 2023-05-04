@@ -56,7 +56,7 @@ const Header = () => {
                 color: "#FFF",
               }}
             >
-                <RiMenuLine />
+              <RiMenuLine />
             </IconButton>
 
             {/* <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} /> */}
@@ -80,20 +80,6 @@ const Header = () => {
             {/*************************************
              * Phone Area Started
              ************************************/}
-            <Box className="" sx={{ display: { xs: "flex", md: "none" } }}>
-              {/* Phone: Menu Toggle Button */}
-              <IconButton
-                size="large"
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                // onClick={handleOpenNavMenu}
-                onClick={openHandler}
-                color="inherit"
-              >
-                <RiMenuLine />
-              </IconButton>
-            </Box>
 
             {/* Brand logo for phone */}
             <Typography

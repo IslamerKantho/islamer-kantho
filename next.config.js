@@ -8,7 +8,6 @@ const nextPWA = require("next-pwa")({
 });
 
 module.exports = nextPWA({
-  reactStrictMode: false,
   images: {
     domains: ["cdn.sanity.io", "images.unsplash.com"],
     formats: ["image/avif", "image/webp"],
@@ -16,5 +15,40 @@ module.exports = nextPWA({
   },
   compiler: {
     emotion: true,
+  },
+  reactStrictMode: false,
+  poweredByHeader: false,
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          // {
+          //   key: 'Strict-Transport-Security',
+          //   value: 'max-age=31536000; includeSubDomains; preload',
+          // },
+          {
+            key: 'X-DNS-Prefetch-Control',
+            value: 'on',
+          },
+          {
+            key: 'X-Frame-Options',
+            value: 'SAMEORIGIN',
+          },
+          {
+            key: 'X-XSS-Protection',
+            value: '1; mode=block',
+          },
+          {
+            key: 'X-Content-Type-Options',
+            value: 'nosniff',
+          },
+          {
+            key: 'Referrer-Policy',
+            value: 'same-origin',
+          },
+        ],
+      },
+    ]
   },
 });
