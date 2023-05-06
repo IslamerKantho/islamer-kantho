@@ -71,7 +71,7 @@ const ArticleHeader = ({
           </Grid>
 
           <Grid item>
-            <Stack direction="row" spacing={2}>
+            <Stack direction="row" spacing={1}>
               <Box>
                 <Avatar alt={author.name} src={author.picture} sx={{}} />
               </Box>
@@ -79,15 +79,14 @@ const ArticleHeader = ({
               <Box>
                 <Typography
                   className="ik_article__meta__author"
-                  variant="body2"
                   sx={{
-                    marginBottom: "6px", fontSize: "13px", lineHeight: "16px"
+                    marginBottom: "4px", fontSize: "11px", lineHeight: "16px"
                   }}
                 >
                   {author.name}
                 </Typography>
 
-                <Typography className="ik_article__meta__date" variant="body2" sx={{fontSize: "12px", lineHeight: "16px", opacity: 0.8}}>
+                <Typography className="ik_article__meta__date"  sx={{fontSize: "11px", lineHeight: "16px", opacity: 0.8}}>
                   {getFinalDate(date)}
                 </Typography>
               </Box>

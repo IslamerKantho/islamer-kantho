@@ -1,4 +1,13 @@
-[27072021]
+[06052023]
+- Unnecessary fonts removed.
+- Font renamed to `HNT`.
+- `HNT` font added to `public/fonts` folder.
+- Font updated.
+- `/amader-bisoye` page added.
+- `/sompadokiyo` page added.
+- `/jugajuger-maddyom` page added.
+- Sidebar menu updated.
+- `url`/`slug` introduced on `MenuDrawer`.
 
 [22082021]
 1. Moved from 3 column to 2 column.

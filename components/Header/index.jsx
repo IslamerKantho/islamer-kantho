@@ -116,7 +116,7 @@ const Header = () => {
             >
               {pages.map((page, i) => (
                 <Link
-                  href={pages.url}
+                  href={page.url}
                   underline="none"
                   key={i}
                   sx={{
@@ -134,6 +134,8 @@ const Header = () => {
                       opacity: 0.8,
                     },
                   }}
+                  component={NextLink}
+                  passHref
                 >
                   {page.title}
                 </Link>
@@ -154,6 +156,7 @@ const Header = () => {
               }}
             >
               <IconContext.Provider value={{ size: 20 }}>
+                {/* Search */}
                 <Link
                   href="/search"
                   underline="none"
@@ -178,6 +181,7 @@ const Header = () => {
                   </Box>
                 </Link>
 
+                {/* Studio */}
                 <Link
                   href="https://ik.sanity.studio"
                   target={"_blank"}

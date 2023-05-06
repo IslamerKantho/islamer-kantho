@@ -28,14 +28,17 @@ const TrendingPosts = ({ className, posts, ...rest }) => {
         <Grid container spacing={2}>
           {posts.map((post, index) => (
             <Grid key={index} item xs={12} sm={6} md={4}>
-              <Card elevation={0} sx={{
-                transition: "all 0.3s ease-in-out",
-                borderRadius: "4px",
-                "&:hover": {
+              <Card
+                elevation={0}
+                sx={{
+                  transition: "all 0.3s ease-in-out",
+                  borderRadius: "4px",
+                  "&:hover": {
                     transform: "translateY(-5px)",
-                    transition: "all 0.3s ease-in-out"
-                }
-              }}>
+                    transition: "all 0.3s ease-in-out",
+                  },
+                }}
+              >
                 <CardActionArea
                   href={`/article/${post?.slug}`}
                   component={Link}
@@ -51,13 +54,13 @@ const TrendingPosts = ({ className, posts, ...rest }) => {
                 >
                   <Box>
                     <Typography
-                        component="p"
-                        sx={{
-                          fontSize: "12px",
-                          lineHeight: "20px",
-                          color: "#797979",
-                          fontWeight: "700",
-                        }}
+                      component="p"
+                      sx={{
+                        fontSize: "11px",
+                        lineHeight: "16px",
+                        color: "#797979",
+                        fontWeight: "700",
+                      }}
                     >
                       {post?.category?.title}
                     </Typography>
@@ -66,7 +69,7 @@ const TrendingPosts = ({ className, posts, ...rest }) => {
                       component="h3"
                       sx={{
                         marginTop: "4px",
-                        fontSize: "15px",
+                        fontSize: "14px",
                         lineHeight: "25px",
                         color: "#055547",
                         fontWeight: "700",
@@ -76,7 +79,7 @@ const TrendingPosts = ({ className, posts, ...rest }) => {
                     </Typography>
                   </Box>
 
-                  <Stack direction="row" spacing={2} sx={{ marginTop: "10px" }}>
+                  <Stack direction="row" spacing={1} sx={{ marginTop: "10px" }}>
                     <Avatar
                       src={imageBuilder(post?.author?.image)
                         .width(20)
@@ -88,13 +91,12 @@ const TrendingPosts = ({ className, posts, ...rest }) => {
                       }}
                     />
                     <Typography
-                        variant="body2"
-                        sx={{
-                          marginBottom: "2px",
-                          fontSize: "13px",
-                          lineHeight: "16px",
-                          color: "#797979",
-                        }}
+                      variant="body2"
+                      sx={{
+                        fontSize: "11px",
+                        lineHeight: "16px",
+                        color: "#797979",
+                      }}
                     >
                       {post?.author?.name}
                     </Typography>

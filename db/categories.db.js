@@ -1,4 +1,4 @@
-export const SIDE_MENU = {
+export const CATEGORIES = {
   article: {
     title: "প্রবন্ধ",
     color: "#055547",
@@ -129,37 +129,6 @@ export const SIDE_MENU = {
         _id: "",
         title: "শিক্ষাঙ্গন",
         slug: "shikkhangon",
-      },
-    ],
-  },
-  archive: {
-    title: "অন্যান্য",
-    color: "#055547",
-    list: [
-      {
-        _id: "",
-        title: "সম্পাদকীয়",
-        slug: "sompadokiyo",
-      },
-      {
-        _id: "",
-        title: "আর্কাইভ",
-        slug: "archive",
-      },
-      {
-        _id: "",
-        title: "লেখা পাঠানোর নিয়মাবলী",
-        slug: "lekha-patanur-niyomaboli",
-      },
-      {
-        _id: "",
-        title: "আমাদের পরিচিতি",
-        slug: "amader-porichithi",
-      },
-      {
-        _id: "",
-        title: "যোগাযোগের মাধ্যেম",
-        slug: "jugajuger-maddyom",
       },
     ],
   },

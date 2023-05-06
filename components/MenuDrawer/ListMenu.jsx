@@ -33,7 +33,7 @@ const ListMenu = ({ title, list, color, ...rest }) => {
         </Box>
 
         {/* Categories*/}
-        <Box sx={{}}>
+        <Box>
           <Box
             component="ul"
             sx={{
@@ -56,11 +56,7 @@ const ListMenu = ({ title, list, color, ...rest }) => {
                 }}
               >
                 <Link
-                  // href={{
-                  //   pathname: "/category/[slug]",
-                  //   query: { slug: e.slug },
-                  // }}
-                  href={`/category/${e.slug}`}
+                  href={e.slug ? `/category/${e.slug}` : e.url}
                   // component={Link}
                   sx={{
                     padding: "7px 0 7px 16px",

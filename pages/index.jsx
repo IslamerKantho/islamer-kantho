@@ -1,17 +1,13 @@
 import { Box, Container, Grid } from "@mui/material";
 import Head from "next/head";
-import { useCallback, useState} from "react";
+import { useCallback, useState } from "react";
 // import BlockCarouselFullWidth from "../components/Block/BlockCarouselFullWidth";
 import BlockGridPostCard from "../components/Block/BlockGridPostCard";
 import BlockSidebar from "../components/Block/BlockSidebar";
 import TrendingPosts from "../components/Block/TrendingPosts";
 import HeroBanner from "../components/HeroBanner";
 import Layout from "../components/Layout";
-import {
-  getAllPosts,
-  getFeaturedPost,
-  getRecommendedPost
-} from "./api/api";
+import { getAllPosts, getFeaturedPost, getRecommendedPost } from "./api/api";
 import DottedDivider from "../components/Elements/DottedDivider";
 import dynamic from "next/dynamic";
 // const TrendingPosts = dynamic(() =>
@@ -42,21 +38,23 @@ export default function Home({
    */
   const loadMoreHandler = useCallback(() => {
     setLoading(true);
-    fetch(
-      `/api/articles?offset=${recentArticles.offset}&limit=10`
-    )
+    fetch(`/api/articles?offset=${recentArticles.offset}&limit=10`)
       .then((data) => data.json())
       .then((data) => {
-        console.log("DATA", data)
-        setRecentArticles({...recentArticles, data:[...recentArticles.data, ... data.data], isPaginate: data.isPaginate, offset: data.offset}); // Adding content to the state.
+        console.log("DATA", data);
+        setRecentArticles({
+          ...recentArticles,
+          data: [...recentArticles.data, ...data.data],
+          isPaginate: data.isPaginate,
+          offset: data.offset,
+        }); // Adding content to the state.
         setLoading(false);
-        console.log("FINAL DATA", recentArticles)
+        console.log("FINAL DATA", recentArticles);
       })
       .catch(() => {
         console.error("Something wrong!");
         setLoading(false);
       });
-
   }, [recentArticles]);
 
   return (
@@ -113,7 +111,7 @@ export async function getStaticProps({ preview = false }) {
   const allPosts = await getAllPosts(false, 0, 10);
 
   return {
-    props: { featuredPosts, recommendedPosts, allPosts,  preview },
+    props: { featuredPosts, recommendedPosts, allPosts, preview },
     revalidate: 60 * 60 * 6,
   };
 }

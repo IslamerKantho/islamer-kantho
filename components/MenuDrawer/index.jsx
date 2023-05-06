@@ -3,7 +3,8 @@ import { AppBar, IconButton, Toolbar, Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import NextLink from "next/link";
-import { SIDE_MENU } from "../../db/categories.db";
+import { CATEGORIES } from "../../db/categories.db";
+import { SIDE_MENU } from "../../db/sidebar_menu.db";
 import daynamic from "next/dynamic";
 import { memo } from "react";
 const ListMenu = daynamic(() => import("./ListMenu"));
@@ -110,6 +111,19 @@ const MenuDrawer = ({ isVisible, closeHandler }) => {
         }}
       >
         {topBar} {/* Top Bar */}
+        {/* Categories */}
+        {Object.keys(CATEGORIES).map(
+          (k, i) =>
+            CATEGORIES[k].list && (
+              <ListMenu
+                key={i}
+                title={CATEGORIES[k].title}
+                list={CATEGORIES[k].list}
+                color={CATEGORIES[k].color}
+              />
+            )
+        )}
+        {/* Menu */}
         {Object.keys(SIDE_MENU).map(
           (k, i) =>
             SIDE_MENU[k].list && (

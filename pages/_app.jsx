@@ -2,16 +2,16 @@ import { createTheme, ThemeProvider } from "@material-ui/core/styles";
 import NextNProgress from "nextjs-progressbar";
 import "../styles/error404.sass";
 import "../styles/index.sass";
+import "../styles/fonts.sass";
 import Meta from "../components/Meta";
-import { Roboto } from "@next/font/google";
 import { DevSupport } from "@react-buddy/ide-toolbox-next";
 import { ComponentPreviews, useInitial } from "../components/dev";
 
 // const bangle = localFont({ src: "../assets/fonts/SolaimanLipi.ttf" });
-const bangla = Roboto({
-  weight: ["400", "500", "700"],
-  subsets: ["latin"],
-});
+// const bangla = Roboto({
+//   weight: ["400", "500", "700"],
+//   subsets: ["latin"],
+// });
 
 const theme = createTheme({
   palette: {
@@ -24,11 +24,9 @@ const theme = createTheme({
     },
   },
   typography: {
-    // fontFamily: ["Inter", "sans-serif"].join(","),
-    // fontFamily: [inter.style.fontFamily, "sans-serif"].join(","),
-    fontFamily: `"Helvetica","Roboto","Arial",sans-serif`,
+    fontFamily: `"HNT","Inter","Roboto","Arial",sans-serif`,
     fontSize: 13,
-    lineHeight: 20,
+    fontWeightLight: 400,
   },
 });
 
@@ -46,26 +44,6 @@ function App({ Component, pageProps }) {
           <Component {...pageProps} />
         </DevSupport>
       </ThemeProvider>
-
-      <style jsx global>{`
-        html,
-        body,
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6,
-        p,
-        span,
-        a {
-           {
-            /* font-family: ${bangla.style.fontFamily}; */
-          }
-          font-family: "Helvetica", ${bangla.style.fontFamily}, "Arial",
-            sans-serif;
-        }
-      `}</style>
     </>
   );
 }
