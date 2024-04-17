@@ -8,7 +8,7 @@ import TrendingPosts from "../components/Block/TrendingPosts";
 import HeroBanner from "../components/HeroBanner";
 import Layout from "../components/Layout";
 import { getAllPosts, getFeaturedPost, getRecommendedPost } from "./api/api";
-import DottedDivider from "../components/Elements/DottedDivider";
+import DottedDivider from "../components/DottedDivider";
 import dynamic from "next/dynamic";
 // const TrendingPosts = dynamic(() =>
 //   import("../components/Block/TrendingPosts")

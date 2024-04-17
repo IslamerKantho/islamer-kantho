@@ -3,10 +3,10 @@ import { AppBar, IconButton, Toolbar, Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import NextLink from "next/link";
-import { CATEGORIES } from "../../db/categories.db";
 import { SIDE_MENU } from "../../db/sidebar_menu.db";
 import daynamic from "next/dynamic";
 import { memo } from "react";
+import { CATEGORIES } from "../../db/categories.db";
 const ListMenu = daynamic(() => import("./ListMenu"));
 
 const MenuDrawer = ({ isVisible, closeHandler }) => {

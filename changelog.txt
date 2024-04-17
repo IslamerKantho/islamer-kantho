@@ -1,5 +1,6 @@
 [17042024]
 1. Added `.env.example` file for environment variables.
+2. Moved content to `src` directory.
 
 [19072022]
 1. Redeploying

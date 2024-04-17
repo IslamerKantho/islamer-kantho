@@ -1,21 +1,31 @@
-const runtimeCaching = require("next-pwa/cache");
-const nextPWA = require("next-pwa")({
-  disable: process.env.NODE_ENV === "development",
-  dest: "public",
-  register: true,
-  skipWaiting: true,
-  runtimeCaching,
-});
+// const runtimeCaching = require("next-pwa/cache");
+// const nextPWA = require("next-pwa")({
+//   disable: process.env.NODE_ENV === "development",
+//   dest: "public",
+//   register: true,
+//   skipWaiting: true,
+//   runtimeCaching,
+// });
 
-module.exports = nextPWA({
+const config = {
   images: {
-    domains: ["cdn.sanity.io", "images.unsplash.com"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+      },
+      {
+        protocol: "https",
+        hostname: "cdn.sanity.io",
+      }
+    ],
+    // domains: ["cdn.sanity.io", "images.unsplash.com"],
     formats: ["image/avif", "image/webp"],
     minimumCacheTTL: 604800,
   },
-  compiler: {
-    emotion: true,
-  },
+  // compiler: {
+  //   emotion: true,
+  // },
   reactStrictMode: false,
   poweredByHeader: false,
   async headers() {
@@ -51,4 +61,6 @@ module.exports = nextPWA({
       },
     ]
   },
-});
+}
+
+module.exports = process.env.NODE_ENV === "production" ? nextPWA(config) : config;
