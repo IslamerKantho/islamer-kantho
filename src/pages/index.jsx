@@ -2,7 +2,7 @@ import { Box, Container, Grid } from "@mui/material";
 import Head from "next/head";
 import { useCallback, useState } from "react";
 // import BlockCarouselFullWidth from "../components/Block/BlockCarouselFullWidth";
-import BlockGridPostCard from "../components/Block/BlockGridPostCard";
+import BlockPostCarSlider from "../components/Block/BlockPostCarSlider";
 import BlockSidebar from "../components/Block/BlockSidebar";
 import TrendingPosts from "../components/Block/TrendingPosts";
 import HeroBanner from "../components/HeroBanner";
@@ -14,8 +14,8 @@ import dynamic from "next/dynamic";
 //   import("../components/Block/TrendingPosts")
 // );
 // const BlockSidebar = dynamic(() => import("../components/Block/BlockSidebar"));
-// const BlockGridPostCard = dynamic(() =>
-//   import("../components/Block/BlockGridPostCard")
+// const BlockPostCarSlider = dynamic(() =>
+//   import("../components/Block/BlockPostCarSlider")
 // );
 const BlockBanner = dynamic(() => import("../components/Block/BlockBanner"));
 const BlockCardWide10x = dynamic(() =>
@@ -70,7 +70,7 @@ export default function Home({
 
         {/* Recommended Articles */}
         {recommendedPost && (
-          <BlockGridPostCard
+          <BlockPostCarSlider
             posts={recommendedPost}
             title="নির্বাচিত লেখাসমুহ"
           />

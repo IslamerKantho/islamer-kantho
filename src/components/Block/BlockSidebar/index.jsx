@@ -9,7 +9,7 @@ const BlockSidebar = () => {
         component="aside"
         sx={{
           width: "100%",
-          padding: { xs: "0 10px 20px 20px", sm: "40px 0" },
+          padding: { xs: "0 10px 20px 20px", sm: "50px 0" },
           position: "sticky",
           top: 0,
           display: "block",
