@@ -1,8 +1,6 @@
 import {
-  Avatar,
   Box,
   Card,
-  CardActionArea,
   Container,
   Grid,
   Stack,
@@ -11,30 +9,24 @@ import {
 import Link from "next/link";
 import React from "react";
 import { memo } from "react";
-import { imageBuilder } from "../../../pages/api/sanity";
 import clsx from "clsx";
 import FormatterDate from "../../FormatterDate";
-import { th } from "date-fns/locale";
 
 const PostCard = ({ className, post, ...rest }) => {
   return (
     <Card
       elevation={0}
       sx={{
+        height: "100%",
         background: "#FFF",
         transition: "all 0.3s ease-in-out",
-        borderRadius: "4px",
-        // "&:hover": {
-        //   transform: "translateY(-5px)",
-        //   transition: "all 0.3s ease-in-out",
-        // },
+        borderRadius: "0",
+        
       }}
     >
       <Box
         sx={{
-          minHeight: "102px",
-          // padding: "16px",
-          // backgroundColor: "#f5f5f5",
+          height: "100%",
           display: "flex",
           flexDirection: "column",
           alignItems: "flex-start",
@@ -75,6 +67,7 @@ const PostCard = ({ className, post, ...rest }) => {
 
           <Typography
             component="h3"
+            title={post?.title}
             sx={{
               marginTop: "4px",
               fontSize: "15px",
@@ -97,16 +90,6 @@ const PostCard = ({ className, post, ...rest }) => {
         </Box>
 
         <Stack direction="row" spacing={1} sx={{ marginTop: "10px" }}>
-          {/* <Avatar
-            src={imageBuilder(post?.author?.image)
-              .width(20)
-              .height(20)
-              .url()}
-            sx={{
-              height: "20px",
-              width: "20px",
-            }}
-          /> */}
           <Typography
             variant="body2"
             sx={{
@@ -125,9 +108,34 @@ const PostCard = ({ className, post, ...rest }) => {
 
 const PostCardGrid = ({ posts }) => {
   return (
-        <Grid container spacing={2}>
+        <Grid container>
           {posts.map((post, index) => (
-            <Grid key={index} item xs={12} sm={6} md={4}>
+            <Grid 
+            key={index} 
+            item 
+            xs={12} 
+            sm={6} 
+            md={4}
+            sx={{
+              minHeight: "120px",
+              padding: "12px 0",
+              borderBottom: "1px solid #eeeeee",
+              "@media (min-width: 960px)": {
+              "&:nth-of-type(3n + 1)>div": {
+                paddingRight: "12px",
+                borderRight: "1px solid #eee"
+              },
+              "&:nth-of-type(3n + 2)>div": {
+                paddingLeft: "12px",
+                paddingRight: "12px",
+                borderRight: "1px solid #eee"
+              },
+              "&:nth-of-type(3n)>div": {
+                paddingLeft: "12px",
+              }
+            }
+            }}
+            >
               <PostCard post={post} />
             </Grid>
           ))}
