@@ -4,12 +4,14 @@ import {
   CardContent,
   CardMedia,
   Chip,
+  Stack,
   Typography,
 } from "@mui/material";
 import Image from "next/image";
 import NextLink from "next/link";
 import { imageBuilder } from "../../../pages/api/sanity";
 import { truncate } from "../../../utils/string.utils";
+import Link from "next/link";
 
 const CardFullWide = ({ className, postData, ...rest }) => {
   return (
@@ -66,7 +68,35 @@ const CardFullWide = ({ className, postData, ...rest }) => {
           }}
         >
           <Box>
-            <Chip label={postData?.category?.title} size="small" />
+            
+          <Stack direction="row" spacing={1}>
+            <Typography
+              href={`/category/${postData?.category?.slug}`} 
+              passHref
+              style={{ textDecoration: "none" }}
+              component={Link}
+              sx={{
+                color: "#044f4f",
+                fontSize: "11px",
+                // lineHeight: "16px",
+                // color: "#797979",
+                fontWeight: "700",
+              }}
+            >
+              {postData?.category?.title} 
+            </Typography>
+            <Typography
+              component="p"
+              sx={{
+                fontSize: "11px",
+                lineHeight: "16px",
+                color: "#797979",
+                fontWeight: "700",
+              }}
+            >
+              • {postData?.author?.name}
+            </Typography>
+          </Stack>
           </Box>
 
           <Typography

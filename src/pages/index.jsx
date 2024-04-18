@@ -66,7 +66,7 @@ export default function Home({
       <Layout>
         <HeroBanner post={featuredPost[0]} />
         <TrendingPosts posts={featuredPost.slice(1)} />
-        <DottedDivider />
+        {/* <DottedDivider /> */}
 
         {/* Recommended Articles */}
         {recommendedPost && (
@@ -76,7 +76,7 @@ export default function Home({
           />
         )}
 
-        <DottedDivider />
+        {/* <DottedDivider /> */}
         <BlockBanner />
         <DottedDivider />
 
@@ -104,7 +104,7 @@ export default function Home({
 }
 
 export async function getStaticProps({ preview = false }) {
-  const featuredArticleRange = [0, 7]; // Featured Content Range.
+  const featuredArticleRange = [0, 10]; // Featured Content Range.
 
   const featuredPosts = await getFeaturedPost(preview, featuredArticleRange);
   const recommendedPosts = await getRecommendedPost(preview, [0, 7]);
@@ -112,6 +112,6 @@ export async function getStaticProps({ preview = false }) {
 
   return {
     props: { featuredPosts, recommendedPosts, allPosts, preview },
-    revalidate: 60 * 60 * 6,
+    revalidate: 60 * 60 * 12,
   };
 }

@@ -3,7 +3,7 @@ import { Box, Container } from "@mui/material";
 function DottedDivider() {
   return (
     <Container
-      maxWidth="lg"
+      maxWidth="xl"
       sx={{
         paddingLeft: "20px",
         paddingRight: "20px",

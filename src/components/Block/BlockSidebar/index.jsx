@@ -10,7 +10,8 @@ const BlockSidebar = () => {
         sx={{
           width: "100%",
           padding: { xs: "0 10px 20px 20px", sm: "40px 0" },
-          position: "relative",
+          position: "sticky",
+          top: 0,
           display: "block",
         }}
       >

@@ -7,8 +7,7 @@ const BlockBanner = ({ className }) => {
       <Box
         className={className}
         sx={{
-          paddingTop: "80px",
-          paddingBottom: "80px",
+          padding: "100px 0",
           // background: "#055547",
         }}
       >
