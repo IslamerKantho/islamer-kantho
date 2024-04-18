@@ -25,7 +25,7 @@ function App({ Component, pageProps }) {
       <ThemeProvider theme={theme}>
         <NextNProgress color="#D1BB9E"  />
           <Component {...pageProps} />
-          <GoogleTagManager gtmId="G-8BVMCD0568" />
+          <GoogleTagManager gtmId="GTM-MWLK3D76" />
       </ThemeProvider>
     </>
   );
