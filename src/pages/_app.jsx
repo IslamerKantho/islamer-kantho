@@ -7,6 +7,7 @@ import "../styles/index.sass";
 import "../styles/fonts.sass";
 import Meta from "../components/Meta";
 import theme from "../styles/theme";
+import {GoogleTagManager} from '@next/third-parties/google'
 
 // const bangle = localFont({ src: "../assets/fonts/SolaimanLipi.ttf" });
 // const bangla = Roboto({
@@ -24,6 +25,7 @@ function App({ Component, pageProps }) {
       <ThemeProvider theme={theme}>
         <NextNProgress color="#D1BB9E"  />
           <Component {...pageProps} />
+          <GoogleTagManager gtmId="G-8BVMCD0568" />
       </ThemeProvider>
     </>
   );
