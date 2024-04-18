@@ -1,11 +1,11 @@
-import 'swiper/css';
 import SectionWidget from "../../SectionWidget";
 import { memo } from "react";
-import {Swiper, SwiperSlide} from "swiper/react";import { imageBuilder } from "../../../pages/api/sanity";
+import { imageBuilder } from "../../../pages/api/sanity";
 import {
-  Box,Container,
+  Grid,
+    Box,Container,
   Card,
-  CardActionArea,
+CardActionArea,
   CardContent,
   Chip,
   Typography,
@@ -21,7 +21,7 @@ const PostCard = ({ cardData }) => {
     <Card
       component="article"
       key={article.slug}
-      sx={{
+            sx={{
         width: "100%",
         background: "#fff",
         borderRadius: "5px",
@@ -84,38 +84,28 @@ const PostCard = ({ cardData }) => {
 
 const PostGrid = ({ posts}) => {
   return (
-    // <Grid container spacing={2}>
-    <Swiper
-        slidesPerView={4}
-        spaceBetween={20}
-        freeMode={true}
-        // modules={[FreeMode, Pagination]}
-        className="mySwiper"
-      >
+    <Grid container spacing={2}>
       {posts &&
         posts?.map((article) => (
-          // <Grid
-          //   item
-          //   key={article._id}
-          //   xs={12}
-          //   sm={6}
-          //   md={3}
-          //   sx={{ width: "100%" }}
-          // >
-          <SwiperSlide key={article._id}>
+          <Grid
+            item
+            key={article._id}
+            xs={12}
+            sm={6}
+            md={3}
+            sx={{ width: "100%" }}
+          >
             <PostCard cardData={article} />
-          </SwiperSlide>
-          // </Grid>
+          </Grid>
         ))}
-    {/* </Grid> */}
-    </Swiper>
+    </Grid>
   )
 }
 
 const BlockGridPostCard = ({ className, posts, title, ...rest }) => {
   return (
     <>
-      <Box component="section" sx={{backgroundColor: "#ECECEC"}}>
+      <Box component="section">
         <Container maxWidth="lg">
           <SectionWidget title={title} {...rest}>
             <PostGrid posts={posts} />

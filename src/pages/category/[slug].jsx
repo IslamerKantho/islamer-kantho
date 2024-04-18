@@ -85,7 +85,7 @@ export async function getServerSideProps(ctx) {
 
   const preview = false;
   const { slug } = ctx.query;
-  const articles = await getAllPosts(false, 0, 8, slug);
+  const articles = await getAllPosts(false, 0, 12, slug);
 
   return {
     props: { data: articles, slug, preview },
