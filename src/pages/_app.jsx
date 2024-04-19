@@ -1,7 +1,6 @@
-import "./../styles/globals.css";
-import "./../styles/tailwind.css";
 import { ThemeProvider } from "@material-ui/core/styles";
 import NextNProgress from "nextjs-progressbar";
+import "./../styles/globals.css";
 import "../styles/error404.sass";
 import "../styles/index.sass";
 import "../styles/fonts.sass";
