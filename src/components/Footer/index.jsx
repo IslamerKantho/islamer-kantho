@@ -35,8 +35,6 @@ const Footer = ({ className }) => {
         className="w-full px-0 pt-16 pb-20 bg-[#31313B] text-[#8E8E93]"
         component="footer"
       >
-
-
         <Box>
           <Container className="w-full" maxWidth="lg">
             
@@ -52,11 +50,9 @@ const Footer = ({ className }) => {
             </Container>
             
           <Container className="w-full mt-10" maxWidth="lg">
-            <Typography className="text-xs">Scientific American is part of Springer Nature, which owns or has commercial relations with thousands of scientific publications (many of them can be found at www.springernature.com/us). Scientific American maintains a strict policy of editorial independence in reporting developments in science to our readers.</Typography>
+            <Typography className="text-xs leading-5">“ইসলামের কন্ঠ” এর মাধ্যমে জনসম্মূখে ‘আহলে সুন্নাত ওয়াল জামাআত’ এর আক্বীদাহ অনুযায়ী ইসলামের সঠিক চিত্র উপস্থাপন, সেই সাথে অপব্যাখ্যা ও ভ্রান্ত ধারনা নিরসনের লক্ষ্যে কাজ করা আমাদের একমাত্র উদ্দেশ্য। ‘ইসলামের কন্ঠ, বাংলা ভাষায় বিশুদ্ধ ইসলামী জ্ঞানের ক্ষেত্র হিসেবে বিবেচিত হবে, ইনশা আল্লাহ। আল্লাহুম্মা আমীন।</Typography>
             
             <Box className="mt-5">
-              {/* Footer Links */}
-              
                 {LINKS.map((item) => (
                   <Typography
                     key={item.title}
