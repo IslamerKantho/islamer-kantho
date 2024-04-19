@@ -28,7 +28,7 @@ const LINKS = [
     url: "/terms",
   },
 ];
-const BlockFooter = ({ className }) => {
+const Footer = ({ className }) => {
   return (
     <>
       <Box
@@ -77,4 +77,4 @@ const BlockFooter = ({ className }) => {
   );
 };
 
-export default BlockFooter;
+export default Footer;

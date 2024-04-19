@@ -13,7 +13,12 @@ module.exports = {
     "./src/components/**/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      // fontFamily: `"HNT","Inter","Roboto","Arial",sans-serif`,
+      fontFamily: {
+        sans: ["HNT", "Inter", "Roboto", "Arial", "sans-serif"],
+      },
+    },
   },
   plugins: [import('@tailwindcss/forms')],
 }
