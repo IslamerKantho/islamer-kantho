@@ -55,7 +55,7 @@ const Header = () => {
         elevation={0}
         position="sticky"
       >
-        <Container maxWidth="xl">
+        <Container className="max-w-[1280px]" maxWidth="xl">
           <Toolbar disableGutters variant="dense">
             {/*************************************
              * Desktop Area Started

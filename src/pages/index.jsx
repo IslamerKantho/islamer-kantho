@@ -41,7 +41,6 @@ export default function Home({
     fetch(`/api/articles?offset=${recentArticles.offset}&limit=10`)
       .then((data) => data.json())
       .then((data) => {
-        console.log("DATA", data);
         setRecentArticles({
           ...recentArticles,
           data: [...recentArticles.data, ...data.data],
@@ -49,7 +48,6 @@ export default function Home({
           offset: data.offset,
         }); // Adding content to the state.
         setLoading(false);
-        console.log("FINAL DATA", recentArticles);
       })
       .catch(() => {
         console.error("Something wrong!");
@@ -81,7 +79,7 @@ export default function Home({
         <DottedDivider />
 
         <Box component="section">
-          <Container maxWidth="lg">
+          <Container className="max-w-[1280px]" maxWidth="lg">
             <Grid container spacing={5}>
               <Grid item xs={12} md={8.5}>
                 <BlockCardWide10x

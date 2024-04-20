@@ -12,7 +12,7 @@ const BlockBanner = ({ className }) => {
           // background: "#055547",
         }}
       >
-        <Container maxWidth={"md"}>
+        <Container className="max-w-[1280px]" maxWidth={"md"}>
           <Typography
             className="text-center mb-1 text-lg font-[600]"
             variant="h2"

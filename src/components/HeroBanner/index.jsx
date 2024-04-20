@@ -60,7 +60,7 @@ const HeroBanner = ({ className, post, ...rest }) => {
           background: "#00000065",
         }}
       >
-        <Container
+        <Container className="max-w-[1280px]"
           maxWidth="lg"
           sx={{
             height: "100%",

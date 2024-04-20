@@ -15,69 +15,35 @@ import FormatterDate from "../../FormatterDate";
 const PostCard = ({ className, post, ...rest }) => {
   return (
     <Card
+      className="h-full bg-white rounded-none [transition:all_0.3s_ease-in-out]"
       elevation={0}
-      sx={{
-        height: "100%",
-        background: "#FFF",
-        transition: "all 0.3s ease-in-out",
-        borderRadius: "0",
-        
-      }}
     >
       <Box
-        sx={{
-          height: "100%",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "flex-start",
-          // justifyContent: "space-between",
-          justifyContent: "flex-start",
-          textDecoration: "none",
-        }}
+        className="h-full flex flex-col items-start justify-start no-underline"
       >
         <Box>
           <Stack direction="row" spacing={1}>
             <Typography
+              className="color-primary text-[11px] font-bold leading-4"
               href={`/category/${post?.category?.slug}`} 
               passHref
               style={{ textDecoration: "none" }}
               component={Link}
-              sx={{
-                color: "#044f4f",
-                fontSize: "11px",
-                lineHeight: "16px",
-                // color: "#797979",
-                fontWeight: "700",
-              }}
             >
               {post?.category?.title} 
             </Typography>
             <Typography
+              className="text-stone-400 text-[11px] font-bold leading-4"
               component="p"
-              sx={{
-                fontSize: "11px",
-                lineHeight: "16px",
-                color: "#797979",
-                fontWeight: "700",
-              }}
             >
               • {post?.author?.name}
             </Typography>
           </Stack>
 
           <Typography
+            className="mt-1 text-primary text-[15px] font-bold leading-5 [&>a]:hover:opacity-75"
             component="h3"
             title={post?.title}
-            sx={{
-              marginTop: "4px",
-              fontSize: "15px",
-              lineHeight: "25px",
-              color: "#055547",
-              fontWeight: "700",
-              "&>a:hover": {
-                opacity: 0.8
-              } 
-            }}
           >
             <Link
               href={`/article/${post?.slug}`} 
@@ -111,29 +77,27 @@ const PostCardGrid = ({ posts }) => {
         <Grid container>
           {posts.map((post, index) => (
             <Grid 
+              className="min-h-[100px] md:min-h-[120px] py-3 px-0 border-b border-[#eee]"
             key={index} 
             item 
             xs={12} 
             sm={6} 
             md={4}
             sx={{
-              minHeight: "120px",
-              padding: "12px 0",
-              borderBottom: "1px solid #eeeeee",
               "@media (min-width: 960px)": {
-              "&:nth-of-type(3n + 1)>div": {
-                paddingRight: "12px",
-                borderRight: "1px solid #eee"
-              },
-              "&:nth-of-type(3n + 2)>div": {
-                paddingLeft: "12px",
-                paddingRight: "12px",
-                borderRight: "1px solid #eee"
-              },
-              "&:nth-of-type(3n)>div": {
-                paddingLeft: "12px",
+                "&:nth-of-type(3n + 1)>div": {
+                  paddingRight: "12px",
+                  borderRight: "1px solid #eee"
+                },
+                "&:nth-of-type(3n + 2)>div": {
+                  paddingLeft: "12px",
+                  paddingRight: "12px",
+                  borderRight: "1px solid #eee"
+                },
+                "&:nth-of-type(3n)>div": {
+                  paddingLeft: "12px",
+                }
               }
-            }
             }}
             >
               <PostCard post={post} />
@@ -146,15 +110,11 @@ const PostCardGrid = ({ posts }) => {
 const TrendingPosts = ({ className, posts, ...rest }) => {
   return (
     <Box
-      className={clsx("hero-banner", className)}
+      className={clsx("hero-banner pt-10 pb-12 md:pt-16 md:pb-14", className)}
       component="section"
-      sx={{
-        paddingTop: "60px",
-        paddingBottom: "50px",
-      }}
       {...rest}
     >
-      <Container maxWidth="lg">
+      <Container className="max-w-[1280px]" maxWidth="lg">
         <PostCardGrid posts={posts} />
       </Container>
     </Box>

@@ -1,12 +1,11 @@
 import { Box, Button, Container } from "@mui/material";
 import Head from "next/head";
 import { useState, useCallback } from "react";
-import BlockGridPostCard from "../../components/Block/BlockGridPostCard";
 import Layout from "../../components/Layout";
 import { getAllPosts } from "../api/api";
+import { ArchivePostCard } from "@/components/card/ArchivePostCard";
 
 const PageArticles = ({ data, preview }) => {
-  // console.log("DATA", data);
   const [articles, setArticles] = useState(data || {});
   const [loading, setLoading] = useState(false);
 
@@ -39,39 +38,36 @@ const PageArticles = ({ data, preview }) => {
       </Head>
 
       <Layout preview={preview}>
-        <BlockGridPostCard posts={articles.data} />
+        {/* <BlockGridPostCard posts={articles.data} /> */}
+
+        <Box className="w-full py-14" component="section">
+          <Container className="max-w-[1280px]" maxWidth="lg">
+            <Box className="w-full grid grid-cols-3 gap-x-8 gap-y-10 mb-12">
+            {articles?.data.map((article) => (
+              <ArchivePostCard key={article.slug} article={article} />
+            ))}
+              </Box>
 
         {/* Pagination  */}
         {articles.isPaginate && (
-          <Container maxWidth="sm" sx={{ marginBottom: "30px" }}>
             <Box
-              sx={{
-                width: "100%",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
+              className="w-full flex justify-center items-center"
             >
               <Button
+                className="max-w-[450px] sm:p-2.5 bg-[#055547] hover:bg-[#055547ee] font-bold"
                 variant="contained"
                 color="primary"
                 disableElevation
                 fullWidth
                 disabled={loading}
                 onClick={loadMoreHandler}
-                sx={{
-                  padding: { sm: "10px" },
-                  background: "#055547",
-                  "&:hover": {
-                    background: "#055547ee",
-                  },
-                }}
               >
-                Load more
+                {loading ? "Loading..." : "Load more"}
               </Button>
             </Box>
-          </Container>
         )}
+            </Container>
+        </Box>
       </Layout>
     </>
   );

@@ -9,8 +9,7 @@ const PageEditorial = () => {
         <BlockPageHeader title="যোগাযোগ" />
 
         <section className="">
-          <Container
-            className=""
+          <Container className="max-w-[1280px]"
             maxWidth="md"
             sx={{
               paddingTop: "2.8rem",

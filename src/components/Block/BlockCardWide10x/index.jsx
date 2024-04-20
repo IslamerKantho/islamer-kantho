@@ -9,13 +9,12 @@ const BlockCardWide10x = ({
   isPaginate,
   loading,
   onLoadMore,
-  ...rest
 }) => {
   return (
     <SectionWidget className={className} title="সাম্প্রতিক লেখাসমুহ">
 
       {/* Post loop */}
-      <Grid container spacing={2}>
+      <Grid container spacing={3}>
         {posts && posts.map((post, i) => (
           <Grid item key={i} xs={12} md={12}>
             <CardFullWide key={post._id} postData={post} />
@@ -25,30 +24,18 @@ const BlockCardWide10x = ({
 
       {isPaginate  && (
         <Box
-          sx={{
-            width: "100%",
-            paddingTop: "30px",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
+          className="w-full pt-7 flex justify-center items-center"
         >
           <Button
+            className="sm:p-2.5 bg-[#055547] hover:bg-[#055547ee]"
             variant="contained"
             color="primary"
             disableElevation
             fullWidth
             disabled={loading}
             onClick={onLoadMore}
-            sx={{
-              padding: { sm: "10px" },
-              background: "#055547",
-              "&:hover": {
-                background: "#055547ee",
-              },
-            }}
           >
-            Load more
+            {loading ? "Loading..." : "Load more"}
           </Button>
         </Box>
       )}

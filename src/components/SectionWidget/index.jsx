@@ -16,7 +16,7 @@ const SectionWidget = ({ title, children, ...rest }) => {
             width: "100%",
           }}
         >
-          <Container maxWidth="lg" disableGutters>
+          <Container className="max-w-[1280px]" maxWidth="lg" disableGutters>
             <Typography
               variant="h4"
               component="h4"
@@ -39,7 +39,7 @@ const SectionWidget = ({ title, children, ...rest }) => {
           width: "100%",
         }}
       >
-        <Container maxWidth="lg" disableGutters>
+        <Container className="max-w-[1280px]" maxWidth="lg" disableGutters>
           {children}
         </Container>
       </Box>

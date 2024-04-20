@@ -106,7 +106,7 @@ const BlockGridPostCard = ({ className, posts, title, ...rest }) => {
   return (
     <>
       <Box component="section">
-        <Container maxWidth="lg">
+        <Container className="max-w-[1280px]" maxWidth="lg">
           <SectionWidget title={title} {...rest}>
             <PostGrid posts={posts} />
           </SectionWidget>
