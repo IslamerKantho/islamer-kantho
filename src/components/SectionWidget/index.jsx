@@ -1,32 +1,15 @@
 import { Box, Container, Typography } from "@mui/material";
-import PropTypes from "prop-types";
+import { memo } from "react";
 
 const SectionWidget = ({ title, children, ...rest }) => {
   return (
-    <Box
-      sx={{
-        width: "100%",
-        padding: "50px 0",
-      }}
-      {...rest}
-    >
+    <Box className="w-full py-10 md:py-12" {...rest} >
       {title && (
-        <Box
-          sx={{
-            width: "100%",
-          }}
-        >
+        <Box className="w-full" >
           <Container className="max-w-[1280px]" maxWidth="lg" disableGutters>
             <Typography
-              variant="h4"
+              className="mb-5 text-[#055547] text-lg font-bold"
               component="h4"
-              sx={{
-                marginBottom: "20px",
-                color: "#055547",
-                fontSize: "18px",
-                lineHeight: "28px",
-                fontWeight: "bold",
-              }}
             >
               {title}
             </Typography>
@@ -34,11 +17,7 @@ const SectionWidget = ({ title, children, ...rest }) => {
         </Box>
       )}
 
-      <Box
-        sx={{
-          width: "100%",
-        }}
-      >
+      <Box className="w-full" >
         <Container className="max-w-[1280px]" maxWidth="lg" disableGutters>
           {children}
         </Container>
@@ -47,11 +26,5 @@ const SectionWidget = ({ title, children, ...rest }) => {
   );
 };
 
-SectionWidget.propTypes = {
-  className: PropTypes.string,
-  title: PropTypes.string,
-  children: PropTypes.node,
-  rest: PropTypes.object,
-};
 
-export default SectionWidget;
+export default memo(SectionWidget);

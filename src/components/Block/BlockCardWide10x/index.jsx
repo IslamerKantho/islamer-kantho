@@ -2,6 +2,7 @@ import { Box, Button, Grid } from "@mui/material";
 import CardFullWide from "../../card/CardFullWide";
 import SectionWidget from "../../SectionWidget";
 import { memo } from "react";
+import clsx from "clsx";
 
 const BlockCardWide10x = ({
   className,
@@ -12,7 +13,7 @@ const BlockCardWide10x = ({
   onLoadMore,
 }) => {
   return (
-    <SectionWidget className={className} title="সাম্প্রতিক লেখাসমুহ">
+    <SectionWidget className={clsx( className)} title="সাম্প্রতিক লেখাসমুহ">
 
       {/* Post loop */}
       <Grid container spacing={3}>

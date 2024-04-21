@@ -79,21 +79,19 @@ export default function Home({
         <DottedDivider />
 
         <Box component="section">
-          <Container className="max-w-[1280px]" maxWidth="lg">
-            <Grid container spacing={5}>
-              <Grid item xs={12} md={8.5}>
+          <Container className="max-w-[1280px] py-8 md:py-12 flex flex-col md:flex-row gap-10" maxWidth="lg">
+              <Box className="max-w-fit grid gap-10">
                 <BlockCardWide10x
                   posts={recentArticles.data}
                   isPaginate={recentArticles.isPaginate}
                   loading={loading}
                   onLoadMore={loadMoreHandler}
                 />
-              </Grid>
+              </Box>
 
-              <Grid item xs={12} md={3.5}>
+              <Box className="w-full max-w-[340px]">
                 <BlockSidebar />
-              </Grid>
-            </Grid>
+              </Box>
           </Container>
         </Box>
       </Layout>
