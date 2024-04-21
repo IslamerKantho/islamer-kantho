@@ -3,7 +3,7 @@ import Head from "next/head";
 import { useState, useCallback } from "react";
 import Layout from "../../components/Layout";
 import { getAllPosts } from "../api/api";
-import { ArchivePostCard } from "@/components/card/ArchivePostCard";
+import ArchivePostCard from "@/components/card/ArchivePostCard";
 
 const PageArticles = ({ data, preview }) => {
   const [articles, setArticles] = useState(data || {});

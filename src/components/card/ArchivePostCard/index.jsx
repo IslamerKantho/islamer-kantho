@@ -17,18 +17,12 @@ const ArchivePostCard = ({ article }) => {
                 <Box className="w-full flex justify-center items-center rounded-lg overflow-hidden">
                     {article.coverImage && (
                         <Image
-                            src={imageBuilder(article?.coverImage)
-                                .width(286)
-                                .height(161)
-                                .url()}
+                            src={imageBuilder(article?.coverImage).width(286).height(161).url()}
                             width={286}
                             height={161}
                             alt={article.title}
                             placeholder="blur"
-                            blurDataURL={imageBuilder(article?.coverImage)
-                                .width(286)
-                                .height(161)
-                                .url()}
+                            blurDataURL={imageBuilder(article?.coverImage).width(286).height(161).url()}
                         />
                     )}
                 </Box>

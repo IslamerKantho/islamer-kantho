@@ -1,6 +1,7 @@
 import { Box, Container, Typography } from "@mui/material";
 import clsx from "clsx";
 import Image from "next/image";
+import { memo } from "react";
 
 const BlockBanner = ({ className }) => {
   return (
@@ -55,4 +56,4 @@ const BlockBanner = ({ className }) => {
   );
 };
 
-export default BlockBanner;
+export default memo(BlockBanner);

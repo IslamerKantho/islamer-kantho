@@ -1,6 +1,7 @@
 import { Box, Button, Grid } from "@mui/material";
 import CardFullWide from "../../card/CardFullWide";
 import SectionWidget from "../../SectionWidget";
+import { memo } from "react";
 
 const BlockCardWide10x = ({
   className,
@@ -43,4 +44,4 @@ const BlockCardWide10x = ({
   );
 };
 
-export default BlockCardWide10x;
+export default memo(BlockCardWide10x);
