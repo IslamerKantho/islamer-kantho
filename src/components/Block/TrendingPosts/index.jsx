@@ -77,7 +77,7 @@ const PostCardGrid = ({ posts }) => {
         <Grid container>
           {posts.map((post, index) => (
             <Grid 
-              className="min-h-[100px] md:min-h-[120px] py-3 px-0 border-b border-[#eee]"
+              className="min-h-[100px] md:min-h-[120px] py-3 px-0 border-b border-b-[#eee]"
             key={index} 
             item 
             xs={12} 

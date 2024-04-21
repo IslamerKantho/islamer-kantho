@@ -1,11 +1,12 @@
 import FormatterDate from "@/components/FormatterDate"
 import { imageBuilder } from "@/pages/api/sanity"
 import { truncate } from "@/utils/string.utils"
-import { Box, Card, CardActionArea, CardContent, Chip, Typography } from "@mui/material"
+import { Box, Typography } from "@mui/material"
 import Image from "next/image"
 import Link from "next/link"
+import { memo } from "react"
 
-export const ArchivePostCard = ({ article }) => {
+const ArchivePostCard = ({ article }) => {
     return (
         <Box
             className="w-full"
@@ -78,3 +79,5 @@ export const ArchivePostCard = ({ article }) => {
         </Box >
     )
 }
+
+export default memo(ArchivePostCard)
