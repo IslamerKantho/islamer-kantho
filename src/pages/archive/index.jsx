@@ -40,13 +40,13 @@ const PageArticles = ({ data, preview }) => {
       <Layout preview={preview}>
         {/* <BlockGridPostCard posts={articles.data} /> */}
 
-        <Box className="w-full py-14" component="section">
+        <Box className="w-full py-10 md:py-14" component="section">
           <Container className="max-w-[1280px]" maxWidth="lg">
-            <Box className="w-full grid grid-cols-3 gap-x-8 gap-y-10 mb-12">
-            {articles?.data.map((article) => (
-              <ArchivePostCard key={article.slug} article={article} />
-            ))}
-              </Box>
+            <Box className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-x-8 gap-y-10 mb-12">
+              {articles?.data.map((article) => (
+                <ArchivePostCard key={article.slug} article={article} />
+              ))}
+            </Box>
 
         {/* Pagination  */}
         {articles.isPaginate && (
