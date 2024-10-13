@@ -7,13 +7,16 @@ import IconButton from "@mui/material/IconButton";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import NextLink from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BiSearch } from "react-icons/bi";
 import { IconContext } from "react-icons";
 import { FiUser } from "react-icons/fi";
 import dynamic from "next/dynamic";
 import { memo } from "react";
+import clsx from "clsx";
 const MenuDrawer = dynamic(() => import("../MenuDrawer"));
+
+
 const pages = [
   {
     title: "সম্পাদকীয়",
@@ -30,48 +33,46 @@ const pages = [
 const Header = () => {
   const [background] = useState("#055547");
   const [isCatDrawerOpen, setIsCatDrawerOpen] = useState(false);
+  const [isTouched, setIsTouched] = useState(true);
   const openHandler = () => setIsCatDrawerOpen(true);
   const closeHandler = () => setIsCatDrawerOpen(false);
+
+  useEffect(() => {
+    window.addEventListener("scroll", () => {
+    if (window.scrollY > 0) {
+      setIsTouched(false);
+    } else {
+      setIsTouched(true);
+    }
+  });
+  }, []);
+
 
   return (
     <>
       <AppBar
+        className={clsx("p-0 border-b-[4px] border-b-primary will-change-transform transition-[background] duration-300", isTouched ? "bg-primary": "bg-white")}
+        elevation={0}
         position="sticky"
-        sx={{
-          padding: 0,
-          background: background,
-          borderBottom: "1px solid #000",
-          boxShadow: "none",
-        }}
       >
-        <Container maxWidth="xl">
+        <Container className="max-w-[1280px]" maxWidth="xl">
           <Toolbar disableGutters variant="dense">
             {/*************************************
              * Desktop Area Started
              ************************************/}
             <IconButton
+              className={clsx("me-4", isTouched ? "text-white" : "text-primary")}
               onClick={openHandler}
-              sx={{
-                mr: 2,
-                color: "#FFF",
-              }}
             >
               <RiMenuLine />
             </IconButton>
 
-            {/* <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} /> */}
             <Typography
+              className={clsx("max-md:hidden md:flex me-6 font-bold no-underline", isTouched ? "text-white" : "text-primary")}
               variant="h6"
               noWrap
               href={"/"}
               component={NextLink}
-              sx={{
-                mr: 3,
-                display: { xs: "none", md: "flex" },
-                color: "#fff",
-                fontWeight: 700,
-                textDecoration: "none",
-              }}
             >
               ইসলামের কন্ঠ
             </Typography>
@@ -83,20 +84,11 @@ const Header = () => {
 
             {/* Brand logo for phone */}
             <Typography
+              className={clsx("ms-0 me-4 max-md:flex md:hidden flex-grow text-lg font-bold no-underline", isTouched ? "text-white" : "text-primary")}
               variant="h5"
               noWrap
               component={NextLink}
               href="/"
-              sx={{
-                ml: 0,
-                mr: 2,
-                display: { xs: "flex", md: "none" },
-                flexGrow: 1,
-                fontSize: 18,
-                fontWeight: 700,
-                color: "inherit",
-                textDecoration: "none",
-              }}
             >
               ইসলামের কন্ঠ
             </Typography>
@@ -104,36 +96,14 @@ const Header = () => {
 
             {/* Desktop menu */}
             <Box
-              className="ik__desktop__nav__menu"
-              sx={{
-                flexGrow: 1,
-                display: { xs: "none", md: "flex" },
-                gap: "20px",
-                alignItems: "center",
-                paddingLeft: "25px",
-                paddingRight: 20,
-              }}
+              className={clsx("ik__desktop__nav__menu", "flex-grow max-md:hidden md:flex gap-5 items-center ps-6 pe-5", isTouched ? "text-white" : "text-primary")}
             >
               {pages.map((page, i) => (
                 <Link
+                key={i}
+                  className={clsx("cursor-pointer text-[13px] leading-5 font-bold [&:last-of-type]:me-auto [&:hover]:opacity-75", isTouched ? "text-white" : "text-primary")}
                   href={page.url}
                   underline="none"
-                  key={i}
-                  sx={{
-                    cursor: "pointer",
-                    color: "white",
-                    fontSize: "13px",
-                    lineHeight: "21px",
-                    display: "block",
-                    fontWeight: 700,
-                    "&:last-of-type": {
-                      marginRight: "auto",
-                    },
-                    ":hover": {
-                      color: "#FFF",
-                      opacity: 0.8,
-                    },
-                  }}
                   component={NextLink}
                   passHref
                 >
@@ -145,64 +115,28 @@ const Header = () => {
 
             {/* Desktop Toolbar Profile Area */}
             <Box
-              sx={{
-                flexGrow: 0,
-                display: "flex",
-                gap: "20px",
-                alignItems: "center",
-                paddingLeft: "25px",
-                paddingRight: { xs: 0, md: 10 },
-                // justifyContent: "space-between",
-              }}
+              className={clsx("ik__desktop__profile__area", "flex items-center gap-5 ps-6 max-md:pe-0 md:pe-2.5")}
             >
-              <IconContext.Provider value={{ size: 20 }}>
+              <IconContext.Provider value={{ size: 14 }}>
                 {/* Search */}
                 <Link
+                  className={clsx("cursor-pointer text-[13px] leading-5 font-bold [&:last-of-type]:me-auto [&:hover]:opacity-75", isTouched ? "text-white" : "text-primary")}
                   href="/search"
+                  title="Search content"
                   underline="none"
-                  sx={{
-                    cursor: "pointer",
-                    color: "white",
-                    fontSize: "13px",
-                    lineHeight: "21px",
-                    display: "block",
-                    fontWeight: 700,
-                    "&:last-of-type": {
-                      marginRight: "auto",
-                    },
-                    ":hover": {
-                      color: "#FFF",
-                      opacity: 0.8,
-                    },
-                  }}
                 >
-                  <Box>
-                    <BiSearch title="Search page" />
-                  </Box>
+                    <BiSearch />
                 </Link>
 
                 {/* Studio */}
                 <Link
+                  className={clsx("cursor-pointer text-[13px] leading-5 font-bold [&:last-of-type]:me-auto [&:hover]:opacity-75", isTouched ? "text-white" : "text-primary")}
                   href="https://ik.sanity.studio"
                   target={"_blank"}
                   underline="none"
-                  sx={{
-                    cursor: "pointer",
-                    color: "white",
-                    fontSize: "13px",
-                    lineHeight: "21px",
-                    display: "block",
-                    fontWeight: 700,
-                    "&:last-of-type": {
-                      marginRight: "auto",
-                    },
-                    ":hover": {
-                      color: "#FFF",
-                      opacity: 0.8,
-                    },
-                  }}
+                  title="Profile"
                 >
-                  <FiUser title="Studio" />
+                  <FiUser />
                 </Link>
               </IconContext.Provider>
             </Box>
@@ -219,4 +153,6 @@ const Header = () => {
     </>
   );
 };
+
+
 export default memo(Header);

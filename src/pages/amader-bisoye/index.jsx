@@ -9,8 +9,7 @@ const PageContact = () => {
         <BlockPageHeader title="আমাদের পরিচিতি" />
 
         <section className="">
-          <Container
-            className=""
+          <Container className="max-w-[1280px]"
             maxWidth="md"
             sx={{
               paddingTop: "2.8rem",

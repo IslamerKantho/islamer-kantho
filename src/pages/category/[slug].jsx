@@ -6,7 +6,6 @@ import Layout from "../../components/Layout";
 import { getAllPosts } from "../api/api";
 
 const PageArticles = ({ data, slug, preview }) => {
-  // console.log("DATA", data);
   const [articles, setArticles] = useState(data || {});
   const [loading, setLoading] = useState(false);
 
@@ -43,7 +42,7 @@ const PageArticles = ({ data, slug, preview }) => {
 
         {/* Pagination  */}
         {articles.isPaginate && (
-          <Container maxWidth="sm" sx={{ marginBottom: "30px" }}>
+          <Container className="max-w-[1280px]" maxWidth="sm" sx={{ marginBottom: "30px" }}>
             <Box
               sx={{
                 width: "100%",

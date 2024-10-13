@@ -1,18 +1,31 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  corePlugins: {
-    preflight: false,
-  },
-  important: '#_next',
+  // corePlugins: {
+  //   preflight: false,
+  // },
+  // important: '#_next',
   // prefix: 'd9_',
   content: [
-    "./pages/**/*.{js,ts,jsx,tsx}",
-    "./pages/**/**/*.{js,ts,jsx,tsx}",
+    "./src/pages/**/*.{js,ts,jsx,tsx}",
+    "./src/pages/**/**/*.{js,ts,jsx,tsx}",
     "./src/components/*.{js,ts,jsx,tsx}",
     "./src/components/**/*.{js,ts,jsx,tsx}",
+    "./src/components/**/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      // fontFamily: `"HNT","Inter","Roboto","Arial",sans-serif`,
+      fontFamily: {
+        sans: ["HNT", "Inter", "Roboto", "Arial", "sans-serif"],
+      },
+      colors: {
+        primary: "#044f4f",
+        secondary: "#D1BB9E",
+        error: "#E72929",
+        warning: "#ff9800",
+        success: "#41B06E",
+      }
+    },
   },
   plugins: [import('@tailwindcss/forms')],
 }

@@ -1,4 +1,5 @@
-import BlockFooter from "../Block/BlockFooter";
+import clsx from "clsx";
+import Footer from "../Footer";
 import Header from "../Header";
 
 const Layout = ({ className, children }) => {
@@ -7,7 +8,7 @@ const Layout = ({ className, children }) => {
       <Header />
 
       <main
-        className={className}
+        className={clsx("max-w-full h-full min-h-(calc(100vh - 314.56px))", className)}
         sx={{
           background: "#edebeb",
         }}
@@ -15,15 +16,7 @@ const Layout = ({ className, children }) => {
         {children}
       </main>
 
-      <BlockFooter />
-
-      <style jsx>{`
-        main {
-          max-width: 100%;
-          height: 100%;
-          min-height: calc(100vh - 314.56px);
-        }
-      `}</style>
+      <Footer />
     </>
   );
 };

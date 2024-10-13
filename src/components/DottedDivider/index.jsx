@@ -2,22 +2,11 @@ import { Box, Container } from "@mui/material";
 
 function DottedDivider() {
   return (
-    <Container
+    <Container className="max-w-[1280px] px-5"
       maxWidth="xl"
-      sx={{
-        paddingLeft: "20px",
-        paddingRight: "20px",
-      }}
     >
       <Box
-        className="dotted-devider"
-        sx={{
-          backgroundImage: "radial-gradient( #055547 20%, transparent 0)",
-          backgroundPosition: "0 0",
-          backgroundSize: "3px 3px",
-          height: "9px",
-          width: "100%",
-        }}
+        className="dotted-devider w-full h-2.5 bg-[radial-gradient(#055547_20%,_transparent_0)] [background-position:0_0] [background-size:3px_3px]"
       ></Box>
     </Container>
   );

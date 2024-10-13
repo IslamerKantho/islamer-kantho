@@ -1,27 +1,23 @@
 import { Box, Container, Typography } from "@mui/material";
+import clsx from "clsx";
 import Image from "next/image";
+import { memo } from "react";
 
 const BlockBanner = ({ className }) => {
   return (
     <>
       <Box
-        className={className}
+        className={clsx("py-28", className)}
         sx={{
-          padding: "100px 0",
+          // padding: "100px 0",
           // background: "#055547",
         }}
       >
-        <Container maxWidth={"md"}>
+        <Container className="max-w-[1280px]" maxWidth={"md"}>
           <Typography
+            className="text-center mb-1 text-lg font-[600]"
             variant="h2"
             component="blockquote"
-            sx={{
-              textAlign: "center",
-              marginBottom: 2,
-              fontSize: "18px",
-              lineHeight: "170%",
-              fontWeight: 600,
-            }}
           >
             کُلُّ نَفۡسٍ ذَآئِقَۃُ الۡمَوۡتِ - وَاِنَّمَا تُوَفَّوۡنَ
             اُجُوۡرَکُمۡ یَوۡمَ الۡقِیٰمَۃِ - فَمَنۡ زُحۡزِحَ عَنِ النَّارِ
@@ -30,15 +26,9 @@ const BlockBanner = ({ className }) => {
           </Typography>
 
           <Typography
+            className="text-center mb-1 text-lg leading-8 font-[600] mt-4"
             variant="h2"
             component="blockquote"
-            sx={{
-              textAlign: "center",
-              marginBottom: 2,
-              fontSize: "18px",
-              lineHeight: "170%",
-              fontWeight: 600,
-            }}
           >
             জীবমাত্রই মৃত্যুর স্বাদ গ্রহণ করবে। কেবলমাত্র কেয়ামতের দিনই
             তোমাদেরকে তোমাদেরকে কর্মফল পূর্ণ মাত্রায় দেয়া হবে। অতঃপর যাকে আগুন
@@ -47,13 +37,14 @@ const BlockBanner = ({ className }) => {
           </Typography>
 
           <Typography
+            className="text-center mb-0.5 text-[14px] leading-[170%] font-[800] mt-4"
             variant="h2"
             component="blockquote"
             sx={{
-              textAlign: "center",
-              fontSize: "14px",
-              lineHeight: "170%",
-              fontWeight: 800,
+              // textAlign: "center",
+              // fontSize: "14px",
+              // lineHeight: "170%",
+              // fontWeight: 800,
               // textAlign: "right",
             }}
           >
@@ -65,4 +56,4 @@ const BlockBanner = ({ className }) => {
   );
 };
 
-export default BlockBanner;
+export default memo(BlockBanner);

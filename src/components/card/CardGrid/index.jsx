@@ -17,22 +17,12 @@ const CardGrid = ({ cardData }) => {
 
   return (
     <Card
+      className="w-full bg-white rounded shadow-[0px_0px_20px_0_rgba(0,0,0,0.15)]"
       component="article"
       key={article.slug}
-      sx={{
-        width: "100%",
-        background: "#fff",
-        borderRadius: "5px",
-        boxShadow: "0px 0px 20px 0 rgb(0 0 0 / 15%)",
-      }}
     >
       <CardActionArea href={`/article/${article.slug}`} component={Link}>
-        <Box
-          sx={{
-            display: "flex",
-            borderBottom: "8px solid #055547",
-          }}
-        >
+        <Box className="flex border-b border-b-[#055547]" >
           {article.coverImage && (
             <Image
               src={imageBuilder(article?.coverImage)
@@ -51,25 +41,13 @@ const CardGrid = ({ cardData }) => {
           )}
         </Box>
 
-        <CardContent
-          sx={{
-            minHeight: "122px",
-            padding: "20px",
-            background: "#fff",
-          }}
-        >
+        <CardContent className="min-h-[122px] p-5 bg-white" >
           <Chip label={article?.author?.name} size="small" />
 
-          <Typography
+          <Typography 
+            className="mt-2.5 text-sm font-bold text-[#055547]"
             variant="h3"
             title={article.title}
-            sx={{
-              marginTop: "10px",
-              fontSize: "14px",
-              lineHeight: "24px",
-              fontWeight: "700",
-              color: "#055547",
-            }}
           >
             {truncate(article.title, 50)}
           </Typography>

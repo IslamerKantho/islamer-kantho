@@ -71,7 +71,7 @@ export default function Post({ className, post, morePosts, preview, ...rest }) {
 
           <Box component="article" className={className} {...rest}>
             <Box className="ik_article_header" component="section">
-              <Container
+              <Container className="max-w-[1280px]"
                 maxWidth="lg"
                 sx={{
                   paddingTop: { xs: "20px", md: "60px" },
@@ -106,7 +106,7 @@ export default function Post({ className, post, morePosts, preview, ...rest }) {
             <Divider />
 
             <Box className="ik_sarticle_content" component="section">
-              <Container
+              <Container className="max-w-[1280px]"
                 sx={{
                   paddingTop: { xs: "20px", md: "40px" },
                   paddingBottom: { xs: "20px", md: "40px" },
