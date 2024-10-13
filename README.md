@@ -1,9 +1,5 @@
 # Islamer Kantho
 
-## About this project
-
-This is a Next.js project, a React-based framework for building server-rendered, statically generated, and performance-optimized websites and applications.
-
 ## Getting started
 
 To get started with this project, follow these steps:
