@@ -27,6 +27,7 @@ const pages = [
     url: "/archive",
   },
   { title: "আমাদের পরিচিতি", url: "amader-bisoye" },
+  { title: "লেখা পাঠানোর নিয়মাবলী", url: "lekha-patanur-niyomaboli" },
   { title: "যোগাযোগের মাধ্যম", url: "jugajuger-maddyom" },
 ];
 
