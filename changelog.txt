@@ -1,0 +1,43 @@
+13/10/2024 - Deployment fixes.
+- Refactored `.env.example` file.
+- Updated `README.md` file.
+
+[17042024]
+1. Added `.env.example` file for environment variables.
+2. Moved content to `src` directory.
+
+[19072022]
+1. Redeploying
+
+[29062022]
+1. New git branch `dev` created for update.
+2. New `Header` component added.
+3. `Layout` component updated.
+
+[29062022]
+1. Updated `Next.Js ` version 11 to 12.
+2. Converted some file extension `.js` to `.jsx`.
+3. Removed `.studio` from working repository.
+4. Uninstalled `lerna`.
+5. `package.json` updated with fresh commands.
+6. `SSG` added into `/category/[slug]` page.
+7. Link added to menu bar.
+
+[06052023]
+- Unnecessary fonts removed.
+- Font renamed to `HNT`.
+- `HNT` font added to `public/fonts` folder.
+- Font updated.
+- `/amader-bisoye` page added.
+- `/sompadokiyo` page added.
+- `/jugajuger-maddyom` page added.
+- Sidebar menu updated.
+- `url`/`slug` introduced on `MenuDrawer`.
+
+[22082021]
+1. Moved from 3 column to 2 column.
+2. Removed Footer subscription from.
+3. Added Category API.
+
+[23092021]
+1. Having problem with <Image> in '/components/card/CardFullWide.js'. So temporarily i'm using <img>.
