@@ -1,4 +1,3 @@
-import { Box, Button, Container } from "@mui/material";
 import Head from "next/head";
 import { useState, useCallback } from "react";
 import BlockGridPostCard from "../../components/Block/BlockGridPostCard";
@@ -22,7 +21,7 @@ const PageArticles = ({ data, slug, preview }) => {
           data: [...articles.data, ...data.data],
           isPaginate: data.isPaginate,
           offset: data.offset,
-        }); // Adding content to the state.
+        });
         setLoading(false);
       })
       .catch(() => {
@@ -42,34 +41,17 @@ const PageArticles = ({ data, slug, preview }) => {
 
         {/* Pagination  */}
         {articles.isPaginate && (
-          <Container className="max-w-[1280px]" maxWidth="sm" sx={{ marginBottom: "30px" }}>
-            <Box
-              sx={{
-                width: "100%",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <Button
-                variant="contained"
-                color="primary"
-                disableElevation
-                fullWidth
+          <div className="container max-w-[600px] mb-[30px]">
+            <div className="w-full flex justify-center items-center">
+              <button
+                className="w-full py-2.5 px-4 bg-[#055547] hover:bg-[#055547ee] text-white font-bold rounded transition-colors disabled:opacity-50"
                 disabled={loading}
                 onClick={loadMoreHandler}
-                sx={{
-                  padding: { sm: "10px" },
-                  background: "#055547",
-                  "&:hover": {
-                    background: "#055547ee",
-                  },
-                }}
               >
-                Load more
-              </Button>
-            </Box>
-          </Container>
+                {loading ? "Loading..." : "Load more"}
+              </button>
+            </div>
+          </div>
         )}
       </Layout>
     </>

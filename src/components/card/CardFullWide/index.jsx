@@ -1,10 +1,3 @@
-import {
-  Box,
-  Card,
-  CardContent,
-  CardMedia,
-  Typography,
-} from "@mui/material";
 import Image from "next/image";
 import NextLink from "next/link";
 import { imageBuilder } from "../../../pages/api/sanity";
@@ -15,80 +8,59 @@ import { memo } from "react";
 
 const CardFullWide = ({ className, postData, ...rest }) => {
   return (
-    <Card
+    <article
       className={clsx("relative block max-w-[760px]", className)}
-      elevation={0}
-      component="article"
       {...rest}
     >
-      <Box
-        className="w-full flex flex-col sm:flex-row"
-      >
+      <div className="w-full flex flex-col sm:flex-row gap-4">
         {postData.coverImage && (
-          <CardMedia
-            className="w-full sm:w-[330px] rounded-lg overflow-hidden"
-          >
+          <div className="w-full sm:w-[330px] rounded-lg overflow-hidden shrink-0">
             <Image
-              className="rounded-lg"
+              className="rounded-lg object-cover w-full h-auto"
               src={imageBuilder(postData?.coverImage)
                 .width(286)
                 .height(180)
                 .url()}
               width={286}
               height={180}
-              alt={postData?.title}
+              alt={postData?.title || "Article Image"}
               placeholder="blur"
               blurDataURL={imageBuilder(postData?.coverImage)
                 .width(286)
                 .height(180)
                 .url()}
             />
-          </CardMedia>
+          </div>
         )}
 
-        <CardContent
-          className="w-full md:w-[calc(100%-330px)]"
-        >
-          <Box className="mt-4 flex items-center flex-start flex-row">
-            <Typography
-              className="pe-1 text-black hover:opacity-75 text-[11px] font-bold leading-4 no-underline"
-              href={`/category/${postData?.category?.slug}`} 
-              component={Link}
-              passHref
+        <div className="w-full sm:w-[calc(100%-330px)]">
+          <div className="mt-1 flex items-center flex-row gap-2">
+            <Link
+              className="text-black hover:opacity-75 text-[11px] font-bold leading-4 no-underline"
+              href={`/category/${postData?.category?.slug}`}
             >
-              {postData?.category?.title} 
-            </Typography>
-              <Typography
-                className="ps-1 border-s ms-0 text-[#666] text-[11px] font-bold leading-4 no-underline"
-              component="p"
-              >
-                {postData?.author?.name}
-            </Typography>
-          </Box>
+              {postData?.category?.title}
+            </Link>
+            <span className="pl-2 border-l border-gray-300 text-[#666] text-[11px] font-bold leading-4">
+              {postData?.author?.name}
+            </span>
+          </div>
 
-          <Typography
-            className="mt-4 relative font-bold text-base cursor-pointer"
-            variant="h3"
-          >
+          <h3 className="mt-3 relative font-bold text-base cursor-pointer">
             <NextLink
               className="text-primary no-underline hover:opacity-75 font-bold"
-              as={`/article/${postData?.slug}`}
-              href={`/article/[slug]`}
-              passHref
+              href={`/article/${postData?.slug}`}
             >
               {postData?.title}
             </NextLink>
-          </Typography>
+          </h3>
 
-          <Typography
-            className="mt-2.5 mb-0 text-[#666] text-[13px] leading-[160%] [line-break:anywhere]"
-            paragraph
-          >
+          <p className="mt-2.5 mb-0 text-[#666] text-[13px] leading-[160%] [line-break:anywhere]">
             {truncate(postData?.excerpt)}
-          </Typography>
-        </CardContent>
-      </Box>
-    </Card>
+          </p>
+        </div>
+      </div>
+    </article>
   );
 };
 

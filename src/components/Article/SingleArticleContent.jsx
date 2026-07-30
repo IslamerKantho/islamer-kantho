@@ -1,4 +1,4 @@
-import markdownStyles from "../../styles/markdownStyles.module.sass";
+import markdownStyles from "../../styles/markdownStyles.module.css";
 import BlockContent from "@sanity/block-content-to-react";
 
 export default function SingleArticleContent({ content }) {

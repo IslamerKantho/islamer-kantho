@@ -1,32 +1,19 @@
-import { ThemeProvider } from "@material-ui/core/styles";
 import NextNProgress from "nextjs-progressbar";
 import "./../styles/globals.css";
-import "../styles/error404.sass";
-import "../styles/index.sass";
-import "../styles/fonts.sass";
+import "../styles/error404.css";
+import "../styles/index.css";
 import Meta from "../components/Meta";
-import theme from "../styles/theme";
-import {GoogleTagManager} from '@next/third-parties/google'
-
-// const bangle = localFont({ src: "../assets/fonts/SolaimanLipi.ttf" });
-// const bangla = Roboto({
-//   weight: ["400", "500", "700"],
-//   subsets: ["latin"],
-// });
-
-
+import { GoogleTagManager } from "@next/third-parties/google";
+import { hnt } from "../styles/fonts";
 
 function App({ Component, pageProps }) {
   return (
-    <>
+    <main className={hnt.variable}>
       <Meta />
-
-      <ThemeProvider theme={theme}>
-        <NextNProgress color="#D1BB9E"  />
-          <Component {...pageProps} />
-          <GoogleTagManager gtmId="GTM-MWLK3D76" />
-      </ThemeProvider>
-    </>
+      <NextNProgress color="#D1BB9E" />
+      <Component {...pageProps} />
+      <GoogleTagManager gtmId="GTM-MWLK3D76" />
+    </main>
   );
 }
 

@@ -1,30 +1,25 @@
-import { Box, Container, Typography } from "@mui/material";
 import { memo } from "react";
 
 const SectionWidget = ({ title, children, ...rest }) => {
   return (
-    <Box className="w-full py-10 md:py-12" {...rest} >
+    <section className="w-full py-10 md:py-12" {...rest}>
       {title && (
-        <Box className="w-full" >
-          <Container className="max-w-[1280px]" maxWidth="lg" disableGutters>
-            <Typography
-              className="mb-5 text-[#055547] text-lg font-bold"
-              component="h4"
-            >
+        <div className="w-full">
+          <div className="container">
+            <h4 className="mb-5 text-[#055547] text-lg font-bold">
               {title}
-            </Typography>
-          </Container>
-        </Box>
+            </h4>
+          </div>
+        </div>
       )}
 
-      <Box className="w-full" >
-        <Container className="max-w-[1280px]" maxWidth="lg" disableGutters>
+      <div className="w-full">
+        <div className="container">
           {children}
-        </Container>
-      </Box>
-    </Box>
+        </div>
+      </div>
+    </section>
   );
 };
-
 
 export default memo(SectionWidget);

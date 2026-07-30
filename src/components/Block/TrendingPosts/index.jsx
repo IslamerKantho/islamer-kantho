@@ -1,124 +1,63 @@
-import {
-  Box,
-  Card,
-  Container,
-  Grid,
-  Stack,
-  Typography,
-} from "@mui/material";
 import Link from "next/link";
-import React from "react";
-import { memo } from "react";
+import React, { memo } from "react";
 import clsx from "clsx";
 import FormatterDate from "../../FormatterDate";
 
-const PostCard = ({ className, post, ...rest }) => {
+const PostCard = ( { post } ) => {
   return (
-    <Card
-      className="h-full bg-white rounded-none [transition:all_0.3s_ease-in-out]"
-      elevation={0}
-    >
-      <Box
-        className="h-full flex flex-col items-start justify-start no-underline"
-      >
-        <Box>
-          <Stack direction="row" spacing={1}>
-            <Typography
-              className="color-primary text-[11px] font-bold leading-4"
-              href={`/category/${post?.category?.slug}`} 
-              passHref
-              style={{ textDecoration: "none" }}
-              component={Link}
-            >
-              {post?.category?.title} 
-            </Typography>
-            <Typography
-              className="text-stone-400 text-[11px] font-bold leading-4"
-              component="p"
-            >
-              • {post?.author?.name}
-            </Typography>
-          </Stack>
-
-          <Typography
-            className="mt-1 text-primary text-[15px] font-bold leading-5 [&>a]:hover:opacity-75"
-            component="h3"
-            title={post?.title}
-          >
+    <article className="h-full bg-white rounded-none transition-all duration-300">
+      <div className="h-full flex flex-col items-start justify-start no-underline">
+        <div>
+          <div className="mb-1.75 flex items-center space-x-2">
             <Link
-              href={`/article/${post?.slug}`} 
-              passHref
-              style={{ textDecoration: "none"}}
+              className="text-[#055547] text-[11px] font-bold leading-4 hover:underline"
+              href={ `/category/${post?.category?.slug}` }
             >
-            {post?.title}
+              { post?.category?.title }
             </Link>
-          </Typography>
-        </Box>
+            <span className="text-stone-400 text-[11px] font-bold leading-4">
+              • { post?.author?.name }
+            </span>
+          </div>
 
-        <Stack direction="row" spacing={1} sx={{ marginTop: "10px" }}>
-          <Typography
-            variant="body2"
-            sx={{
-              fontSize: "12px",
-              lineHeight: "16px",
-              color: "#797979",
-            }}
-          >
-            <FormatterDate dateString={post?.date?.updatedAt || post?.date?.createdAt} />
-          </Typography>
-        </Stack>
-      </Box>
-    </Card>
-  )
-}
+          <h3 className="text-primary hover:text-primary/75 text-[15px] font-bold leading-5 transition-all duration-300" title={ post?.title }>
+            <Link href={ `/article/${post?.slug}` }>
+              { post?.title }
+            </Link>
+          </h3>
+        </div>
 
-const PostCardGrid = ({ posts }) => {
-  return (
-        <Grid container>
-          {posts.map((post, index) => (
-            <Grid 
-              className="min-h-[100px] md:min-h-[120px] py-3 px-0 border-b border-b-[#eee]"
-            key={index} 
-            item 
-            xs={12} 
-            sm={6} 
-            md={4}
-            sx={{
-              "@media (min-width: 960px)": {
-                "&:nth-of-type(3n + 1)>div": {
-                  paddingRight: "12px",
-                  borderRight: "1px solid #eee"
-                },
-                "&:nth-of-type(3n + 2)>div": {
-                  paddingLeft: "12px",
-                  paddingRight: "12px",
-                  borderRight: "1px solid #eee"
-                },
-                "&:nth-of-type(3n)>div": {
-                  paddingLeft: "12px",
-                }
-              }
-            }}
-            >
-              <PostCard post={post} />
-            </Grid>
-          ))}
-        </Grid>
-  )
-}
-
-const TrendingPosts = ({ className, posts, ...rest }) => {
-  return (
-    <Box
-      className={clsx("hero-banner pt-10 pb-12 md:pt-16 md:pb-14", className)}
-      component="section"
-      {...rest}
-    >
-      <Container className="max-w-[1280px]" maxWidth="lg">
-        <PostCardGrid posts={posts} />
-      </Container>
-    </Box>
+        <div className="mt-2.5">
+          <span className="text-[12px] leading-[16px] text-[#797979]">
+            <FormatterDate dateString={ post?.date?.updatedAt || post?.date?.createdAt } />
+          </span>
+        </div>
+      </div>
+    </article>
   );
 };
 
-export default memo(TrendingPosts);
+
+const TrendingPosts = ( { className, posts, ...rest } ) => {
+  return (
+    <section
+      className={ clsx( "hero-banner pt-10 pb-12 md:pt-16 md:pb-14", className ) }
+      { ...rest }
+    >
+      <div className="container">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 divide-y sm:divide-y-0 md:divide-x divide-gray-200">
+          { posts && posts.map( ( post, index ) => (
+            <div
+              className="min-h-25 md:min-h-30 py-3 px-3 border-b border-gray-200"
+              key={ index }
+            >
+              <PostCard post={ post } />
+            </div>
+          ) ) }
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default memo( TrendingPosts );

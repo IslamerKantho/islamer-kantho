@@ -1,23 +1,20 @@
-import { Box, Typography } from "@mui/material";
 import React, { memo } from "react";
 
 const HijriCalender = () => {
   return (
-    <>
-      <Box className="mt-8 w-full" >
-        <Box className="text-[#055547] mb-2.5" >
-          <Typography className="text-[#055547] text-lg font-bold" >
-            হিজরি ক্যালেন্ডার
-          </Typography>
-        </Box>
+    <div className="mt-8 w-full">
+      <div className="text-[#055547] mb-2.5">
+        <h3 className="text-[#055547] text-lg font-bold">
+          হিজরি ক্যালেন্ডার
+        </h3>
+      </div>
 
-        <Box
-          className="w-full h-[328px] border border-primary rounded-lg overflow-hidden"
-          component="iframe"
-          src="https://www.islamicfinder.org/islamic-calendar/widgetGregorian?type=Hijri"
-        />
-      </Box>
-    </>
+      <iframe
+        className="w-full h-[328px] border border-primary rounded-lg overflow-hidden"
+        src="https://www.islamicfinder.org/islamic-calendar/widgetGregorian?type=Hijri"
+        title="Hijri Calendar"
+      />
+    </div>
   );
 };
 

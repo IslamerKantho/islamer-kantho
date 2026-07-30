@@ -1,9 +1,7 @@
-import { Box, Container, Divider, Grid } from "@mui/material";
 import ErrorPage from "next/error";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import PropTypes from "prop-types";
-import { useEffect } from "react";
 import ArticleCover from "../../components/Article/ArticleCover";
 import ArticleHeader from "../../components/Article/ArticleHeader";
 import SingleArticleContent from "../../components/Article/SingleArticleContent";
@@ -20,7 +18,7 @@ export default function Post({ className, post, morePosts, preview, ...rest }) {
   return (
     <Layout preview={preview}>
       {router.isFallback ? (
-        <p>Loading…</p>
+        <p className="p-10 text-center">Loading…</p>
       ) : (
         <>
           <Head>
@@ -69,24 +67,11 @@ export default function Post({ className, post, morePosts, preview, ...rest }) {
             </script>
           </Head>
 
-          <Box component="article" className={className} {...rest}>
-            <Box className="ik_article_header" component="section">
-              <Container className="max-w-[1280px]"
-                maxWidth="lg"
-                sx={{
-                  paddingTop: { xs: "20px", md: "60px" },
-                  paddingBottom: { md: "60px" },
-                }}
-              >
-                <Grid container spacing={{ xs: 2, md: 5 }}>
-                  <Grid
-                    item
-                    xs={12}
-                    md={5}
-                    sm={12}
-                    justifyContent="center"
-                    alignItems="center"
-                  >
+          <article className={className} {...rest}>
+            <section className="ik_article_header py-5 md:py-14">
+              <div className="container">
+                <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-center">
+                  <div className="md:col-span-5">
                     <ArticleHeader
                       title={post.title}
                       excerpt={post.excerpt}
@@ -94,34 +79,23 @@ export default function Post({ className, post, morePosts, preview, ...rest }) {
                       category={post.categories}
                       date={post.date}
                     />
-                  </Grid>
+                  </div>
 
-                  <Grid item xs={12} md={7} sm={12}>
+                  <div className="md:col-span-7">
                     <ArticleCover src={post.coverImage} title={post.title} />
-                  </Grid>
-                </Grid>
-              </Container>
-            </Box>
+                  </div>
+                </div>
+              </div>
+            </section>
 
-            <Divider />
+            <hr className="border-gray-200" />
 
-            <Box className="ik_sarticle_content" component="section">
-              <Container className="max-w-[1280px]"
-                sx={{
-                  paddingTop: { xs: "20px", md: "40px" },
-                  paddingBottom: { xs: "20px", md: "40px" },
-                }}
-              >
+            <section className="ik_sarticle_content py-5 md:py-10">
+              <div className="container">
                 <SingleArticleContent content={post.body} />
-              </Container>
-            </Box>
-          </Box>
-
-          {/* <Comments comments={post.comments} />
-            <Form _id={post._id} />
-
-            <SectionSeparator />
-            {morePosts.length > 0 && <MoreStories posts={morePosts} />} */}
+              </div>
+            </section>
+          </article>
         </>
       )}
     </Layout>
@@ -153,10 +127,9 @@ export async function getStaticPaths() {
   };
 }
 
-Post.prototype = {
+Post.propTypes = {
   className: PropTypes.string,
   post: PropTypes.object,
   morePosts: PropTypes.array,
   preview: PropTypes.bool,
-  rest: PropTypes.object,
 };

@@ -1,4 +1,3 @@
-import { Box, Container, Typography } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
 import { memo } from "react";
@@ -7,108 +6,40 @@ import clsx from "clsx";
 
 const HeroBanner = ({ className, post, ...rest }) => {
   return (
-    <Box
-      className={clsx("ik_heroBanner", className)}
-      component="section"
-      sx={{
-        width: "100%",
-        // minHeight: { xs: "350px", sm: "calc(94vh - 6px)" },
-        maxHeight: "650px",
-        position: "relative",
-        display: "block",
-        borderBottom: "6px solid #055547",
-        overflow: "hidden",
-      }}
+    <section
+      className={clsx(
+        "w-full max-h-[580px] relative block border-b-[6px] border-b-primary overflow-hidden",
+        className
+      )}
       {...rest}
     >
-      <Box
-        sx={{
-          width: "100%",
-        maxHeight: "650px",
-          position: "absolute",
-          top: 0,
-          right: 0,
-          left: 0,
-          bottom: 0,
-          zIndex: -1,
-          "&::after": {
-            // content: "",
-            position: "absolute",
-            top: 0,
-            right: 0,
-            left: 0,
-            bottom: 0,
-            background: "linear-gradient(to bottom,#055547, rgba(5, 85, 71, 0.4))",
-            // background:
-            //   "linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.7) 100%)",
-          },
-        }}
-      >
-        <Image
-          alt={post?.title}
-          // src={imageBuilder(post?.coverImage).height(450).width(1600).url()}
-          src={imageBuilder(post?.coverImage).height(1080).width(1920).url()}
-          layout="fill"
-          style={{ objectFit: "cover", objectPosition: "center" }}
-        />
-      </Box>
+      <div className="w-full max-h-[580px] absolute inset-0 -z-10">
+        {post?.coverImage && (
+          <Image
+            alt={post?.title || "Banner"}
+            src={imageBuilder(post?.coverImage).height(1080).width(1920).url()}
+            fill
+            className="object-cover object-center"
+          />
+        )}
+      </div>
 
-      <Box
-        sx={{
-          height: { xs: "350px", md: "calc(94vh - 6px)", xl: "650px" },
-          maxHeight: "650px",
-          background: "#00000065",
-        }}
-      >
-        <Container className="max-w-[1280px]"
-          maxWidth="lg"
-          sx={{
-            height: "100%",
-            minHeight: { xs: "350px", sm: "calc(94vh - 6px)", xl: "650px" },
-            maxHeight: "650px",
-            paddingTop: { xs: "20px", sm: "40px", md: "100px" },
-            paddingBottom: { xs: "20px", sm: "40px", md: "80px" },
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "flex-end",
-            alignItems: "flex-start",
-            // justifyContent: "center",
-            // alignItems: "center",
-          }}
-        >
-          <Typography
+      <div className="h-[350px] md:h-[calc(94vh-6px)] xl:h-[580px] max-h-[580px] bg-black/40">
+        <div className="container h-full min-h-[350px] sm:min-h-[calc(94vh-6px)] xl:min-h-[580px] max-h-[580px] pt-[20px] sm:pt-[40px] md:pt-[100px] pb-[20px] sm:pb-[40px] md:pb-[80px] flex flex-col justify-end items-start">
+          <Link
             href={`/article/${post?.slug}`}
             title={post?.title}
-            variant="h1"
-            component={Link}
-            sx={{
-              maxWidth: { md: "825px" },
-              fontSize: { xs: "26px", sm: "32px", md: "42px" },
-              lineHeight: { xs: "26px", sm: "55px" },
-              fontWeight: "bold",
-              color: "white",
-              textDecoration: "none",
-            }}
+            className="max-w-[825px] text-[26px] sm:text-[32px] md:text-[42px] leading-[26px] sm:leading-[55px] font-bold text-white no-underline hover:underline"
           >
-            {post?.title}
-          </Typography>
+            <h1>{post?.title}</h1>
+          </Link>
 
-          <Typography
-            variant="body1"
-            component="p"
-            sx={{
-              maxWidth: { md: "825px" },
-              marginTop: { xs: "10px", md: "20px" },
-              fontSize: { xs: "13px", sm: "15px" },
-              lineHeight: { xs: "23px", sm: "25px" },
-              color: "rgb(255 255 255 / 80%)",
-            }}
-          >
+          <p className="max-w-[825px] mt-2.5 md:mt-5 text-[13px] sm:text-[15px] leading-[23px] sm:leading-[25px] text-white/80 line-clamp-3">
             {post?.excerpt}
-          </Typography>
-        </Container>
-      </Box>
-    </Box>
+          </p>
+        </div>
+      </div>
+    </section>
   );
 };
 

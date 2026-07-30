@@ -1,15 +1,6 @@
 import SectionWidget from "../../SectionWidget";
 import { memo } from "react";
 import { imageBuilder } from "../../../pages/api/sanity";
-import {
-  Grid,
-    Box,Container,
-  Card,
-CardActionArea,
-  CardContent,
-  Chip,
-  Typography,
-} from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
 import { truncate } from "../../../utils/string.utils";
@@ -18,23 +9,12 @@ const PostCard = ({ cardData }) => {
   const article = cardData;
 
   return (
-    <Card
-      component="article"
+    <article
       key={article.slug}
-            sx={{
-        width: "100%",
-        background: "#fff",
-        borderRadius: "5px",
-        boxShadow: "0px 0px 20px 0 rgb(0 0 0 / 15%)",
-      }}
+      className="w-full bg-white rounded-md shadow-[0px_0px_20px_0_rgba(0,0,0,0.15)] overflow-hidden"
     >
-      <CardActionArea href={`/article/${article.slug}`} component={Link}>
-        <Box
-          sx={{
-            display: "flex",
-            borderBottom: "8px solid #055547",
-          }}
-        >
+      <Link href={`/article/${article.slug}`} className="no-underline block">
+        <div className="flex border-b-[8px] border-b-[#055547]">
           {article.coverImage && (
             <Image
               src={imageBuilder(article?.coverImage)
@@ -49,70 +29,52 @@ const PostCard = ({ cardData }) => {
                 .width(286)
                 .height(161)
                 .url()}
+              className="w-full h-auto object-cover"
             />
           )}
-        </Box>
+        </div>
 
-        <CardContent
-          sx={{
-            minHeight: "122px",
-            padding: "20px",
-            background: "#fff",
-          }}
-        >
-          <Chip label={article?.author?.name} size="small" />
+        <div className="min-h-[122px] p-5 bg-white">
+          {article?.author?.name && (
+            <span className="inline-block px-2 py-0.5 bg-gray-100 text-gray-800 text-xs rounded font-medium">
+              {article.author.name}
+            </span>
+          )}
 
-          <Typography
-            variant="h3"
+          <h3
             title={article.title}
-            sx={{
-              marginTop: "10px",
-              fontSize: "14px",
-              lineHeight: "24px",
-              fontWeight: "700",
-              color: "#055547",
-            }}
+            className="mt-2.5 text-sm leading-6 font-bold text-[#055547]"
           >
             {truncate(article.title, 50)}
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-    </Card>
+          </h3>
+        </div>
+      </Link>
+    </article>
   );
 };
 
-
-const PostGrid = ({ posts}) => {
+const PostGrid = ({ posts }) => {
   return (
-    <Grid container spacing={2}>
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 w-full">
       {posts &&
         posts?.map((article) => (
-          <Grid
-            item
-            key={article._id}
-            xs={12}
-            sm={6}
-            md={3}
-            sx={{ width: "100%" }}
-          >
+          <div key={article._id} className="w-full">
             <PostCard cardData={article} />
-          </Grid>
+          </div>
         ))}
-    </Grid>
-  )
-}
+    </div>
+  );
+};
 
 const BlockGridPostCard = ({ className, posts, title, ...rest }) => {
   return (
-    <>
-      <Box component="section">
-        <Container className="max-w-[1280px]" maxWidth="lg">
-          <SectionWidget title={title} {...rest}>
-            <PostGrid posts={posts} />
-          </SectionWidget>
-        </Container>
-      </Box>
-    </>
+    <section>
+      <div className="container">
+        <SectionWidget title={title} {...rest}>
+          <PostGrid posts={posts} />
+        </SectionWidget>
+      </div>
+    </section>
   );
 };
 

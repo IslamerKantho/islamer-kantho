@@ -1,114 +1,56 @@
-import { Box, Typography, Link } from "@mui/material";
+import NextLink from "next/link";
 import { IconContext } from "react-icons";
 import { ImBook } from "react-icons/im";
 import { memo } from "react";
 
 const ListMenu = ({ title, list, color, ...rest }) => {
-  return (
-    <>
-      <Box
-        {...rest}
-        sx={{
-          marginBottom: "10px",
-        }}
-      >
-        {/* Section Heading */}
-        <Box
-          sx={{
-            padding: "16px 0 10px 16px",
-          }}
-        >
-          <Typography
-            sx={{
-              paddingBottom: "8px",
-              color: color ? color : "#111",
-              fontSize: "16px",
-              lineHeight: "16px",
-              fontWeight: 700,
-              borderBottom: `1px solid ${color ? `${color}38` : "#eee"}`,
-            }}
-          >
-            {title}
-          </Typography>
-        </Box>
+  const customColor = color || "#111";
+  const customBorderColor = color ? `${color}38` : "#eee";
 
-        {/* Categories*/}
-        <Box>
-          <Box
-            component="ul"
-            sx={{
-              width: "100%",
-              margin: 0,
-              padding: 0,
-              listStyle: "none",
-              display: "inline-block",
-              float: "left",
-            }}
-          >
-            {list.map((e, i) => (
-              <Box
-                key={i}
-                component="li"
-                sx={{
-                  width: "50%",
-                  display: "inline-block",
-                  float: "left",
-                }}
+  return (
+    <div className="mb-2.5" {...rest}>
+      {/* Section Heading */}
+      <div className="pt-4 pb-2.5 pl-4 pr-4">
+        <h3
+          className="pb-2 text-base leading-4 font-bold border-b"
+          style={{ color: customColor, borderBottomColor: customBorderColor }}
+        >
+          {title}
+        </h3>
+      </div>
+
+      {/* Categories*/}
+      <div className="w-full">
+        <ul className="m-0 p-0 list-none grid grid-cols-2">
+          {list.map((e, i) => (
+            <li key={i}>
+              <NextLink
+                href={e.slug ? `/category/${e.slug}` : e.url}
+                className="py-[7px] pl-4 pr-2 text-[#111] flex justify-start items-center text-sm leading-[36px] no-underline border-r border-[#eee] overflow-hidden hover:bg-gray-50 transition-colors"
               >
-                <Link
-                  href={e.slug ? `/category/${e.slug}` : e.url}
-                  // component={Link}
-                  sx={{
-                    padding: "7px 0 7px 16px",
-                    color: "#111",
-                    position: "relative",
-                    display: "flex",
-                    justifyContent: "flex-start",
-                    alignItems: "center",
-                    fontSize: "14px",
-                    lineHeight: "36px",
-                    textDecoration: "none",
-                    transform: "translate3d(0, 0, 0)",
-                    borderRight: "1px solid #eee",
-                    overflow: "hidden",
-                  }}
-                >
-                  {/* Menu Icon */}
-                  <Box
-                    component="span"
-                    sx={{
-                      width: "36px",
-                      height: "36px",
-                      marginRight: "12px",
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      background: "#E8E8E8",
-                      borderRadius: "50%",
+                {/* Menu Icon */}
+                <span className="w-9 h-9 mr-3 flex justify-center items-center bg-[#E8E8E8] rounded-full shrink-0">
+                  <IconContext.Provider
+                    value={{
+                      color: color ? color : "#333",
+                      style: {
+                        width: "16px",
+                        height: "16px",
+                      },
                     }}
                   >
-                    <IconContext.Provider
-                      value={{
-                        color: color ? color : "#333",
-                        style: {
-                          width: "16px",
-                          height: "16px",
-                        },
-                      }}
-                    >
-                      <ImBook />
-                    </IconContext.Provider>
-                  </Box>
+                    <ImBook />
+                  </IconContext.Provider>
+                </span>
 
-                  {/* Menu Title */}
-                  {e.title}
-                </Link>
-              </Box>
-            ))}
-          </Box>
-        </Box>
-      </Box>
-    </>
+                {/* Menu Title */}
+                <span className="truncate">{e.title}</span>
+              </NextLink>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
   );
 };
 

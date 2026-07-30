@@ -1,4 +1,3 @@
-import { Box, Button, Container } from "@mui/material";
 import Head from "next/head";
 import { useState, useCallback } from "react";
 import Layout from "../../components/Layout";
@@ -22,7 +21,7 @@ const PageArticles = ({ data, preview }) => {
           data: [...articles.data, ...data.data],
           isPaginate: data.isPaginate,
           offset: data.offset,
-        }); // Adding content to the state.
+        });
         setLoading(false);
       })
       .catch(() => {
@@ -38,36 +37,28 @@ const PageArticles = ({ data, preview }) => {
       </Head>
 
       <Layout preview={preview}>
-        {/* <BlockGridPostCard posts={articles.data} /> */}
-
-        <Box className="w-full py-10 md:py-14" component="section">
-          <Container className="max-w-[1280px]" maxWidth="lg">
-            <Box className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-x-8 gap-y-10 mb-12">
+        <section className="w-full py-10 md:py-14">
+          <div className="container">
+            <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10 mb-12">
               {articles?.data.map((article) => (
                 <ArchivePostCard key={article.slug} article={article} />
               ))}
-            </Box>
+            </div>
 
-        {/* Pagination  */}
-        {articles.isPaginate && (
-            <Box
-              className="w-full flex justify-center items-center"
-            >
-              <Button
-                className="max-w-[450px] sm:p-2.5 bg-[#055547] hover:bg-[#055547ee] font-bold"
-                variant="contained"
-                color="primary"
-                disableElevation
-                fullWidth
-                disabled={loading}
-                onClick={loadMoreHandler}
-              >
-                {loading ? "Loading..." : "Load more"}
-              </Button>
-            </Box>
-        )}
-            </Container>
-        </Box>
+            {/* Pagination  */}
+            {articles.isPaginate && (
+              <div className="w-full flex justify-center items-center">
+                <button
+                  className="h-12 w-full max-w-[320px] py-2.5 px-4 bg-[#055547] hover:bg-[#055547ee] text-white font-semibold rounded transition-colors disabled:opacity-50"
+                  disabled={loading}
+                  onClick={loadMoreHandler}
+                >
+                  {loading ? "Loading..." : "Load more"}
+                </button>
+              </div>
+            )}
+          </div>
+        </section>
       </Layout>
     </>
   );

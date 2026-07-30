@@ -1,21 +1,10 @@
 import { RiMenuLine } from "react-icons/ri";
-import { Link } from "@mui/material";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Container from "@mui/material/Container";
-import IconButton from "@mui/material/IconButton";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
 import NextLink from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { BiSearch } from "react-icons/bi";
-import { IconContext } from "react-icons";
 import { FiUser } from "react-icons/fi";
-import dynamic from "next/dynamic";
 import { memo } from "react";
-import clsx from "clsx";
-const MenuDrawer = dynamic(() => import("../MenuDrawer"));
-
+import MenuDrawer from "../MenuDrawer";
 
 const pages = [
   {
@@ -32,119 +21,77 @@ const pages = [
 ];
 
 const Header = () => {
-  const [background] = useState("#055547");
   const [isCatDrawerOpen, setIsCatDrawerOpen] = useState(false);
-  const [isTouched, setIsTouched] = useState(true);
   const openHandler = () => setIsCatDrawerOpen(true);
   const closeHandler = () => setIsCatDrawerOpen(false);
 
-  useEffect(() => {
-    window.addEventListener("scroll", () => {
-    if (window.scrollY > 0) {
-      setIsTouched(false);
-    } else {
-      setIsTouched(true);
-    }
-  });
-  }, []);
-
-
   return (
     <>
-      <AppBar
-        className={clsx("p-0 border-b-[4px] border-b-primary will-change-transform transition-[background] duration-300", isTouched ? "bg-primary": "bg-white")}
-        elevation={0}
-        position="sticky"
+      <header
+        className="sticky top-0 z-40 border-b-[4px] border-b-primary w-full bg-primary"
       >
-        <Container className="max-w-[1280px]" maxWidth="xl">
-          <Toolbar disableGutters variant="dense">
-            {/*************************************
-             * Desktop Area Started
-             ************************************/}
-            <IconButton
-              className={clsx("me-4", isTouched ? "text-white" : "text-primary")}
-              onClick={openHandler}
-            >
-              <RiMenuLine />
-            </IconButton>
+        {/* Primary Nav */}
+        <nav className="relative w-full">
+          <div className="container-lg flex h-[48px] items-center justify-between w-full">
 
-            <Typography
-              className={clsx("max-md:hidden md:flex me-6 font-bold no-underline", isTouched ? "text-white" : "text-primary")}
-              variant="h6"
-              noWrap
-              href={"/"}
-              component={NextLink}
-            >
-              ইসলামের কন্ঠ
-            </Typography>
-            {/*************************************/}
+            <div className="flex items-center h-full">
 
-            {/*************************************
-             * Phone Area Started
-             ************************************/}
+              {/* Hamburger button */}
+              <button
+                className="mr-4 p-1 rounded-full transition-colors text-white"
+                onClick={openHandler}
+                aria-label="Open menu"
+              >
+                <RiMenuLine size={24} />
+              </button>
 
-            {/* Brand logo for phone */}
-            <Typography
-              className={clsx("ms-0 me-4 max-md:flex md:hidden flex-grow text-lg font-bold no-underline", isTouched ? "text-white" : "text-primary")}
-              variant="h5"
-              noWrap
-              component={NextLink}
-              href="/"
-            >
-              ইসলামের কন্ঠ
-            </Typography>
-            {/*************************************/}
+              {/* Brand Name */}
+              <NextLink
+                href="/"
+                className="mr-6 font-bold text-lg md:text-xl text-white"
+              >
+                ইসলামের কন্ঠ
+              </NextLink>
+            </div>
 
             {/* Desktop menu */}
-            <Box
-              className={clsx("ik__desktop__nav__menu", "flex-grow max-md:hidden md:flex gap-5 items-center ps-6 pe-5", isTouched ? "text-white" : "text-primary")}
-            >
+            <nav className="hidden md:flex flex-1 gap-5 items-center pl-6 pr-5 text-white">
               {pages.map((page, i) => (
-                <Link
-                key={i}
-                  className={clsx("cursor-pointer text-[13px] leading-5 font-bold [&:last-of-type]:me-auto [&:hover]:opacity-75", isTouched ? "text-white" : "text-primary")}
+                <NextLink
+                  key={i}
                   href={page.url}
-                  underline="none"
-                  component={NextLink}
-                  passHref
+                  className="cursor-pointer text-[13px] leading-5 font-bold text-[#D5D5D5] hover:text-white"
                 >
                   {page.title}
-                </Link>
+                </NextLink>
               ))}
-            </Box>
-            {/* ----/---- */}
+            </nav>
 
             {/* Desktop Toolbar Profile Area */}
-            <Box
-              className={clsx("ik__desktop__profile__area", "flex items-center gap-5 ps-6 max-md:pe-0 md:pe-2.5")}
-            >
-              <IconContext.Provider value={{ size: 14 }}>
+            <div className="flex items-center gap-5 pl-6 pr-0 sm:pr-2.5 ml-auto">
                 {/* Search */}
-                <Link
-                  className={clsx("cursor-pointer text-[13px] leading-5 font-bold [&:last-of-type]:me-auto [&:hover]:opacity-75", isTouched ? "text-white" : "text-primary")}
+                <NextLink
                   href="/search"
                   title="Search content"
-                  underline="none"
+                  className="cursor-pointer hover:opacity-75 text-white"
                 >
-                    <BiSearch />
-                </Link>
+                  <BiSearch size={16} />
+                </NextLink>
 
                 {/* Studio */}
-                <Link
-                  className={clsx("cursor-pointer text-[13px] leading-5 font-bold [&:last-of-type]:me-auto [&:hover]:opacity-75", isTouched ? "text-white" : "text-primary")}
+                <a
                   href="https://ik.sanity.studio"
-                  target={"_blank"}
-                  underline="none"
+                  target="_blank"
+                  rel="noreferrer"
                   title="Profile"
+                  className="cursor-pointer hover:opacity-75 text-white"
                 >
-                  <FiUser />
-                </Link>
-              </IconContext.Provider>
-            </Box>
-            {/* --/-- */}
-          </Toolbar>
-        </Container>
-      </AppBar>
+                  <FiUser size={16} />
+                </a>
+            </div>
+          </div>
+        </nav>
+      </header>
 
       <MenuDrawer
         isVisible={isCatDrawerOpen}
@@ -154,6 +101,5 @@ const Header = () => {
     </>
   );
 };
-
 
 export default memo(Header);

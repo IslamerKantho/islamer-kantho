@@ -1,14 +1,18 @@
-import { Box, Container } from "@mui/material";
+import clsx from "clsx";
 
-function DottedDivider() {
+function DottedDivider( { className } ) {
   return (
-    <Container className="max-w-[1280px] px-5"
-      maxWidth="xl"
-    >
-      <Box
-        className="dotted-devider w-full h-2.5 bg-[radial-gradient(#055547_20%,_transparent_0)] [background-position:0_0] [background-size:3px_3px]"
-      ></Box>
-    </Container>
+    <div className="container">
+      <div
+        className={ clsx( "w-full h-2 my-2 bg-repeat-x", className ) }
+        style={ {
+          backgroundImage:
+            "radial-gradient(#044f4f 20%, transparent 0)",
+          backgroundSize: "3px 3px",
+          backgroundPosition: "left center",
+        } }
+      />
+    </div>
   );
 }
 

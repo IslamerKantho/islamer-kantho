@@ -1,7 +1,5 @@
-import { Box, Container, Grid } from "@mui/material";
 import Head from "next/head";
 import { useCallback, useState } from "react";
-// import BlockCarouselFullWidth from "../components/Block/BlockCarouselFullWidth";
 import BlockPostCarSlider from "../components/Block/BlockPostCarSlider";
 import BlockSidebar from "../components/Block/BlockSidebar";
 import TrendingPosts from "../components/Block/TrendingPosts";
@@ -10,13 +8,7 @@ import Layout from "../components/Layout";
 import { getAllPosts, getFeaturedPost, getRecommendedPost } from "./api/api";
 import DottedDivider from "../components/DottedDivider";
 import dynamic from "next/dynamic";
-// const TrendingPosts = dynamic(() =>
-//   import("../components/Block/TrendingPosts")
-// );
-// const BlockSidebar = dynamic(() => import("../components/Block/BlockSidebar"));
-// const BlockPostCarSlider = dynamic(() =>
-//   import("../components/Block/BlockPostCarSlider")
-// );
+
 const BlockBanner = dynamic(() => import("../components/Block/BlockBanner"));
 const BlockCardWide10x = dynamic(() =>
   import("../components/Block/BlockCardWide10x")
@@ -26,7 +18,6 @@ export default function Home({
   featuredPosts,
   recommendedPosts,
   allPosts,
-  // preview
 }) {
   const [featuredPost] = useState(featuredPosts);
   const [recommendedPost] = useState(recommendedPosts);
@@ -46,7 +37,7 @@ export default function Home({
           data: [...recentArticles.data, ...data.data],
           isPaginate: data.isPaginate,
           offset: data.offset,
-        }); // Adding content to the state.
+        });
         setLoading(false);
       })
       .catch(() => {
@@ -58,13 +49,12 @@ export default function Home({
   return (
     <>
       <Head>
-        <title>ইসলামের কন্ঠ</title>0
+        <title>ইসলামের কন্ঠ</title>
       </Head>
 
       <Layout>
         <HeroBanner post={featuredPost[0]} />
         <TrendingPosts posts={featuredPost.slice(1)} />
-        {/* <DottedDivider /> */}
 
         {/* Recommended Articles */}
         {recommendedPost && (
@@ -74,33 +64,32 @@ export default function Home({
           />
         )}
 
-        {/* <DottedDivider /> */}
         <BlockBanner />
         <DottedDivider />
 
-        <Box component="section">
-          <Container className="max-w-[1280px] py-8 md:py-12 flex flex-col md:flex-row gap-10" maxWidth="lg">
-              <Box className="max-w-fit grid gap-10">
-                <BlockCardWide10x
-                  posts={recentArticles.data}
-                  isPaginate={recentArticles.isPaginate}
-                  loading={loading}
-                  onLoadMore={loadMoreHandler}
-                />
-              </Box>
+        <section className="w-full">
+          <div className="container py-8 md:py-12 flex flex-col md:flex-row gap-10">
+            <div className="flex-1">
+              <BlockCardWide10x
+                posts={recentArticles.data}
+                isPaginate={recentArticles.isPaginate}
+                loading={loading}
+                onLoadMore={loadMoreHandler}
+              />
+            </div>
 
-              <Box className="w-full max-w-[340px]">
-                <BlockSidebar />
-              </Box>
-          </Container>
-        </Box>
+            <div className="w-full md:w-[340px] shrink-0">
+              <BlockSidebar />
+            </div>
+          </div>
+        </section>
       </Layout>
     </>
   );
 }
 
 export async function getStaticProps({ preview = false }) {
-  const featuredArticleRange = [0, 10]; // Featured Content Range.
+  const featuredArticleRange = [0, 10];
 
   const featuredPosts = await getFeaturedPost(preview, featuredArticleRange);
   const recommendedPosts = await getRecommendedPost(preview, [0, 7]);

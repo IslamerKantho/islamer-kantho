@@ -1,142 +1,110 @@
-import CloseIcon from "@mui/icons-material/Close";
-import { AppBar, IconButton, Toolbar, Typography } from "@mui/material";
-import Box from "@mui/material/Box";
-import Drawer from "@mui/material/Drawer";
 import NextLink from "next/link";
 import { SIDE_MENU } from "../../db/sidebar_menu.db";
-import daynamic from "next/dynamic";
-import { memo } from "react";
+import { memo, useEffect } from "react";
 import { CATEGORIES } from "../../db/categories.db";
-const ListMenu = daynamic(() => import("./ListMenu"));
+import { IoCloseOutline } from "react-icons/io5";
+import clsx from "clsx";
+import ListMenu from "./ListMenu";
 
 const MenuDrawer = ({ isVisible, closeHandler }) => {
+  // Prevent body scroll when drawer is open
+  useEffect(() => {
+    if (isVisible) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isVisible]);
+
   const toggleDrawer = (e) => {
     if (e.type === "keydown" && (e.key === "Tab" || e.key === "Shift")) {
       return;
     }
-
     closeHandler();
   };
 
   const topBar = (
-    <AppBar
-      position="sticky"
-      sx={{
-        width: { xs: "100%", sm: "400px" },
-        color: "#fff",
-        background: "#055547",
-        boxShadow: "none",
-        pl: 2,
-        borderBottom: "1px solid rgb(233, 236, 239)",
-      }}
-    >
-      <Toolbar
-        disableGutters
-        variant="dense"
-        role=""
-        onClick={toggleDrawer}
-        onKeyDown={toggleDrawer}
+    <div className="sticky top-0 z-10 w-full sm:w-[400px] text-white bg-primary pl-4 border-b border-[#e9ecef] shadow-none flex items-center h-[48px]">
+      <NextLink
+        href="/"
+        className="flex mr-4 text-white font-bold text-[20px] leading-[36px] no-underline items-center"
       >
-        <NextLink href="/" passHref>
-          <Typography
-            variant="h6"
-            noWrap
-            href={"/"}
-            component="a"
-            sx={{
-              mr: 2,
-              color: "#fff",
-              display: "flex",
-              fontWeight: 700,
-              fontSize: "20px",
-              lineHeight: "36px",
-              textDecoration: "none",
-            }}
-          >
-            ইসলামের কন্ঠ
-          </Typography>
-        </NextLink>
+        ইসলামের কন্ঠ
+      </NextLink>
 
-        <IconButton
-          variant="text"
-          component="label"
-          sx={{
-            ml: "auto",
-            mr: 2,
-            color: "#fff",
-          }}
-        >
-          {/* <IconContext.Provider> */}
-          <CloseIcon
-            sx={{
-              padding: "2px",
-              borderRadius: "50%",
-              background: "#03483c",
-            }}
-          />
-          {/* </IconContext.Provider> */}
-        </IconButton>
-      </Toolbar>
-    </AppBar>
+      <button
+        onClick={closeHandler}
+        className="ml-auto mr-4 text-white p-1 rounded-full bg-[#03483c] hover:bg-black/20 transition-colors"
+        aria-label="Close menu"
+      >
+        <IoCloseOutline size={24} />
+      </button>
+    </div>
   );
 
   const footer = (
-    <>
-      <Box
-        sx={{
-          width: "70%",
-          margin: "25px auto 10px auto",
-          textAlign: "center",
-        }}
-      >
-        <Typography variant="body2" gutterBottom>
-          All right reserved by the author & the respective writers
-        </Typography>
-      </Box>
-    </>
+    <div className="w-[70%] mx-auto mt-[25px] mb-[10px] text-center">
+      <p className="text-sm text-gray-600 mb-2">
+        All right reserved by the author & the respective writers
+      </p>
+    </div>
   );
 
   return (
     <>
-      <Drawer
-        anchor="left"
-        open={isVisible}
-        onClose={closeHandler}
-        PaperProps={{
-          sx: {
-            width: { xs: "100%", sm: 400 },
-            maxWidth: { xs: "100%", sm: 400 },
-            overflowX: "hidden",
-          },
-        }}
+      {/* Overlay */}
+      <div
+        className={clsx(
+          "fixed inset-0 z-40 bg-black/50 backdrop-blur-sm transition-opacity duration-300",
+          isVisible ? "opacity-100 visible" : "opacity-0 invisible"
+        )}
+        onClick={closeHandler}
+        aria-hidden="true"
+      />
+
+      {/* Drawer */}
+      <div
+        className={clsx(
+          "fixed top-0 left-0 z-50 h-full w-full sm:w-[400px] bg-white shadow-xl transition-transform duration-300 ease-in-out overflow-y-auto overflow-x-hidden",
+          isVisible ? "translate-x-0" : "-translate-x-full"
+        )}
+        tabIndex="-1"
+        onKeyDown={toggleDrawer}
       >
-        {topBar} {/* Top Bar */}
-        {/* Categories */}
-        {Object.keys(CATEGORIES).map(
-          (k, i) =>
-            CATEGORIES[k].list && (
-              <ListMenu
-                key={i}
-                title={CATEGORIES[k].title}
-                list={CATEGORIES[k].list}
-                color={CATEGORIES[k].color}
-              />
-            )
-        )}
-        {/* Menu */}
-        {Object.keys(SIDE_MENU).map(
-          (k, i) =>
-            SIDE_MENU[k].list && (
-              <ListMenu
-                key={i}
-                title={SIDE_MENU[k].title}
-                list={SIDE_MENU[k].list}
-                color={SIDE_MENU[k].color}
-              />
-            )
-        )}
+        {topBar}
+        
+        <div className="py-2">
+          {/* Categories */}
+          {Object.keys(CATEGORIES).map(
+            (k, i) =>
+              CATEGORIES[k].list && (
+                <ListMenu
+                  key={`cat-${i}`}
+                  title={CATEGORIES[k].title}
+                  list={CATEGORIES[k].list}
+                  color={CATEGORIES[k].color}
+                />
+              )
+          )}
+          {/* Menu */}
+          {Object.keys(SIDE_MENU).map(
+            (k, i) =>
+              SIDE_MENU[k].list && (
+                <ListMenu
+                  key={`menu-${i}`}
+                  title={SIDE_MENU[k].title}
+                  list={SIDE_MENU[k].list}
+                  color={SIDE_MENU[k].color}
+                />
+              )
+          )}
+        </div>
+        
         {footer}
-      </Drawer>
+      </div>
     </>
   );
 };

@@ -1,4 +1,3 @@
-import { Box, Button, Grid } from "@mui/material";
 import CardFullWide from "../../card/CardFullWide";
 import SectionWidget from "../../SectionWidget";
 import { memo } from "react";
@@ -13,33 +12,27 @@ const BlockCardWide10x = ({
   onLoadMore,
 }) => {
   return (
-    <SectionWidget className={clsx( className)} title="সাম্প্রতিক লেখাসমুহ">
-
+    <SectionWidget className={clsx(className)} title="সাম্প্রতিক লেখাসমুহ">
       {/* Post loop */}
-      <Grid container spacing={3}>
-        {posts && posts.map((post, i) => (
-          <Grid item key={i} xs={12} md={12}>
-            <CardFullWide key={post._id} postData={post} />
-          </Grid>
-        ))}
-      </Grid>
+      <div className="flex flex-col gap-6">
+        {posts &&
+          posts.map((post, i) => (
+            <div key={post._id || i} className="w-full">
+              <CardFullWide postData={post} />
+            </div>
+          ))}
+      </div>
 
-      {isPaginate  && (
-        <Box
-          className="w-full pt-7 flex justify-center items-center"
-        >
-          <Button
-            className="sm:p-2.5 bg-[#055547] hover:bg-[#055547ee]"
-            variant="contained"
-            color="primary"
-            disableElevation
-            fullWidth
+      {isPaginate && (
+        <div className="w-full pt-10 flex justify-center items-center">
+          <button
+            className="h-12 w-full max-w-[320px] px-6 py-2.5 bg-[#055547] hover:bg-[#055547ee] text-white font-semibold rounded transition-colors disabled:opacity-50"
             disabled={loading}
             onClick={onLoadMore}
           >
             {loading ? "Loading..." : "Load more"}
-          </Button>
-        </Box>
+          </button>
+        </div>
       )}
     </SectionWidget>
   );
