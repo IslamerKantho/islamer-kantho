@@ -275,3 +275,28 @@ export async function getGalleryBySlug(slug, preview = false) {
   }`;
   return await getClient(preview).fetch(query, { slug });
 }
+
+export async function searchPosts(searchQuery, preview = false) {
+  if (!searchQuery) return [];
+  
+  const query = `*[_type == "post" && (title match $searchQuery || excerpt match $searchQuery)] | order(publishedAt desc) {
+    _id,
+    name,
+    title,
+    'category': categories[0]-> {
+      title,
+      'slug': slug.current
+    },
+    'date': {
+      'createdAt': _createdAt, 
+      'updatedAt': _updatedAt
+    },
+    excerpt,
+    'slug': slug.current,
+    'coverImage': mainImage,
+    'author': author->{_id, name, 'picture': image.asset->url},
+  }[0...20]`;
+  
+  const results = await getClient(preview).fetch(query, { searchQuery: `*${searchQuery}*` });
+  return getUniquePosts(results);
+}
