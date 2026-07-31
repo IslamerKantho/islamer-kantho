@@ -110,13 +110,18 @@ export default function Post({ className, post, morePosts, settings, preview, ..
                 <SingleArticleContent content={post.body} />
 
                   { post.references && post.references.length > 0 && (
-                    <div className="mt-10 p-6 bg-slate-50 rounded-xl border border-slate-200">
-                      <h3 className="text-lg font-bold text-slate-800 mb-4">তথ্যসূত্র:</h3>
-                      <ul className="list-disc pl-5 space-y-2">
+                    <div className="max-w-[610px] mx-auto mt-5">
+                      <h3 className="text-[15px] font-bold text-slate-800 mb-3">* তথ্যসূত্র:</h3>
+                      <ol className="space-y-1">
                         { post.references.map( ( link, idx ) => (
                           <li key={ idx }>
                             { link.url ? (
-                              <a href={ link.url } target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-medium">
+                              <a
+                                href={ link.url }
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-primary hover:underline"
+                              >
                                 { link.title || link.url }
                               </a>
                             ) : (
@@ -124,7 +129,7 @@ export default function Post({ className, post, morePosts, settings, preview, ..
                             ) }
                           </li>
                         ) ) }
-                      </ul>
+                      </ol>
                     </div>
                   ) }
 
@@ -148,7 +153,7 @@ export default function Post({ className, post, morePosts, settings, preview, ..
 
 export async function getStaticProps({ params, preview = false }) {
   const data = await getPostAndMorePosts(params.slug, preview);
-  
+
   if (!data?.post) {
     return { notFound: true };
   }

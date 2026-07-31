@@ -17,6 +17,7 @@ export default async function handler(req, res) {
     const data = await response.json();
     const timings = data.data.timings;
     const hijri = data.data.date.hijri;
+    const gregorian = data.data.date.gregorian;
     
     // We only need Fajr, Dhuhr, Asr, Maghrib, Isha
     const prayerTimes = {
@@ -35,6 +36,12 @@ export default async function handler(req, res) {
       designation: hijri.designation.abbreviated,
     };
 
+    const gregorianDate = {
+      day: gregorian.day,
+      monthEn: gregorian.month.en,
+      year: gregorian.year,
+    };
+
     // Cache the response at the edge for 1 hour, stale while revalidate for 1 day
     res.setHeader(
       "Cache-Control",
@@ -45,6 +52,7 @@ export default async function handler(req, res) {
       location: { city, country },
       prayers: prayerTimes,
       hijri: hijriDate,
+      gregorian: gregorianDate,
     });
   } catch (error) {
     console.error("Prayer times API error:", error);

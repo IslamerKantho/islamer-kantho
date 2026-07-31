@@ -81,7 +81,6 @@ const SocialShare = ({ url, slug, title }) => {
 
   return (
     <div className="flex items-center gap-2">
-      <span className="text-[12px] font-semibold text-gray-500 mr-1 hidden sm:block">শেয়ার:</span>
       <div className="flex items-center gap-1.5">
         {shareLinks.map((link) => (
           <a
