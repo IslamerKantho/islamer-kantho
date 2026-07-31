@@ -3,6 +3,7 @@ import { useState, useCallback } from "react";
 import Layout from "../../components/Layout";
 import { getAllPosts } from "../api/api";
 import ArchivePostCard from "@/components/card/ArchivePostCard";
+import BlockPageHeader from "../../components/Block/BlockPageHeader";
 
 const PageArticles = ({ data, preview }) => {
   const [articles, setArticles] = useState(data || {});
@@ -78,6 +79,10 @@ const PageArticles = ({ data, preview }) => {
       />
 
       <Layout preview={preview}>
+        <BlockPageHeader 
+          title="আর্কাইভ" 
+          subtitle="ইসলামের কন্ঠ পত্রিকার সকল প্রবন্ধ ও লেখালেখির সংগ্রহশালা" 
+        />
         <section className="w-full py-10 md:py-14">
           <div className="container">
             <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10 mb-12">

@@ -3,6 +3,7 @@ import { useState, useCallback } from "react";
 import Layout from "../../components/Layout";
 import { getAllPosts } from "../api/api";
 import ArchivePostCard from "@/components/card/ArchivePostCard";
+import BlockPageHeader from "../../components/Block/BlockPageHeader";
 
 const PageArticles = ({ data, slug, preview }) => {
   const [articles, setArticles] = useState(data || {});
@@ -83,14 +84,12 @@ const PageArticles = ({ data, slug, preview }) => {
       />
 
       <Layout preview={preview}>
+        <BlockPageHeader 
+          title={`বিভাগ: ${categoryTitle}`} 
+          subtitle={`${categoryTitle} বিভাগের সর্বাধুনিক প্রবন্ধ, গবেষণা ও নিবন্ধমালা`} 
+        />
         <section className="w-full py-10 md:py-14">
           <div className="container">
-            {/* Header category title, similar to archive but with category name */}
-            <div className="mb-8 pb-4 border-b border-gray-200">
-              <h1 className="text-2xl font-bold text-gray-900 leading-tight">
-                বিভাগ: {categoryTitle}
-              </h1>
-            </div>
 
             <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10 mb-12">
               {articles?.data.map((article) => (

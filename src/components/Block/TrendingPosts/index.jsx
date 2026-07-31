@@ -41,10 +41,10 @@ const PostCard = ( { post } ) => {
 const TrendingPosts = ( { className, posts, ...rest } ) => {
   return (
     <section
-      className={ clsx( "hero-banner pt-10 pb-12 md:pt-16 md:pb-14", className ) }
+      className={ clsx( "hero-banner pt-10 pb-10", className ) }
       { ...rest }
     >
-      <div className="container">
+      <div className="container border-t border-gray-200">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 divide-y sm:divide-y-0 md:divide-x divide-gray-200">
           { posts && posts.map( ( post, index ) => (
             <div

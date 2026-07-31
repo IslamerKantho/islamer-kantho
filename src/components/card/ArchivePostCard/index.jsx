@@ -37,7 +37,7 @@ const ArchivePostCard = ( { article } ) => {
             >
               { article?.category?.title }
             </Link>
-            <p className="ml-2 pl-2 border-l border-gray-300 text-[#666] text-[11px] font-bold leading-4.5 uppercase">
+            <p className="ml-2 pl-2 border-l border-gray-300 text-[#6b6b6b] text-[11px] font-bold leading-4.5 uppercase">
               <FormatterDate dateString={ article?.date?.updatedAt || article?.date?.createdAt } />
             </p>
           </div>
@@ -46,11 +46,11 @@ const ArchivePostCard = ( { article } ) => {
             { article.title }
           </h3>
 
-          {/* <p className="my-2 text-[#666] text-xs leading-[160%] [line-break:anywhere]">
+          {/* <p className="my-2 text-[#6b6b6b] text-xs leading-[160%] [line-break:anywhere]">
             { truncate( article?.excerpt ) }
           </p> */}
 
-          <span className="text-[#666] hover:opacity-75 text-[11px] font-bold leading-4">
+          <span className="text-[#6b6b6b] hover:opacity-75 text-[11px] font-bold leading-4">
             { article?.author?.name }
           </span>
         </div>
