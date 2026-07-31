@@ -23,6 +23,7 @@ const postFields = `
   _id,
   name,
   title,
+  publishedAt,
   'category': categories[]-> {
     title,
     'slug': slug.current
@@ -34,7 +35,14 @@ const postFields = `
   excerpt,
   'slug': slug.current,
   'coverImage': mainImage,
-  'author': author->{name, 'picture': image.asset->url},
+  'author': author->{name, 'picture': image.asset->url, designation},
+  'seo': seo {
+    metaTitle,
+    metaDescription,
+    keywords,
+    'ogImageUrl': ogImage.asset->url,
+    noIndex
+  },
 `;
 
 // Recommended Posts.
@@ -240,4 +248,30 @@ export async function getPostAndMorePosts(slug, preview) {
     ),
   ]);
   return { post, morePosts: getUniquePosts(morePosts) };
+}
+
+export async function getAllGalleries(preview = false) {
+  const query = `*[_type == "gallery"] | order(_createdAt desc) {
+    _id,
+    title,
+    'slug': slug.current,
+    mediaType,
+    caption,
+    videoUrl,
+    'image': image.asset->url
+  }`;
+  return await getClient(preview).fetch(query);
+}
+
+export async function getGalleryBySlug(slug, preview = false) {
+  const query = `*[_type == "gallery" && slug.current == $slug][0] {
+    _id,
+    title,
+    'slug': slug.current,
+    mediaType,
+    caption,
+    videoUrl,
+    'image': image.asset->url
+  }`;
+  return await getClient(preview).fetch(query, { slug });
 }

@@ -64,15 +64,17 @@ export default function Post({ className, post, morePosts, preview, ...rest }) {
       ) : (
         <>
           <SEO
-            title={post.title}
-            description={post.excerpt}
+            title={post.seo?.metaTitle || post.title}
+            description={post.seo?.metaDescription || post.excerpt}
+            keywords={post.seo?.keywords?.join(', ')}
             canonicalUrl={`/article/${post.slug}`}
             ogType="article"
-            ogImage={imageUrl}
-            publishedTime={post?.date?.createdAt}
-            modifiedTime={post?.date?.updatedAt || post?.date?.createdAt}
+            ogImage={post.seo?.ogImageUrl || imageUrl}
+            publishedTime={post.publishedAt || post?.date?.createdAt}
+            modifiedTime={post?.date?.updatedAt || post.publishedAt || post?.date?.createdAt}
             authorName={post?.author?.name}
             categoryName={post?.categories?.title || post?.category?.title}
+            noIndex={post.seo?.noIndex}
             jsonLd={articleJsonLd}
           />
 

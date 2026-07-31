@@ -71,7 +71,7 @@
   line-height: 30px;
 }
 
-.markdown p {
+.markdown p:not(p[lang="ar"]) {
   margin-bottom: 20px;
   color: #2A2A2A;
   font-family: var(--font-hnt), "Arial", sans-serif;
@@ -79,6 +79,15 @@
   line-height: 32px;
   font-weight: 400;
 }
+
+/* Arabic Text Styles */
+.markdown p[lang="ar"],
+.markdown span[lang="ar"],
+.markdown div[lang="ar"] {
+  font-family: "Amiri", "Scheherazade New", "Traditional Arabic", serif;
+  direction: rtl;
+}
+
 
 .markdown p a {
   color: #000000;
