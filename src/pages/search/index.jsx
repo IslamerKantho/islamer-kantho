@@ -3,6 +3,7 @@ import useSWR from "swr";
 import Layout from "../../components/Layout";
 import SEO from "../../components/SEO";
 import ArchivePostCard from "../../components/card/ArchivePostCard";
+import BlockPageHeader from "../../components/Block/BlockPageHeader";
 import { BiSearch } from "react-icons/bi";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
@@ -40,58 +41,56 @@ export default function SearchPage() {
   return (
     <Layout>
       <SEO
-        title="অনুসন্ধান | ইসলামের কন্ঠ"
+        title="অনুসন্ধান"
         description="ইসলামের কন্ঠ ওয়েবসাইটে আপনার পছন্দের প্রবন্ধ ও জিজ্ঞাসা অনুসন্ধান করুন।"
         canonicalUrl="/search"
       />
 
-      <div className="py-12 bg-white min-h-[65vh]">
-        <div className="container mx-auto px-4 max-w-5xl">
-          <header className="mb-12 text-center max-w-2xl mx-auto">
-            <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight mb-2">
-              আর্কাইভ অনুসন্ধান
-            </h1>
-            <div className="h-[3px] w-20 bg-secondary mx-auto mb-4 rounded-full"></div>
-            <p className="text-gray-500 text-sm mb-8">
-              ইসলামের কন্ঠের প্রকাশিত প্রবন্ধ, সীরাত, তাফসীর ও জিজ্ঞাসা থেকে খুঁজুন
-            </p>
-            
-            <div className="relative w-full max-w-lg mx-auto">
-              <div className="relative flex items-center bg-white border border-gray-300 rounded shadow-sm hover:border-primary focus-within:border-primary focus-within:ring-1 focus-within:ring-primary/20 transition-all duration-200">
-                <input
-                  type="text"
-                  placeholder="লেখার শিরোনাম বা বিষয়বস্তু..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  onKeyDown={(e) => {
-                     if (e.key === 'Enter') setDebouncedTerm(searchTerm);
-                  }}
-                  className="w-full bg-transparent border-none pl-4 pr-3 py-3 text-base focus:outline-none focus:ring-0 text-gray-800 placeholder-gray-400"
-                />
-                <button 
-                  onClick={() => setDebouncedTerm(searchTerm)}
-                  className="h-full px-5 py-3.5 bg-primary hover:bg-[#033a3a] text-white flex items-center justify-center transition-colors cursor-pointer"
-                >
-                  <BiSearch size={22} />
-                </button>
-              </div>
+      <BlockPageHeader 
+        title="আর্কাইভ অনুসন্ধান" 
+        subtitle="ইসলামের কন্ঠের প্রকাশিত প্রবন্ধ, সীরাত, তাফসীর ও জিজ্ঞাসা থেকে খুঁজুন"
+      />
+
+      <section className="w-full py-10 md:py-14 bg-white min-h-[50vh]">
+        <div className="container">
+          
+          {/* Search Box Container */}
+          <div className="max-w-lg mx-auto mb-12">
+            <div className="relative flex items-center bg-white border border-gray-300 rounded shadow-sm hover:border-primary focus-within:border-primary focus-within:ring-1 focus-within:ring-primary/20 transition-all duration-200">
+              <input
+                type="text"
+                placeholder="লেখার শিরোনাম বা বিষয়বস্তু..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                onKeyDown={(e) => {
+                   if (e.key === 'Enter') setDebouncedTerm(searchTerm);
+                }}
+                className="w-full bg-transparent border-none pl-4 pr-3 py-3 text-base focus:outline-none focus:ring-0 text-gray-800 placeholder-gray-400"
+              />
+              <button 
+                onClick={() => setDebouncedTerm(searchTerm)}
+                className="h-full px-5 py-3.5 bg-primary hover:bg-[#033a3a] text-white flex items-center justify-center transition-colors cursor-pointer"
+              >
+                <BiSearch size={22} />
+              </button>
             </div>
 
-            {/* Branded Popular Tags */}
-            <div className="mt-5 flex flex-wrap gap-2 justify-center items-center">
+            {/* Popular Tags */}
+            <div className="mt-4 flex flex-wrap gap-2 justify-center items-center">
               <span className="text-xs text-gray-400 font-semibold mr-1">জনপ্রিয় অনুসন্ধান:</span>
               {POPULAR_TAGS.map((tag, idx) => (
                 <button
                   key={idx}
                   onClick={() => handleTagClick(tag.term)}
-                  className="text-xs px-3 py-1.5 bg-slate-50 hover:bg-secondary/10 border border-slate-200 hover:border-secondary hover:text-primary rounded text-gray-600 transition-all cursor-pointer font-medium"
+                  className="text-xs px-2.5 py-1 bg-slate-50 hover:bg-secondary/10 border border-slate-200 hover:border-secondary hover:text-primary rounded text-gray-600 transition-all cursor-pointer font-medium"
                 >
                   {tag.name}
                 </button>
               ))}
             </div>
-          </header>
+          </div>
 
+          {/* Results Section */}
           <div className="mt-8">
             {isLoading && (
               <div className="flex flex-col items-center justify-center py-12">
@@ -117,9 +116,9 @@ export default function SearchPage() {
                 </div>
                 
                 {data.data.length > 0 ? (
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                  <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10 mb-12">
                     {data.data.map((post) => (
-                      <ArchivePostCard key={post._id} article={post} />
+                      <ArchivePostCard key={post.slug} article={post} />
                     ))}
                   </div>
                 ) : (
@@ -141,7 +140,7 @@ export default function SearchPage() {
             )}
           </div>
         </div>
-      </div>
+      </section>
     </Layout>
   );
 }
