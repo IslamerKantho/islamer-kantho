@@ -1,8 +1,8 @@
 import SEO, { SITE_CONFIG } from "../../components/SEO";
 import { useState, useCallback } from "react";
-import BlockGridPostCard from "../../components/Block/BlockGridPostCard";
 import Layout from "../../components/Layout";
 import { getAllPosts } from "../api/api";
+import ArchivePostCard from "@/components/card/ArchivePostCard";
 
 const PageArticles = ({ data, slug, preview }) => {
   const [articles, setArticles] = useState(data || {});
@@ -56,7 +56,7 @@ const PageArticles = ({ data, slug, preview }) => {
    */
   const loadMoreHandler = useCallback(() => {
     setLoading(true);
-    fetch(`/api/articles?offset=${articles.offset}&limit=8&category=${slug}`)
+    fetch(`/api/articles?offset=${articles.offset}&limit=12&category=${slug}`)
       .then((data) => data.json())
       .then((data) => {
         setArticles({
@@ -83,22 +83,35 @@ const PageArticles = ({ data, slug, preview }) => {
       />
 
       <Layout preview={preview}>
-        <BlockGridPostCard posts={articles.data} />
-
-        {/* Pagination  */}
-        {articles.isPaginate && (
-          <div className="container max-w-[600px] mb-[30px]">
-            <div className="w-full flex justify-center items-center">
-              <button
-                className="w-full py-2.5 px-4 bg-[#055547] hover:bg-[#055547ee] text-white font-bold rounded transition-colors disabled:opacity-50"
-                disabled={loading}
-                onClick={loadMoreHandler}
-              >
-                {loading ? "Loading..." : "Load more"}
-              </button>
+        <section className="w-full py-10 md:py-14">
+          <div className="container">
+            {/* Header category title, similar to archive but with category name */}
+            <div className="mb-8 pb-4 border-b border-gray-200">
+              <h1 className="text-2xl font-bold text-gray-900 leading-tight">
+                বিভাগ: {categoryTitle}
+              </h1>
             </div>
+
+            <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10 mb-12">
+              {articles?.data.map((article) => (
+                <ArchivePostCard key={article.slug} article={article} />
+              ))}
+            </div>
+
+            {/* Pagination  */}
+            {articles.isPaginate && (
+              <div className="w-full flex justify-center items-center">
+                <button
+                  className="h-12 w-full max-w-[320px] py-2.5 px-4 bg-[#055547] hover:bg-[#055547ee] text-white font-semibold rounded transition-colors disabled:opacity-50"
+                  disabled={loading}
+                  onClick={loadMoreHandler}
+                >
+                  {loading ? "Loading..." : "Load more"}
+                </button>
+              </div>
+            )}
           </div>
-        )}
+        </section>
       </Layout>
     </>
   );

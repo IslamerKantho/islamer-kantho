@@ -16,9 +16,9 @@ const pages = [
     title: "আর্কাইভ",
     url: "/archive",
   },
-  { title: "আমাদের পরিচিতি", url: "amader-porichithi" },
-  { title: "লেখা পাঠানোর নিয়মাবলী", url: "lekha-patanur-niyomaboli" },
-  { title: "যোগাযোগের মাধ্যম", url: "jugajuger-maddyom" },
+  { title: "আমাদের পরিচিতি", url: "/amader-porichithi" },
+  { title: "লেখা পাঠানোর নিয়মাবলী", url: "/lekha-patanur-niyomaboli" },
+  { title: "যোগাযোগের মাধ্যম", url: "/jugajuger-maddyom" },
 ];
 
 const Header = () => {

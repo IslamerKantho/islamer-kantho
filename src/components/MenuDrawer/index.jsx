@@ -5,8 +5,19 @@ import { CATEGORIES } from "../../db/categories.db";
 import { IoCloseOutline } from "react-icons/io5";
 import clsx from "clsx";
 import ListMenu from "./ListMenu";
+import { useRouter } from "next/router";
 
 const MenuDrawer = ({ isVisible, closeHandler }) => {
+  const router = useRouter();
+
+  // Close drawer on route changes
+  useEffect(() => {
+    router.events.on("routeChangeStart", closeHandler);
+    return () => {
+      router.events.off("routeChangeStart", closeHandler);
+    };
+  }, [router, closeHandler]);
+
   // Prevent body scroll when drawer is open
   useEffect(() => {
     if (isVisible) {
