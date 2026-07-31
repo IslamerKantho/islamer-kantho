@@ -7,21 +7,9 @@ import { memo } from "react";
 import MenuDrawer from "../MenuDrawer";
 import SecondaryNavbar from "./SecondaryNavbar";
 
-const pages = [
-  {
-    title: "সম্পাদকীয়",
-    url: "/sompadokiyo",
-  },
-  {
-    title: "আর্কাইভ",
-    url: "/archive",
-  },
-  { title: "আমাদের পরিচিতি", url: "/amader-porichithi" },
-  { title: "লেখা পাঠানোর নিয়মাবলী", url: "/lekha-patanur-niyomaboli" },
-  { title: "যোগাযোগের মাধ্যম", url: "/jugajuger-maddyom" },
-];
 
-const Header = () => {
+
+const Header = ({ settings }) => {
   const [isCatDrawerOpen, setIsCatDrawerOpen] = useState(false);
   const openHandler = () => setIsCatDrawerOpen(true);
   const closeHandler = () => setIsCatDrawerOpen(false);
@@ -57,7 +45,7 @@ const Header = () => {
 
             {/* Desktop menu */}
             <nav className="hidden md:flex flex-1 gap-5 items-center pl-6 pr-5 text-black">
-              {pages.map((page, i) => (
+              {settings?.primaryMenu?.map((page, i) => (
                 <NextLink
                   key={i}
                   href={page.url}
@@ -101,6 +89,7 @@ const Header = () => {
         isVisible={isCatDrawerOpen}
         openHandler={openHandler}
         closeHandler={closeHandler}
+        sidebarMenu={settings?.sidebarMenu}
       />
     </>
   );

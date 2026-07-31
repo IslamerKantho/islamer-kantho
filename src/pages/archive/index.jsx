@@ -1,11 +1,11 @@
 import SEO, { SITE_CONFIG } from "@/components/SEO";
 import { useState, useCallback } from "react";
 import Layout from "../../components/Layout";
-import { getAllPosts } from "../api/api";
+import { getAllPosts, getSiteSettings } from "../api/api";
 import ArchivePostCard from "@/components/card/ArchivePostCard";
 import BlockPageHeader from "../../components/Block/BlockPageHeader";
 
-const PageArticles = ({ data, preview }) => {
+const PageArticles = ({ data, settings, preview }) => {
   const [articles, setArticles] = useState(data || {});
   const [loading, setLoading] = useState(false);
 
@@ -78,7 +78,7 @@ const PageArticles = ({ data, preview }) => {
         jsonLd={archiveJsonLd}
       />
 
-      <Layout preview={preview}>
+      <Layout preview={preview} settings={settings}>
         <BlockPageHeader 
           title="আর্কাইভ" 
           subtitle="ইসলামের কন্ঠ পত্রিকার সকল প্রবন্ধ ও লেখালেখির সংগ্রহশালা" 
@@ -119,9 +119,10 @@ export async function getServerSideProps({ res }) {
 
   const preview = false;
   const articles = await getAllPosts(false, 0, 12);
+  const settings = await getSiteSettings(false);
 
   return {
-    props: { data: articles, preview },
+    props: { data: articles, settings, preview },
   };
 }
 

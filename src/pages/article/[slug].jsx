@@ -1,4 +1,3 @@
-import ErrorPage from "next/error";
 import SEO, { SITE_CONFIG } from "../../components/SEO";
 import { useRouter } from "next/router";
 import PropTypes from "prop-types";
@@ -6,17 +5,14 @@ import ArticleCover from "../../components/Article/ArticleCover";
 import ArticleHeader from "../../components/Article/ArticleHeader";
 import SingleArticleContent from "../../components/Article/SingleArticleContent";
 import Layout from "../../components/Layout";
-import { getAllPostsWithSlug, getPostAndMorePosts } from "../api/api";
+import { getAllPostsWithSlug, getPostAndMorePosts, getSiteSettings } from "../api/api";
 import { imageBuilder } from "../api/sanity";
 import ArchivePostCard from "../../components/card/ArchivePostCard";
 import SocialShare from "../../components/Article/SocialShare";
 import BlockPostCarSlider from "@/components/Block/BlockPostCarSlider";
 
-export default function Post({ className, post, morePosts, preview, ...rest }) {
+export default function Post({ className, post, morePosts, settings, preview, ...rest }) {
   const router = useRouter();
-  if (!router.isFallback && !post?.slug) {
-    return <ErrorPage statusCode={404} />;
-  }
 
   const articleUrl = post?.slug ? `${SITE_CONFIG.domain}/article/${post.slug}` : SITE_CONFIG.domain;
   const imageUrl = post?.coverImage
@@ -63,7 +59,7 @@ export default function Post({ className, post, morePosts, preview, ...rest }) {
   const readingTime = Math.max( 1, Math.ceil( JSON.stringify( post?.body || '' ).split( ' ' ).length / 250 ) );
 
   return (
-    <Layout preview={preview}>
+    <Layout preview={preview} settings={settings}>
       {router.isFallback ? (
         <p className="p-10 text-center">Loading…</p>
       ) : (
@@ -113,11 +109,11 @@ export default function Post({ className, post, morePosts, preview, ...rest }) {
                 <div className="container max-w-4xl mx-auto">
                 <SingleArticleContent content={post.body} />
 
-                  { post.referenceLinks && post.referenceLinks.length > 0 && (
+                  { post.references && post.references.length > 0 && (
                     <div className="mt-10 p-6 bg-slate-50 rounded-xl border border-slate-200">
                       <h3 className="text-lg font-bold text-slate-800 mb-4">তথ্যসূত্র:</h3>
                       <ul className="list-disc pl-5 space-y-2">
-                        { post.referenceLinks.map( ( link, idx ) => (
+                        { post.references.map( ( link, idx ) => (
                           <li key={ idx }>
                             { link.url ? (
                               <a href={ link.url } target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-medium">
@@ -152,11 +148,19 @@ export default function Post({ className, post, morePosts, preview, ...rest }) {
 
 export async function getStaticProps({ params, preview = false }) {
   const data = await getPostAndMorePosts(params.slug, preview);
+  
+  if (!data?.post) {
+    return { notFound: true };
+  }
+
+  const settings = await getSiteSettings(preview);
+
   return {
     props: {
       preview,
       post: data?.post || null,
       morePosts: data?.morePosts || null,
+      settings: settings || null,
     },
     revalidate: 1,
   };

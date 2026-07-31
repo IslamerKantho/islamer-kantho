@@ -4,6 +4,12 @@ import dynamic from "next/dynamic";
 const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
 
 const serializers = {
+  marks: {
+    left: ({ children }) => <span className="block text-left w-full">{children}</span>,
+    center: ({ children }) => <span className="block text-center w-full">{children}</span>,
+    right: ({ children }) => <span className="block text-right w-full">{children}</span>,
+    justify: ({ children }) => <span className="block text-justify w-full">{children}</span>,
+  },
   types: {
     quranVerse: ( { node } ) => (
       <div className="hadith my-10 relative px-4 md:px-0">

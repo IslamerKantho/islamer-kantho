@@ -2,10 +2,11 @@ import clsx from "clsx";
 import Footer from "../Footer";
 import Header from "../Header";
 
-const Layout = ({ className, children }) => {
+const Layout = ({ preview, settings, className, children }) => {
   return (
     <>
-      <Header />
+      {preview && <Alert />}
+      <Header settings={settings} />
 
       <main
         className={clsx("max-w-full h-full min-h-(calc(100vh - 314.56px))", className)}

@@ -1,11 +1,11 @@
 import SEO, { SITE_CONFIG } from "../../components/SEO";
 import { useState, useCallback } from "react";
 import Layout from "../../components/Layout";
-import { getAllPosts } from "../api/api";
+import { getAllPosts, getSiteSettings } from "../api/api";
 import ArchivePostCard from "@/components/card/ArchivePostCard";
 import BlockPageHeader from "../../components/Block/BlockPageHeader";
 
-const PageArticles = ({ data, slug, preview }) => {
+const PageArticles = ({ data, slug, settings, preview }) => {
   const [articles, setArticles] = useState(data || {});
   const [loading, setLoading] = useState(false);
 
@@ -83,7 +83,7 @@ const PageArticles = ({ data, slug, preview }) => {
         jsonLd={categoryJsonLd}
       />
 
-      <Layout preview={preview}>
+      <Layout preview={preview} settings={settings}>
         <BlockPageHeader 
           title={`বিভাগ: ${categoryTitle}`} 
           subtitle={`${categoryTitle} বিভাগের সর্বাধুনিক প্রবন্ধ, গবেষণা ও নিবন্ধমালা`} 
@@ -125,9 +125,10 @@ export async function getServerSideProps(ctx) {
   const preview = false;
   const { slug } = ctx.query;
   const articles = await getAllPosts(false, 0, 12, slug);
+  const settings = await getSiteSettings(false);
 
   return {
-    props: { data: articles, slug, preview },
+    props: { data: articles, slug, settings, preview },
   };
 }
 

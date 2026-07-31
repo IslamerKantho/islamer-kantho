@@ -5,7 +5,7 @@ import BlockSidebar from "../components/Block/BlockSidebar";
 import TrendingPosts from "../components/Block/TrendingPosts";
 import HeroBanner from "../components/HeroBanner";
 import Layout from "../components/Layout";
-import { getAllPosts, getFeaturedPost, getRecommendedPost } from "./api/api";
+import { getAllPosts, getFeaturedPost, getRecommendedPost, getSiteSettings } from "./api/api";
 import DottedDivider from "../components/DottedDivider";
 import dynamic from "next/dynamic";
 
@@ -46,6 +46,7 @@ export default function Home({
   featuredPosts,
   recommendedPosts,
   allPosts,
+  settings,
 }) {
   const [featuredPost] = useState(featuredPosts);
   const [recommendedPost] = useState(recommendedPosts);
@@ -78,7 +79,7 @@ export default function Home({
     <>
       <SEO canonicalUrl="/" jsonLd={homepageJsonLd} />
 
-      <Layout>
+      <Layout settings={settings}>
         <HeroBanner post={featuredPost[0]} />
         <TrendingPosts posts={featuredPost.slice(1)} />
 
@@ -120,9 +121,10 @@ export async function getStaticProps({ preview = false }) {
   const featuredPosts = await getFeaturedPost(preview, featuredArticleRange);
   const recommendedPosts = await getRecommendedPost(preview, [0, 7]);
   const allPosts = await getAllPosts(false, 0, 10);
+  const settings = await getSiteSettings(preview);
 
   return {
-    props: { featuredPosts, recommendedPosts, allPosts, preview },
+    props: { featuredPosts, recommendedPosts, allPosts, settings, preview },
     revalidate: 60 * 60 * 12,
   };
 }

@@ -1,13 +1,13 @@
 import Layout from "../../components/Layout";
 import SEO from "../../components/SEO";
-import { getAllGalleries } from "../api/api";
+import { getAllGalleries, getSiteSettings } from "../api/api";
 
 import dynamic from "next/dynamic";
 const ReactPlayer = dynamic( () => import( "react-player" ), { ssr: false } );
 
-export default function GalleryPage({ galleries }) {
+export default function GalleryPage({ galleries, settings }) {
   return (
-    <Layout>
+    <Layout settings={settings}>
       <SEO
         title="গ্যালারি | ইসলামের কন্ঠ"
         description="ইসলামের কন্ঠ এর ছবি এবং ভিডিও গ্যালারি।"
@@ -95,9 +95,11 @@ export default function GalleryPage({ galleries }) {
 
 export async function getStaticProps({ preview = false }) {
   const galleries = await getAllGalleries(preview);
+  const settings = await getSiteSettings(preview);
   return {
     props: {
       galleries: galleries || [],
+      settings: settings || null,
     },
     revalidate: 1,
   };
