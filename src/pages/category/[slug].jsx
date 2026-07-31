@@ -107,7 +107,7 @@ const PageArticles = ({ data, slug, preview }) => {
 export async function getServerSideProps(ctx) {
   ctx.res.setHeader(
     "Cache-Control",
-    "public, s-maxage=604800, stale-while-revalidate=86400"
+    "public, s-maxage=3600, stale-while-revalidate=86400"
   );
 
   const preview = false;
