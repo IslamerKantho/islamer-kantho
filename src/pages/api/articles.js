@@ -13,6 +13,7 @@ export default async function handler(req, res) {
   if ( !limit || limit <= MIN_POSTS || limit >  MAX_POSTS ) limit = MAX_POSTS;
 
   return getAllPosts(false, offset, limit, category).then((response) => {
+    res.setHeader("Cache-Control", "public, s-maxage=60, stale-while-revalidate=300");
     return res.status(200).json(response);
   });
 }

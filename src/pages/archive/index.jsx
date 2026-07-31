@@ -105,7 +105,13 @@ const PageArticles = ({ data, preview }) => {
   );
 };
 
-export async function getStaticProps() {
+export async function getServerSideProps({ res }) {
+  // Cache for 1 hour on CDN/browser, allow stale for 24 hours while revalidating
+  res.setHeader(
+    "Cache-Control",
+    "public, s-maxage=3600, stale-while-revalidate=86400"
+  );
+
   const preview = false;
   const articles = await getAllPosts(false, 0, 12);
 
