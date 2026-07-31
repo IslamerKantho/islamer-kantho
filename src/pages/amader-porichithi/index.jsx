@@ -1,9 +1,15 @@
+import SEO from "../../components/SEO";
 import Layout from "../../components/Layout";
 import BlockPageHeader from "../../components/Block/BlockPageHeader";
 
 const PageContact = () => {
   return (
     <Layout>
+      <SEO
+        title="আমাদের পরিচিতি"
+        description="“ইসলামের কন্ঠ” এর মাধ্যমে জনসম্মুখে ‘আহলে সুন্নাত ওয়াল জামাআত’ এর আক্বীদাহ অনুযায়ী ইসলামের সঠিক চিত্র উপস্থাপন করা আমাদের উদ্দেশ্য।"
+        canonicalUrl="/amader-porichithi"
+      />
       <BlockPageHeader title="আমাদের পরিচিতি" />
 
       <section className="py-8 md:py-11">

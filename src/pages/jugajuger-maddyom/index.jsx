@@ -1,9 +1,15 @@
+import SEO from "../../components/SEO";
 import Layout from "../../components/Layout";
 import BlockPageHeader from "../../components/Block/BlockPageHeader";
 
 const PageEditorial = () => {
   return (
     <Layout>
+      <SEO
+        title="যোগাযোগ"
+        description="ইসলামের কন্ঠ অনলাইন পত্রিকার সাথে যোগাযোগের মাধ্যম ও ইমেইল ঠিকানা।"
+        canonicalUrl="/jugajuger-maddyom"
+      />
       <BlockPageHeader title="যোগাযোগ" />
 
       <section className="py-8 md:py-11">

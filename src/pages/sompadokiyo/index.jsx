@@ -1,9 +1,15 @@
+import SEO from "../../components/SEO";
 import Layout from "../../components/Layout";
 import BlockPageHeader from "../../components/Block/BlockPageHeader";
 
 const PageContact = () => {
   return (
     <Layout>
+      <SEO
+        title="সম্পাদকীয়"
+        description="ইসলামের কন্ঠ অনলাইন পত্রিকার সম্পাদকীয় নীতিমালা ও দিকনির্দেশনা।"
+        canonicalUrl="/sompadokiyo"
+      />
       <BlockPageHeader title="সম্পাদকীয়" />
 
       <section className="py-8 md:py-11">

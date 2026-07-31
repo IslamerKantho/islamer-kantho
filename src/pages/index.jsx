@@ -1,4 +1,4 @@
-import Head from "next/head";
+import SEO, { SITE_CONFIG } from "../components/SEO";
 import { useCallback, useState } from "react";
 import BlockPostCarSlider from "../components/Block/BlockPostCarSlider";
 import BlockSidebar from "../components/Block/BlockSidebar";
@@ -13,6 +13,34 @@ const BlockBanner = dynamic(() => import("../components/Block/BlockBanner"));
 const BlockCardWide10x = dynamic(() =>
   import("../components/Block/BlockCardWide10x")
 );
+
+const homepageJsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `${SITE_CONFIG.domain}/#website`,
+    "url": SITE_CONFIG.domain,
+    "name": SITE_CONFIG.siteName,
+    "description": SITE_CONFIG.defaultDescription,
+    "inLanguage": "bn",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": `${SITE_CONFIG.domain}/search?q={search_term_string}`,
+      "query-input": "required name=search_term_string",
+    },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "@id": `${SITE_CONFIG.domain}/#organization`,
+    "name": SITE_CONFIG.siteName,
+    "url": SITE_CONFIG.domain,
+    "logo": {
+      "@type": "ImageObject",
+      "url": `${SITE_CONFIG.domain}/img/branding/favicon.png`,
+    },
+  },
+];
 
 export default function Home({
   featuredPosts,
@@ -48,9 +76,7 @@ export default function Home({
 
   return (
     <>
-      <Head>
-        <title>ইসলামের কন্ঠ</title>
-      </Head>
+      <SEO canonicalUrl="/" jsonLd={homepageJsonLd} />
 
       <Layout>
         <HeroBanner post={featuredPost[0]} />

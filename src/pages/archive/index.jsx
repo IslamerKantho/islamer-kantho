@@ -1,4 +1,4 @@
-import Head from "next/head";
+import SEO, { SITE_CONFIG } from "@/components/SEO";
 import { useState, useCallback } from "react";
 import Layout from "../../components/Layout";
 import { getAllPosts } from "../api/api";
@@ -7,6 +7,44 @@ import ArchivePostCard from "@/components/card/ArchivePostCard";
 const PageArticles = ({ data, preview }) => {
   const [articles, setArticles] = useState(data || {});
   const [loading, setLoading] = useState(false);
+
+  const archiveUrl = `${SITE_CONFIG.domain}/archive`;
+
+  const archiveJsonLd = [
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "@id": archiveUrl,
+      "url": archiveUrl,
+      "name": `আর্কাইভ | ${SITE_CONFIG.siteName}`,
+      "description": `ইসলামের কন্ঠ পত্রিকার সকল প্রবন্ধ ও লেখালেখির সংগ্রহশালা।`,
+      "isPartOf": {
+        "@type": "WebSite",
+        "@id": `${SITE_CONFIG.domain}/#website`,
+        "name": SITE_CONFIG.siteName,
+        "url": SITE_CONFIG.domain,
+      },
+      "inLanguage": "bn",
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "প্রচ্ছদ",
+          "item": SITE_CONFIG.domain,
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "আর্কাইভ",
+          "item": archiveUrl,
+        },
+      ],
+    },
+  ];
 
   /**
    * Load More Handler
@@ -32,9 +70,12 @@ const PageArticles = ({ data, preview }) => {
 
   return (
     <>
-      <Head>
-        <title>আরটিকেল | ইসলামের কন্ঠ</title>
-      </Head>
+      <SEO
+        title="আর্কাইভ"
+        description={`ইসলামের কন্ঠ পত্রিকার সকল প্রবন্ধ ও লেখালেখির সংগ্রহশালা - ${SITE_CONFIG.siteName}`}
+        canonicalUrl="/archive"
+        jsonLd={archiveJsonLd}
+      />
 
       <Layout preview={preview}>
         <section className="w-full py-10 md:py-14">

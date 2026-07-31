@@ -1,9 +1,15 @@
+import SEO from "../../components/SEO";
 import Layout from "../../components/Layout";
 import BlockPageHeader from "../../components/Block/BlockPageHeader";
 
 const PageContact = () => {
   return (
     <Layout>
+      <SEO
+        title="লেখা পাঠানোর নিয়মাবলী"
+        description="ইসলামের কন্ঠে প্রকাশের জন্য লেখা পাঠানোর নিয়মাবলী এবং নির্দেশিকা।"
+        canonicalUrl="/lekha-patanur-niyomaboli"
+      />
       <BlockPageHeader title="লেখা পাঠানোর নিয়মাবলী" />
 
       <section className="py-8 md:py-11">

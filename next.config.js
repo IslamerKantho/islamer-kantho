@@ -8,6 +8,7 @@ const nextPWA = require("next-pwa")({
 });
 
 const config = {
+  turbopack: {},
   images: {
     remotePatterns: [
       {

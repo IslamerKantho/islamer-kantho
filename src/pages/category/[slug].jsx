@@ -1,4 +1,4 @@
-import Head from "next/head";
+import SEO, { SITE_CONFIG } from "../../components/SEO";
 import { useState, useCallback } from "react";
 import BlockGridPostCard from "../../components/Block/BlockGridPostCard";
 import Layout from "../../components/Layout";
@@ -7,6 +7,49 @@ import { getAllPosts } from "../api/api";
 const PageArticles = ({ data, slug, preview }) => {
   const [articles, setArticles] = useState(data || {});
   const [loading, setLoading] = useState(false);
+
+  const categoryTitle =
+    articles?.data?.[0]?.category?.title ||
+    articles?.data?.[0]?.categories?.title ||
+    slug ||
+    "ক্যাটাগরি";
+
+  const categoryUrl = `${SITE_CONFIG.domain}/category/${slug}`;
+
+  const categoryJsonLd = [
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "@id": categoryUrl,
+      "url": categoryUrl,
+      "name": `${categoryTitle} | ${SITE_CONFIG.siteName}`,
+      "isPartOf": {
+        "@type": "WebSite",
+        "@id": `${SITE_CONFIG.domain}/#website`,
+        "name": SITE_CONFIG.siteName,
+        "url": SITE_CONFIG.domain,
+      },
+      "inLanguage": "bn",
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "প্রচ্ছদ",
+          "item": SITE_CONFIG.domain,
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": categoryTitle,
+          "item": categoryUrl,
+        },
+      ],
+    },
+  ];
 
   /**
    * Load More Handler
@@ -32,9 +75,12 @@ const PageArticles = ({ data, slug, preview }) => {
 
   return (
     <>
-      <Head>
-        <title>আরটিকেল | ইসলামের কন্ঠ</title>
-      </Head>
+      <SEO
+        title={categoryTitle}
+        description={`${categoryTitle} বিভাগের সর্বাধুনিক প্রবন্ধ, গবেষণা ও নিবন্ধমালা - ${SITE_CONFIG.siteName}`}
+        canonicalUrl={`/category/${slug}`}
+        jsonLd={categoryJsonLd}
+      />
 
       <Layout preview={preview}>
         <BlockGridPostCard posts={articles.data} />

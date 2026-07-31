@@ -1,5 +1,5 @@
 import ErrorPage from "next/error";
-import Head from "next/head";
+import SEO, { SITE_CONFIG } from "../../components/SEO";
 import { useRouter } from "next/router";
 import PropTypes from "prop-types";
 import ArticleCover from "../../components/Article/ArticleCover";
@@ -15,57 +15,66 @@ export default function Post({ className, post, morePosts, preview, ...rest }) {
     return <ErrorPage statusCode={404} />;
   }
 
+  const articleUrl = post?.slug ? `${SITE_CONFIG.domain}/article/${post.slug}` : SITE_CONFIG.domain;
+  const imageUrl = post?.coverImage
+    ? imageBuilder(post.coverImage).url()
+    : SITE_CONFIG.defaultOgImage;
+
+  const articleJsonLd = post?.slug
+    ? {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "@id": `${articleUrl}#article`,
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": articleUrl,
+        },
+        "headline": post.title,
+        "description": post.excerpt || "",
+        "image": imageUrl ? [imageUrl] : undefined,
+        "inLanguage": "bn",
+        "datePublished": post?.date?.createdAt || undefined,
+        "dateModified": post?.date?.updatedAt || post?.date?.createdAt || undefined,
+        "author": post?.author?.name
+          ? {
+              "@type": "Person",
+              "name": post.author.name,
+            }
+          : {
+              "@type": "Organization",
+              "name": SITE_CONFIG.siteName,
+              "url": SITE_CONFIG.domain,
+            },
+        "publisher": {
+          "@type": "Organization",
+          "name": SITE_CONFIG.siteName,
+          "url": SITE_CONFIG.domain,
+          "logo": {
+            "@type": "ImageObject",
+            "url": `${SITE_CONFIG.domain}/img/branding/favicon.png`,
+          },
+        },
+      }
+    : null;
+
   return (
     <Layout preview={preview}>
       {router.isFallback ? (
         <p className="p-10 text-center">Loading…</p>
       ) : (
         <>
-          <Head>
-            <title>{post.title} | ইসলামের কন্ঠ</title>
-
-            <meta property="og:title" content={post.title} />
-            <meta property="og:site_name" content="ইসলামের কন্ঠ" />
-            <meta
-              property="og:url"
-              content={`https://islamerkantho.com/article/${post.slug}`}
-            />
-            <meta property="og:description" content={post.excerpt} />
-            <meta property="og:type" content="article" />
-            <meta
-              property="og:image"
-              content={imageBuilder(post.coverImage).url()}
-            />
-
-            {/* Google JSON+ID */}
-            <script type="application/ld+json">
-              {`{
-                  "@context": "https://schema.org",
-                  "@type": "BlogPosting",
-                  "mainEntityOfPage": {
-                    "@type": "WebPage",
-                    "@id": "http://islamerkantho.com/article/${post.slug}"
-                  },
-                  "headline": "${post.title}",
-                  "description": "${post.excerpt}",
-                  "image": "${imageBuilder(post.coverImage).url()}",  
-                  "author": {
-                    "@type": "Organization",
-                    "name": "ইসলামের কন্ঠ"
-                  },  
-                  "publisher": {
-                    "@type": "Organization",
-                    "name": "ইসলামের কন্ঠ",
-                    "logo": {
-                      "@type": "ImageObject",
-                      "url": "https://islamerkantho.com/img/branding/favicon.png"
-                    }
-                  },
-                  "datePublished": "${post.date.createdAt}",
-                  "dateModified": "${post.date.updatedAt}"
-                }`}
-            </script>
-          </Head>
+          <SEO
+            title={post.title}
+            description={post.excerpt}
+            canonicalUrl={`/article/${post.slug}`}
+            ogType="article"
+            ogImage={imageUrl}
+            publishedTime={post?.date?.createdAt}
+            modifiedTime={post?.date?.updatedAt || post?.date?.createdAt}
+            authorName={post?.author?.name}
+            categoryName={post?.categories?.title || post?.category?.title}
+            jsonLd={articleJsonLd}
+          />
 
           <article className={className} {...rest}>
             <section className="ik_article_header py-5 md:py-14">

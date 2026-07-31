@@ -1,14 +1,11 @@
-// import "../styles/error404.css";
-import Head from "next/head";
+import SEO from "../components/SEO";
 import Link from "next/link";
 import Layout from "../components/Layout";
 
 const error404 = () => {
   return (
     <>
-      <Head>
-        <title>Error | ইসলামের কন্ঠ</title>0
-      </Head>
+      <SEO title="পৃষ্ঠা পাওয়া যায়নি (404)" noindex={true} />
 
       <Layout>
         <section id="notfound">
