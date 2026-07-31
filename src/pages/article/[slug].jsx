@@ -87,6 +87,7 @@ export default function Post({ className, post, morePosts, preview, ...rest }) {
                       author={post.author}
                       category={post.categories}
                       date={post.date}
+                      slug={post.slug}
                     />
                   </div>
 

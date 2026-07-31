@@ -29,17 +29,17 @@ const Header = () => {
   return (
     <>
       <header
-        className="sticky top-0 z-40 border-b-[4px] border-b-primary w-full bg-primary"
+        className="sticky top-0 z-40 w-full text-black bg-white"
       >
         {/* Primary Nav */}
-        <nav className="relative w-full">
+        <nav className="relative h-14 w-full flex items-center">
           <div className="container-lg flex h-[48px] items-center justify-between w-full">
 
             <div className="flex items-center h-full">
 
               {/* Hamburger button */}
               <button
-                className="mr-4 p-1 rounded-full transition-colors text-white"
+                className="mr-4 p-1 rounded-full transition-colors text-black"
                 onClick={openHandler}
                 aria-label="Open menu"
               >
@@ -49,19 +49,19 @@ const Header = () => {
               {/* Brand Name */}
               <NextLink
                 href="/"
-                className="mr-6 font-bold text-lg md:text-xl text-white"
+                className="mr-6 font-bold text-lg md:text-xl text-primary"
               >
                 ইসলামের কন্ঠ
               </NextLink>
             </div>
 
             {/* Desktop menu */}
-            <nav className="hidden md:flex flex-1 gap-5 items-center pl-6 pr-5 text-white">
+            <nav className="hidden md:flex flex-1 gap-5 items-center pl-6 pr-5 text-black">
               {pages.map((page, i) => (
                 <NextLink
                   key={i}
                   href={page.url}
-                  className="cursor-pointer text-[13px] leading-5 font-bold text-[#D5D5D5] hover:text-white"
+                  className="cursor-pointer text-[13px] leading-5 font-bold hover:text-primary"
                 >
                   {page.title}
                 </NextLink>
@@ -74,7 +74,7 @@ const Header = () => {
                 <NextLink
                   href="/search"
                   title="Search content"
-                  className="cursor-pointer hover:opacity-75 text-white"
+                className="cursor-pointer hover:opacity-75 text-primary"
                 >
                   <BiSearch size={16} />
                 </NextLink>
@@ -85,14 +85,14 @@ const Header = () => {
                   target="_blank"
                   rel="noreferrer"
                   title="Profile"
-                  className="cursor-pointer hover:opacity-75 text-white"
+                className="cursor-pointer hover:opacity-75 text-primary"
                 >
                   <FiUser size={16} />
                 </a>
             </div>
           </div>
         </nav>
-        
+
         {/* Secondary Nav for Prayer Times & Hijri Calendar */}
         <SecondaryNavbar />
       </header>
