@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { FaFacebookF, FaTwitter, FaWhatsapp, FaLinkedinIn, FaLink, FaCheck } from "react-icons/fa";
+import { FaFacebookF, FaTwitter, FaWhatsapp, FaLinkedinIn, FaLink, FaCheck, FaPrint } from "react-icons/fa";
 import { SITE_CONFIG } from "../SEO";
 
 const SocialShare = ({ url, slug, title }) => {
@@ -34,6 +34,11 @@ const SocialShare = ({ url, slug, title }) => {
     navigator.clipboard.writeText(shareUrl);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
+  };
+
+  const handlePrint = (e) => {
+    e.preventDefault();
+    window.print();
   };
 
   const handlePopup = (e, linkUrl) => {
@@ -103,6 +108,13 @@ const SocialShare = ({ url, slug, title }) => {
           }`}
         >
           {copied ? <FaCheck size={13} /> : <FaLink size={13} />}
+        </button>
+        <button
+          onClick={handlePrint}
+          title="Print / Save as PDF"
+          className="w-8 h-8 rounded-full flex items-center justify-center text-white transition-all hover:scale-110 bg-slate-700 hover:bg-slate-800"
+        >
+          <FaPrint size={13} />
         </button>
       </div>
     </div>
