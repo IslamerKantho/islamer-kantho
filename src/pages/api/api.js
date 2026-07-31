@@ -36,6 +36,7 @@ const postFields = `
   'slug': slug.current,
   'coverImage': mainImage,
   'author': author->{name, 'picture': image.asset->url, designation},
+  referenceLinks,
   'seo': seo {
     metaTitle,
     metaDescription,
@@ -243,7 +244,7 @@ export async function getPostAndMorePosts(slug, preview) {
       `*[_type == "post" && slug.current != $slug] | order(publishedAt desc, _updatedAt desc){
         ${postFields}
         body,
-      }[0...2]`,
+      }[0...4]`,
       { slug }
     ),
   ]);

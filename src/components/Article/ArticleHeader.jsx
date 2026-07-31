@@ -11,19 +11,28 @@ const ArticleHeader = ({
   excerpt,
   category,
   slug,
+  readingTime,
 }) => {
   return (
     <div className={`ik_article_header ${className || ""} flex flex-col justify-between h-full space-y-6`}>
       <div className="ik_header_top_content">
-        {category?.title && (
-          <div className="ik_meta mb-2.5">
-            <span className="inline-block px-2.5 py-1 text-[13px] leading-[22px] text-white rounded bg-[#1A1A1A]">
+        <div className="flex flex-wrap items-center gap-3 mb-3">
+          {category?.title && (
+            <span className="inline-block px-3 py-1 text-[13px] font-medium leading-[22px] text-white rounded bg-primary shadow-sm">
               {category.title}
             </span>
-          </div>
-        )}
+          )}
+          {readingTime && (
+            <span className="inline-flex items-center px-3 py-1 text-[13px] font-medium leading-[22px] text-slate-700 bg-slate-100 rounded border border-slate-200">
+              <svg className="w-3.5 h-3.5 mr-1.5 opacity-70" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              {readingTime} মিনিট পড়ার সময়
+            </span>
+          )}
+        </div>
 
-        <h1 className="ik_article__title mt-2.5 text-[24px] leading-[32px] sm:text-[32px] sm:leading-[40px] text-[#2A2A2A] font-bold">
+        <h1 className="ik_article__title mt-1 text-[24px] leading-[32px] sm:text-[32px] sm:leading-[40px] text-[#2A2A2A] font-bold">
           {title}
         </h1>
 
@@ -79,6 +88,7 @@ ArticleHeader.propTypes = {
   author: PropTypes.object,
   excerpt: PropTypes.string,
   category: PropTypes.object,
+  readingTime: PropTypes.number,
 };
 
 export default ArticleHeader;

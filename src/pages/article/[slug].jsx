@@ -8,6 +8,9 @@ import SingleArticleContent from "../../components/Article/SingleArticleContent"
 import Layout from "../../components/Layout";
 import { getAllPostsWithSlug, getPostAndMorePosts } from "../api/api";
 import { imageBuilder } from "../api/sanity";
+import ArchivePostCard from "../../components/card/ArchivePostCard";
+import SocialShare from "../../components/Article/SocialShare";
+import BlockPostCarSlider from "@/components/Block/BlockPostCarSlider";
 
 export default function Post({ className, post, morePosts, preview, ...rest }) {
   const router = useRouter();
@@ -57,6 +60,8 @@ export default function Post({ className, post, morePosts, preview, ...rest }) {
       }
     : null;
 
+  const readingTime = Math.max( 1, Math.ceil( JSON.stringify( post?.body || '' ).split( ' ' ).length / 250 ) );
+
   return (
     <Layout preview={preview}>
       {router.isFallback ? (
@@ -87,9 +92,10 @@ export default function Post({ className, post, morePosts, preview, ...rest }) {
                       title={post.title}
                       excerpt={post.excerpt}
                       author={post.author}
-                      category={post.categories}
+                        category={ post.categories || post.category }
                       date={post.date}
                       slug={post.slug}
+                        readingTime={ readingTime }
                     />
                   </div>
 
@@ -102,11 +108,41 @@ export default function Post({ className, post, morePosts, preview, ...rest }) {
 
             <hr className="border-gray-200" />
 
+
             <section className="ik_sarticle_content py-5 md:py-10">
-              <div className="container">
+                <div className="container max-w-4xl mx-auto">
                 <SingleArticleContent content={post.body} />
+
+                  { post.referenceLinks && post.referenceLinks.length > 0 && (
+                    <div className="mt-10 p-6 bg-slate-50 rounded-xl border border-slate-200">
+                      <h3 className="text-lg font-bold text-slate-800 mb-4">তথ্যসূত্র:</h3>
+                      <ul className="list-disc pl-5 space-y-2">
+                        { post.referenceLinks.map( ( link, idx ) => (
+                          <li key={ idx }>
+                            { link.url ? (
+                              <a href={ link.url } target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-medium">
+                                { link.title || link.url }
+                              </a>
+                            ) : (
+                              <span className="text-slate-700">{ link.title || link }</span>
+                            ) }
+                          </li>
+                        ) ) }
+                      </ul>
+                    </div>
+                  ) }
+
+                  <div className="mt-12 pt-8 border-t border-gray-200 flex flex-col items-center justify-center">
+                    <h4 className="text-sm font-bold text-gray-500 uppercase tracking-wider mb-4">শেয়ার করুন</h4>
+                    <SocialShare title={ post.title } slug={ post.slug } />
+                  </div>
               </div>
             </section>
+
+              <BlockPostCarSlider
+                title="আরও পড়ুন"
+                posts={ morePosts }
+              />
           </article>
         </>
       )}
