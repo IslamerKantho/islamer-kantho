@@ -5,6 +5,7 @@ import { BiSearch } from "react-icons/bi";
 import { FiUser } from "react-icons/fi";
 import { memo } from "react";
 import MenuDrawer from "../MenuDrawer";
+import SecondaryNavbar from "./SecondaryNavbar";
 
 const pages = [
   {
@@ -91,6 +92,9 @@ const Header = () => {
             </div>
           </div>
         </nav>
+        
+        {/* Secondary Nav for Prayer Times & Hijri Calendar */}
+        <SecondaryNavbar />
       </header>
 
       <MenuDrawer
