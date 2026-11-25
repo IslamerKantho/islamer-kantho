@@ -9,11 +9,26 @@ const rawDataset = process.env.NEXT_PUBLIC_SANITY_DATASET?.trim() || "production
 const rawApiVersion =
   process.env.NEXT_PUBLIC_SANITY_API_VERSION?.trim() || "2023-05-03";
 
+const PLACEHOLDER_PROJECT_ID_PATTERNS = [
+  /^undefined$/i,
+  /^null$/i,
+  /^your[-_]/i,
+  /project[-_]?id/i,
+  /placeholder/i,
+  /^unconfigured/i,
+  /^example/i,
+  /^changeme$/i,
+];
+
+const isPlaceholderProjectId = (id) =>
+  !id || PLACEHOLDER_PROJECT_ID_PATTERNS.some((pattern) => pattern.test(id));
+
 export const hasSanityConfig = Boolean(
   rawProjectId &&
     rawDataset &&
-    rawProjectId !== "undefined" &&
+    !isPlaceholderProjectId(rawProjectId) &&
     rawDataset !== "undefined" &&
+    rawDataset !== "null" &&
     /^[a-z0-9-]+$/.test(rawProjectId)
 );
 

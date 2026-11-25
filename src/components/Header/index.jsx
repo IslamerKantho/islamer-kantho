@@ -1,29 +1,16 @@
-import { useState, memo } from "react";
-import MenuDrawer from "../MenuDrawer";
+import { memo } from "react";
 import NavigationMenu from "./NavigationMenu";
 import SecondaryNavbar from "./SecondaryNavbar";
 
 const Header = () => {
-  const [isCatDrawerOpen, setIsCatDrawerOpen] = useState(false);
-  const openHandler = () => setIsCatDrawerOpen(true);
-  const closeHandler = () => setIsCatDrawerOpen(false);
-
   return (
-    <>
-      <header className="sticky top-0 z-40 w-full max-w-full overflow-x-hidden bg-primary text-white shadow-sm">
-        {/* Responsive Navigation Menu with Primary Background & Secondary/White Highlights */}
-        <NavigationMenu onOpenDrawer={openHandler} />
+    <header className="sticky top-0 z-40 w-full max-w-full overflow-x-hidden bg-primary text-white shadow-sm">
+      {/* Responsive Navigation Menu with Primary Background & Secondary/White Highlights */}
+      <NavigationMenu />
 
-        {/* Secondary Nav for Prayer Times & Hijri Calendar */}
-        <SecondaryNavbar />
-      </header>
-
-      <MenuDrawer
-        isVisible={isCatDrawerOpen}
-        openHandler={openHandler}
-        closeHandler={closeHandler}
-      />
-    </>
+      {/* Secondary Nav for Prayer Times & Hijri Calendar */}
+      <SecondaryNavbar />
+    </header>
   );
 };
 

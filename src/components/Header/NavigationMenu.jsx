@@ -5,11 +5,10 @@ import clsx from "clsx";
 import {
   RiMenuLine,
   RiCloseLine,
-  RiArrowDownSLine,
-  RiCompass3Line,
 } from "react-icons/ri";
 import { BiSearch } from "react-icons/bi";
 import { CATEGORIES } from "../../db/categories.db";
+import BrandLogo from "../BrandLogo";
 
 const MAIN_SECTIONS = [
   { title: "প্রচ্ছদ", url: "/" },
@@ -17,23 +16,9 @@ const MAIN_SECTIONS = [
   { title: "গ্যালারি", url: "/gallery" },
   { title: "সম্পাদকীয়", url: "/sompadokiyo" },
   { title: "আমাদের পরিচিতি", url: "/amader-porichithi" },
-  { title: "লেখা পাঠানোর নিয়মাবলী", url: "/lekha-patanur-niyomaboli" },
-  { title: "যোগাযোগের মাধ্যম", url: "/jugajuger-maddyom" },
 ];
 
-const FEATURED_CATEGORIES = [
-  { title: "তাফসীর", slug: "tafsir" },
-  { title: "হাদীস", slug: "hadith" },
-  { title: "সীরাত", slug: "sirath" },
-  { title: "আকাঈদ", slug: "aqaidh" },
-  { title: "তাসাওউফ", slug: "tasauf" },
-  { title: "ঈমান", slug: "iman" },
-  { title: "সালাত", slug: "salath" },
-  { title: "পারিবারিক জীবন", slug: "paribarik-jibon" },
-  { title: "ইসলামি অর্থনীতি", slug: "islamic-orthonithi" },
-];
-
-const NavigationMenu = ({ onOpenDrawer }) => {
+const NavigationMenu = () => {
   const router = useRouter();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeCategoryGroup, setActiveCategoryGroup] = useState("article");
@@ -68,24 +53,17 @@ const NavigationMenu = ({ onOpenDrawer }) => {
         <div className="flex min-h-[4rem] py-1.5 items-center justify-between gap-2 sm:gap-4">
           {/* Brand & All-Categories Drawer Trigger */}
           <div className="flex items-center gap-2 sm:gap-3 min-w-0">
-            {onOpenDrawer && (
-              <button
-                type="button"
-                onClick={onOpenDrawer}
-                className="inline-flex items-center justify-center min-w-[2.75rem] min-h-[2.75rem] p-2 rounded-lg text-white hover:text-secondary hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-secondary transition-colors cursor-pointer shrink-0"
-                aria-label="সকল বিভাগ ও সাইডবার মেনু খুলুন"
-                title="সকল বিভাগ"
-              >
-                <RiCompass3Line size={22} />
-              </button>
-            )}
-
             <NextLink
               href="/"
-              className="inline-flex items-center gap-2 min-h-[2.75rem] font-bold text-[clamp(1.15rem,1rem+0.65vw,1.5rem)] text-white hover:text-secondary transition-colors tracking-tight no-underline truncate"
+              aria-label="ইসলামের কন্ঠ — প্রচ্ছদ"
+              className="inline-flex items-center min-h-[2.75rem] py-1 rounded-md no-underline shrink-0 transition-opacity duration-150 hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary"
             >
-              <span className="truncate">ইসলামের কন্ঠ</span>
-              <span className="hidden sm:inline-block w-1.5 h-1.5 rounded-full bg-secondary shrink-0" />
+              <BrandLogo
+                variant="full"
+                theme="dark"
+                decorative
+                className="h-[2rem] sm:h-[2.35rem] md:h-[2.5rem] w-auto"
+              />
             </NextLink>
           </div>
 
@@ -160,45 +138,6 @@ const NavigationMenu = ({ onOpenDrawer }) => {
               )}
             </button>
           </div>
-        </div>
-      </div>
-
-      {/* Quick Category Strip (Single Compact Row, Zero Page Overflow) */}
-      <div className="w-full max-w-full bg-black/15 border-t border-white/10">
-        <div className="container-lg mx-auto w-full max-w-full px-3 sm:px-4 py-1 flex items-center justify-between gap-2 overflow-x-auto no-scrollbar whitespace-nowrap">
-          <div className="flex items-center gap-1 sm:gap-1.5 shrink-0">
-            <span className="inline-flex items-center text-[clamp(0.7rem,0.68rem+0.12vw,0.76rem)] font-bold uppercase tracking-wider text-secondary pr-2 border-r border-white/20 shrink-0">
-              বিভাগসমূহ
-            </span>
-            {FEATURED_CATEGORIES.map((cat) => {
-              const isCatActive = currentCategorySlug === cat.slug;
-              return (
-                <NextLink
-                  key={cat.slug}
-                  href={`/category/${cat.slug}`}
-                  className={clsx(
-                    "inline-flex items-center justify-center px-2.5 py-1 rounded text-[clamp(0.74rem,0.71rem+0.14vw,0.81rem)] font-semibold transition-colors no-underline shrink-0",
-                    isCatActive
-                      ? "bg-secondary text-primary font-bold shadow-2xs"
-                      : "text-white/90 hover:text-white hover:bg-white/15"
-                  )}
-                >
-                  {cat.title}
-                </NextLink>
-              );
-            })}
-          </div>
-
-          {onOpenDrawer && (
-            <button
-              type="button"
-              onClick={onOpenDrawer}
-              className="inline-flex items-center justify-center gap-1 px-2.5 py-1 rounded text-[clamp(0.74rem,0.71rem+0.14vw,0.81rem)] font-bold text-secondary hover:text-white hover:bg-white/10 transition-colors cursor-pointer shrink-0"
-            >
-              <span>সকল বিভাগ</span>
-              <RiArrowDownSLine size={16} />
-            </button>
-          )}
         </div>
       </div>
 

@@ -275,15 +275,15 @@ export default function Post({ className, post, morePosts, settings, preview, ..
                       <h3 className="text-[15px] font-bold text-[#044f4f] mb-2.5">
                         * তথ্যসূত্র ও প্রামাণ্য গ্রন্থাবলি:
                       </h3>
-                      <ol className="list-decimal list-inside space-y-1.5 text-sm text-slate-700">
+                      <ol className="list-decimal list-inside space-y-1.5 text-sm text-slate-700 break-words">
                         {referencesList.map((link, idx) => (
-                          <li key={idx}>
+                          <li key={idx} className="leading-relaxed">
                             {link.url ? (
                               <a
                                 href={link.url}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-[#044f4f] font-medium hover:underline"
+                                className="text-[#044f4f] font-medium hover:underline break-words"
                               >
                                 {link.title || link.url}
                               </a>

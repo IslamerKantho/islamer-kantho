@@ -43,14 +43,14 @@ const PostCard = ({ cardData }) => {
 
         <div className="min-h-30.5 p-4 bg-white">
           {article?.author?.name && (
-            <span className="inline-block px-2 py-0.5 bg-gray-100 text-gray-800 text-xs rounded font-medium">
+            <span className="block text-xs text-slate-500 font-semibold">
               {article.author.name}
             </span>
           )}
 
           <h3
             title={article.title}
-            className="mt-2 text-sm leading-6 font-bold text-[#055547]"
+            className="mt-1.5 text-sm leading-6 font-bold text-[#055547]"
           >
             {truncate(article.title, 50)}
           </h3>
@@ -89,16 +89,18 @@ const PostGrid = ({ posts }) => {
 
       {/* Navigation */}
       <button
+        type="button"
         aria-label="Previous slide"
-        className="slider-prev-btn absolute top-1/2 -translate-y-1/2 -left-3 sm:-left-5 z-10 flex items-center justify-center bg-white text-primary hover:text-primary/75 w-10 h-10 sm:w-11 sm:h-11 rounded-full shadow-md opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto group-hover:disabled:opacity-30 group-hover:disabled:pointer-events-none transition-all duration-300 cursor-pointer active:scale-95 border border-white/20"
+        className="slider-prev-btn absolute top-1/2 -translate-y-1/2 left-1.5 sm:-left-4 z-10 flex items-center justify-center bg-white text-primary hover:text-primary/75 w-10 h-10 sm:w-11 sm:h-11 rounded-full shadow-md opacity-90 sm:opacity-0 sm:pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto disabled:opacity-0 disabled:pointer-events-none transition-all duration-200 cursor-pointer active:scale-95 border border-slate-200/80"
       >
         <BiChevronLeft className="text-2xl sm:text-3xl" />
       </button>
       <button
+        type="button"
         aria-label="Next slide"
-        className="slider-next-btn absolute top-1/2 -translate-y-1/2 -right-3 sm:-right-5 z-10 flex items-center justify-center bg-white text-primary hover:text-primary/75 w-10 h-10 sm:w-11 sm:h-11 rounded-full shadow-md opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto group-hover:disabled:opacity-30 group-hover:disabled:pointer-events-none transition-all duration-300 cursor-pointer active:scale-95 border border-white/20"
+        className="slider-next-btn absolute top-1/2 -translate-y-1/2 right-1.5 sm:-right-4 z-10 flex items-center justify-center bg-white text-primary hover:text-primary/75 w-10 h-10 sm:w-11 sm:h-11 rounded-full shadow-md opacity-90 sm:opacity-0 sm:pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto disabled:opacity-0 disabled:pointer-events-none transition-all duration-200 cursor-pointer active:scale-95 border border-slate-200/80"
       >
-        <BiChevronRight className=" text-2xl sm:text-3xl" />
+        <BiChevronRight className="text-2xl sm:text-3xl" />
       </button>
     </div>
   );
@@ -106,7 +108,7 @@ const PostGrid = ({ posts }) => {
 
 const BlockPostCarSlider = ({ className, posts, title, ...rest }) => {
   return (
-    <section className="bg-[#ECECEC] w-full group">
+    <section className="bg-[#ECECEC] w-full overflow-hidden group">
       <div className="container">
         <SectionWidget title={title} {...rest}>
           <PostGrid posts={posts} />

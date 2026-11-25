@@ -8,7 +8,7 @@ const nextPWA = require("next-pwa")({
 });
 
 const config = {
-  output: "standalone",
+  ...(process.env.VERCEL ? {} : { output: "standalone" }),
   allowedDevOrigins: ["*.run.app"],
   turbopack: {},
   images: {

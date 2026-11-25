@@ -1,7 +1,7 @@
-import Image from "next/image";
 import Link from "next/link";
 import PropTypes from "prop-types";
 import clsx from "clsx";
+import BrandLogo from "../BrandLogo";
 
 const CATEGORY_LINKS = [
   { title: "তাফসীর", url: "/category/tafsir" },
@@ -548,17 +548,15 @@ const Footer = ({ className }) => {
             <div className="lg:col-span-5 space-y-4">
               <Link
                 href="/"
-                className="inline-flex items-center gap-3 no-underline"
+                aria-label="ইসলামের কন্ঠ — প্রচ্ছদ"
+                className="inline-flex items-center rounded-md no-underline transition-opacity duration-150 hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-secondary"
               >
-                <div className="w-[184px]">
-                  <Image
-                    className="w-full h-auto brightness-0 invert"
-                    src="/img/branding/logo.png"
-                    alt="ইসলামের কন্ঠ"
-                    height={35}
-                    width={184}
-                  />
-                </div>
+                <BrandLogo
+                  variant="full"
+                  theme="dark"
+                  decorative
+                  className="h-[2.75rem] sm:h-[3.1rem] w-auto"
+                />
               </Link>
 
               <p className="text-white/90 text-sm leading-relaxed max-w-md mb-0">
