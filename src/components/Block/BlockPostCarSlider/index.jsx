@@ -4,16 +4,22 @@ import 'swiper/css/navigation';
 import SectionWidget from "../../SectionWidget";
 import { memo } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { imageBuilder } from "../../../pages/api/sanity";
+import { imageBuilder } from "@/lib/sanity";
 import Image from "next/image";
 import Link from "next/link";
 import { truncate } from "../../../utils/string.utils";
 import { Grid, Navigation } from "swiper/modules";
-import { ChevronLeft, ChevronRight } from '@mui/icons-material';
 import { BiChevronLeft, BiChevronRight } from 'react-icons/bi';
 
 const PostCard = ({ cardData }) => {
   const article = cardData;
+  const imageUrl = article?.coverImage
+    ? imageBuilder(article.coverImage)
+        .width(286)
+        .height(161)
+        .auto("format")
+        .url()
+    : null;
 
   return (
     <article
@@ -23,20 +29,13 @@ const PostCard = ({ cardData }) => {
     >
       <Link href={ `/article/${article.slug}` } className="">
         <div className="flex border-b-[8px] border-b-[#055547]">
-          {article.coverImage && (
+          {imageUrl && (
             <Image
-              src={imageBuilder(article?.coverImage)
-                .width(286)
-                .height(161)
-                .url()}
+              src={imageUrl}
               width={286}
               height={161}
-              alt={article.title}
-              placeholder="blur"
-              blurDataURL={imageBuilder(article?.coverImage)
-                .width(286)
-                .height(161)
-                .url()}
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+              alt={article.title || "প্রবন্ধের ছবি"}
               className="w-full h-auto object-cover"
             />
           )}

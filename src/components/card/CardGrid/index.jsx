@@ -1,4 +1,4 @@
-import { imageBuilder } from "../../../pages/api/sanity";
+import { imageBuilder } from "@/lib/sanity";
 import Image from "next/image";
 import Link from "next/link";
 import { truncate } from "../../../utils/string.utils";
@@ -19,15 +19,12 @@ const CardGrid = ({ cardData }) => {
               src={imageBuilder(article?.coverImage)
                 .width(286)
                 .height(161)
+                .auto("format")
                 .url()}
               width={286}
               height={161}
-              alt={article.title}
-              placeholder="blur"
-              blurDataURL={imageBuilder(article?.coverImage)
-                .width(286)
-                .height(161)
-                .url()}
+              sizes="(max-width: 640px) 100vw, 286px"
+              alt={article.title || "Article Image"}
               className="w-full h-auto object-cover"
             />
           )}

@@ -1,4 +1,5 @@
 import localFont from "next/font/local";
+import { Amiri, Scheherazade_New } from "next/font/google";
 
 export const hnt = localFont({
   src: [
@@ -31,3 +32,23 @@ export const hnt = localFont({
   variable: "--font-hnt",
   display: "swap",
 });
+
+export const amiri = Amiri({
+  weight: ["400", "700"],
+  style: ["normal", "italic"],
+  subsets: ["arabic", "latin"],
+  variable: "--font-amiri",
+  display: "swap",
+  preload: false,
+});
+
+export const scheherazade = Scheherazade_New({
+  weight: ["400", "600", "700"],
+  subsets: ["arabic", "latin"],
+  variable: "--font-scheherazade",
+  display: "swap",
+  preload: false,
+});
+
+export const fontVariables = `${hnt.variable} ${amiri.variable} ${scheherazade.variable}`;
+

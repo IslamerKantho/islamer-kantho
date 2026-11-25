@@ -1,6 +1,6 @@
 import SectionWidget from "../../SectionWidget";
 import { memo } from "react";
-import { imageBuilder } from "../../../pages/api/sanity";
+import { imageBuilder } from "@/lib/sanity";
 import Image from "next/image";
 import Link from "next/link";
 import { truncate } from "../../../utils/string.utils";

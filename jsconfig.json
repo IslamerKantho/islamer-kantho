@@ -9,7 +9,11 @@
         "strictFunctionTypes": true,
         "paths": {
             "@/*": ["./src/*"],
-            "@components/*": ["./src/components/*"]
+            "@components/*": ["./src/components/*"],
+            "@services/*": ["./src/services/*"],
+            "@lib/*": ["./src/lib/*"],
+            "@utils/*": ["./src/utils/*"],
+            "@config/*": ["./src/config/*"]
         }
     },
     "exclude": [

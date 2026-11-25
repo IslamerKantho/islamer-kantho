@@ -1,6 +1,6 @@
 import Image from "next/image";
 import PropsType from "prop-types";
-import { imageBuilder } from "../../pages/api/sanity";
+import { imageBuilder } from "@/lib/sanity";
 
 const ArticleCover = ({ className, src, title, ...rest }) => {
   return (
@@ -13,13 +13,14 @@ const ArticleCover = ({ className, src, title, ...rest }) => {
         {...rest}
       >
         <Image
-          src={imageBuilder(src).width(660).height(372).url()}
-          alt={title}
+          src={imageBuilder(src).width(660).height(372).auto("format").url()}
+          alt={title || "Article Cover"}
           width={660}
           height={372}
-          style={{
-            borderRadius: "8px",
-          }}
+          priority
+          fetchPriority="high"
+          sizes="(max-width: 768px) 100vw, 58vw"
+          className="w-full h-auto rounded-lg object-cover"
         />
       </div>
 

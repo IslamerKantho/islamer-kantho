@@ -1,8 +1,9 @@
+import Image from "next/image";
 import Link from "next/link";
 import React, { memo } from "react";
 import clsx from "clsx";
 import FormatterDate from "../../FormatterDate";
-import { imageBuilder } from "@/pages/api/sanity";
+import { imageBuilder } from "@/lib/sanity";
 
 const PostCard = ( { post, index } ) => {
   return (
@@ -43,9 +44,12 @@ const PostCard = ( { post, index } ) => {
         { post?.coverImage && (
           <div className="w-[84px] h-[63px] relative rounded-lg overflow-hidden shrink-0 bg-gray-100 border border-slate-100 shadow-sm">
             <Link href={ `/article/${post?.slug}` }>
-              <img
-                src={ imageBuilder( post?.coverImage ).width( 84 ).height( 63 ).url() }
-                alt={ post?.title }
+              <Image
+                src={ imageBuilder( post?.coverImage ).width( 168 ).height( 126 ).auto( "format" ).url() }
+                alt={ post?.title || "প্রবন্ধের ছবি" }
+                width={ 84 }
+                height={ 63 }
+                sizes="84px"
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
               />
             </Link>

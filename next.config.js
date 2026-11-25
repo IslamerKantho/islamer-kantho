@@ -9,6 +9,7 @@ const nextPWA = require("next-pwa")({
 
 const config = {
   output: "standalone",
+  allowedDevOrigins: ["*.run.app"],
   turbopack: {},
   images: {
     remotePatterns: [

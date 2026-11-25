@@ -59,17 +59,20 @@ const NavigationMenu = ({ onOpenDrawer }) => {
     router?.pathname === "/category/[slug]" ? router?.query?.slug : null;
 
   return (
-    <div className="w-full bg-primary text-white border-b-2 border-secondary shadow-md">
+    <div
+      className="w-full max-w-full overflow-x-hidden bg-primary text-white border-b-2 border-secondary shadow-md"
+      style={{ fontFamily: 'var(--font-hnt), "Arial", sans-serif' }}
+    >
       {/* Main Top Navigation Bar */}
-      <div className="container-lg">
-        <div className="flex h-16 items-center justify-between gap-4">
+      <div className="container-lg mx-auto w-full max-w-full px-3 sm:px-4">
+        <div className="flex min-h-[4rem] py-1.5 items-center justify-between gap-2 sm:gap-4">
           {/* Brand & All-Categories Drawer Trigger */}
-          <div className="flex items-center gap-3 shrink-0">
+          <div className="flex items-center gap-2 sm:gap-3 min-w-0">
             {onOpenDrawer && (
               <button
                 type="button"
                 onClick={onOpenDrawer}
-                className="p-2 rounded-lg text-white hover:text-secondary hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-secondary transition-colors cursor-pointer"
+                className="inline-flex items-center justify-center min-w-[2.75rem] min-h-[2.75rem] p-2 rounded-lg text-white hover:text-secondary hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-secondary transition-colors cursor-pointer shrink-0"
                 aria-label="সকল বিভাগ ও সাইডবার মেনু খুলুন"
                 title="সকল বিভাগ"
               >
@@ -79,17 +82,17 @@ const NavigationMenu = ({ onOpenDrawer }) => {
 
             <NextLink
               href="/"
-              className="flex items-center gap-2 font-bold text-xl md:text-2xl text-white hover:text-secondary transition-colors tracking-tight no-underline whitespace-nowrap shrink-0"
+              className="inline-flex items-center gap-2 min-h-[2.75rem] font-bold text-[clamp(1.15rem,1rem+0.65vw,1.5rem)] text-white hover:text-secondary transition-colors tracking-tight no-underline truncate"
             >
-              <span>ইসলামের কন্ঠ</span>
-              <span className="hidden sm:inline-block w-1.5 h-1.5 rounded-full bg-secondary" />
+              <span className="truncate">ইসলামের কন্ঠ</span>
+              <span className="hidden sm:inline-block w-1.5 h-1.5 rounded-full bg-secondary shrink-0" />
             </NextLink>
           </div>
 
           {/* Desktop Primary Section Links */}
           <nav
             aria-label="প্রধান নেভিগেশন মেনু"
-            className="hidden lg:flex items-center gap-1 xl:gap-1.5"
+            className="hidden lg:flex flex-wrap items-center justify-center gap-1 xl:gap-1.5"
           >
             {MAIN_SECTIONS.map((item) => {
               const active = isRouteActive(item.url);
@@ -99,7 +102,7 @@ const NavigationMenu = ({ onOpenDrawer }) => {
                   href={item.url}
                   aria-current={active ? "page" : undefined}
                   className={clsx(
-                    "relative px-3 py-2 rounded-md text-[13px] leading-5 font-bold whitespace-nowrap shrink-0 transition-all duration-150 no-underline",
+                    "relative inline-flex items-center min-h-[2.5rem] px-3 py-2 rounded-md text-[clamp(0.78rem,0.74rem+0.15vw,0.85rem)] leading-5 font-bold transition-all duration-150 no-underline",
                     active
                       ? "bg-white text-primary shadow-xs ring-2 ring-secondary"
                       : "text-white/90 hover:text-white hover:bg-white/10"
@@ -118,37 +121,37 @@ const NavigationMenu = ({ onOpenDrawer }) => {
           </nav>
 
           {/* Right Action Controls: Search, Write CTA, Mobile Menu Toggle */}
-          <div className="flex items-center gap-2 shrink-0">
+          <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
             <NextLink
               href="/search"
               title="অনুসন্ধান করুন"
               aria-label="অনুসন্ধান করুন"
               className={clsx(
-                "flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-bold transition-colors no-underline whitespace-nowrap shrink-0",
+                "inline-flex items-center justify-center gap-1.5 min-w-[2.75rem] min-h-[2.75rem] px-3 py-2 rounded-lg text-[clamp(0.75rem,0.72rem+0.15vw,0.82rem)] font-bold transition-colors no-underline",
                 isRouteActive("/search")
                   ? "bg-white text-primary ring-2 ring-secondary"
                   : "bg-white/10 text-white hover:bg-secondary hover:text-primary"
               )}
             >
-              <BiSearch size={17} />
+              <BiSearch size={18} />
               <span className="hidden sm:inline">অনুসন্ধান</span>
             </NextLink>
 
             <NextLink
               href="/lekha-patanur-niyomaboli"
-              className="hidden sm:inline-flex items-center px-3.5 py-2 rounded-lg text-xs font-bold bg-secondary text-primary hover:bg-white hover:text-primary transition-colors no-underline whitespace-nowrap shrink-0 shadow-xs"
+              className="hidden sm:inline-flex items-center justify-center min-h-[2.75rem] px-3.5 py-2 rounded-lg text-[clamp(0.75rem,0.72rem+0.15vw,0.82rem)] font-bold bg-secondary text-primary hover:bg-white hover:text-primary transition-colors no-underline shadow-xs"
             >
               লেখা পাঠান
             </NextLink>
 
-            {/* Mobile Hamburger Toggle Button */}
+            {/* Mobile Hamburger Toggle Button (44x44px min touch target) */}
             <button
               type="button"
               onClick={() => setMobileMenuOpen((prev) => !prev)}
               aria-expanded={mobileMenuOpen}
               aria-controls="mobile-navigation-panel"
               aria-label={mobileMenuOpen ? "মেনু বন্ধ করুন" : "মেনু খুলুন"}
-              className="lg:hidden inline-flex items-center justify-center p-2 rounded-lg text-white bg-white/10 hover:bg-secondary hover:text-primary focus-visible:outline-2 focus-visible:outline-white transition-colors cursor-pointer"
+              className="lg:hidden inline-flex items-center justify-center min-w-[2.75rem] min-h-[2.75rem] p-2 rounded-lg text-white bg-white/10 hover:bg-secondary hover:text-primary focus-visible:outline-2 focus-visible:outline-white transition-colors cursor-pointer"
             >
               {mobileMenuOpen ? (
                 <RiCloseLine size={24} />
@@ -160,11 +163,11 @@ const NavigationMenu = ({ onOpenDrawer }) => {
         </div>
       </div>
 
-      {/* Quick Category Strip (Desktop & Tablet Horizontal Scroll) */}
-      <div className="w-full bg-black/15 border-t border-white/10">
-        <div className="container-lg flex items-center justify-between gap-2 py-1.5 overflow-x-auto no-scrollbar">
-          <div className="flex items-center gap-1.5 shrink-0">
-            <span className="text-[11px] font-bold uppercase tracking-wider text-secondary pr-2 border-r border-white/20 whitespace-nowrap">
+      {/* Quick Category Strip (Single Compact Row, Zero Page Overflow) */}
+      <div className="w-full max-w-full bg-black/15 border-t border-white/10">
+        <div className="container-lg mx-auto w-full max-w-full px-3 sm:px-4 py-1 flex items-center justify-between gap-2 overflow-x-auto no-scrollbar whitespace-nowrap">
+          <div className="flex items-center gap-1 sm:gap-1.5 shrink-0">
+            <span className="inline-flex items-center text-[clamp(0.7rem,0.68rem+0.12vw,0.76rem)] font-bold uppercase tracking-wider text-secondary pr-2 border-r border-white/20 shrink-0">
               বিভাগসমূহ
             </span>
             {FEATURED_CATEGORIES.map((cat) => {
@@ -174,10 +177,10 @@ const NavigationMenu = ({ onOpenDrawer }) => {
                   key={cat.slug}
                   href={`/category/${cat.slug}`}
                   className={clsx(
-                    "px-2.5 py-1 rounded text-xs font-semibold whitespace-nowrap shrink-0 transition-colors no-underline",
+                    "inline-flex items-center justify-center px-2.5 py-1 rounded text-[clamp(0.74rem,0.71rem+0.14vw,0.81rem)] font-semibold transition-colors no-underline shrink-0",
                     isCatActive
                       ? "bg-secondary text-primary font-bold shadow-2xs"
-                      : "text-white/85 hover:text-white hover:bg-white/15"
+                      : "text-white/90 hover:text-white hover:bg-white/15"
                   )}
                 >
                   {cat.title}
@@ -190,7 +193,7 @@ const NavigationMenu = ({ onOpenDrawer }) => {
             <button
               type="button"
               onClick={onOpenDrawer}
-              className="hidden md:inline-flex items-center gap-1 text-xs font-bold text-secondary hover:text-white transition-colors whitespace-nowrap shrink-0 cursor-pointer pl-2"
+              className="inline-flex items-center justify-center gap-1 px-2.5 py-1 rounded text-[clamp(0.74rem,0.71rem+0.14vw,0.81rem)] font-bold text-secondary hover:text-white hover:bg-white/10 transition-colors cursor-pointer shrink-0"
             >
               <span>সকল বিভাগ</span>
               <RiArrowDownSLine size={16} />
@@ -207,7 +210,7 @@ const NavigationMenu = ({ onOpenDrawer }) => {
           mobileMenuOpen ? "max-h-[85vh] opacity-100 py-4" : "max-h-0 opacity-0 py-0"
         )}
       >
-        <div className="container-lg space-y-5 overflow-y-auto max-h-[78vh]">
+        <div className="container-lg mx-auto px-3 sm:px-4 space-y-5 overflow-y-auto max-h-[78vh]">
           {/* Mobile Main Sections */}
           <div>
             <p className="text-xs font-bold uppercase tracking-wider text-secondary mb-2.5 px-1">
@@ -222,7 +225,7 @@ const NavigationMenu = ({ onOpenDrawer }) => {
                     href={item.url}
                     onClick={() => setMobileMenuOpen(false)}
                     className={clsx(
-                      "flex items-center justify-between px-3.5 py-2.5 rounded-lg text-sm font-bold no-underline transition-colors",
+                      "flex items-center justify-between min-h-[2.75rem] px-3.5 py-2.5 rounded-lg text-sm font-bold no-underline transition-colors",
                       active
                         ? "bg-white text-primary ring-2 ring-secondary"
                         : "text-white hover:bg-white/10 hover:text-secondary"
@@ -240,18 +243,18 @@ const NavigationMenu = ({ onOpenDrawer }) => {
 
           {/* Mobile Interactive Category Tabs */}
           <div className="pt-3 border-t border-white/15">
-            <div className="flex items-center justify-between mb-3 px-1">
+            <div className="flex flex-wrap items-center justify-between gap-2 mb-3 px-1">
               <p className="text-xs font-bold uppercase tracking-wider text-secondary m-0">
                 বিষয়ভিত্তিক বিভাগ
               </p>
-              <div className="flex items-center gap-1 bg-black/20 p-1 rounded-lg">
+              <div className="flex flex-wrap items-center gap-1 bg-black/20 p-1 rounded-lg">
                 {Object.keys(CATEGORIES).map((groupKey) => (
                   <button
                     key={groupKey}
                     type="button"
                     onClick={() => setActiveCategoryGroup(groupKey)}
                     className={clsx(
-                      "px-2.5 py-1 rounded-md text-xs font-bold transition-colors cursor-pointer",
+                      "min-h-[2.25rem] px-3 py-1.5 rounded-md text-xs font-bold transition-colors cursor-pointer",
                       activeCategoryGroup === groupKey
                         ? "bg-secondary text-primary"
                         : "text-white/80 hover:text-white"
@@ -272,7 +275,7 @@ const NavigationMenu = ({ onOpenDrawer }) => {
                     href={`/category/${cat.slug}`}
                     onClick={() => setMobileMenuOpen(false)}
                     className={clsx(
-                      "px-3 py-2 rounded-md text-xs font-semibold no-underline transition-colors truncate",
+                      "flex items-center min-h-[2.75rem] px-3 py-2 rounded-md text-xs font-semibold no-underline transition-colors truncate",
                       isCatActive
                         ? "bg-white text-primary font-bold ring-1 ring-secondary"
                         : "bg-white/10 text-white hover:bg-secondary hover:text-primary"
@@ -286,11 +289,11 @@ const NavigationMenu = ({ onOpenDrawer }) => {
           </div>
 
           {/* Mobile Bottom Action Bar */}
-          <div className="pt-3 border-t border-white/15 flex items-center justify-between gap-3">
+          <div className="pt-3 border-t border-white/15 flex flex-wrap items-center justify-between gap-3">
             <NextLink
               href="/search"
               onClick={() => setMobileMenuOpen(false)}
-              className="flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg bg-white/15 text-white hover:bg-white hover:text-primary text-xs font-bold no-underline transition-colors"
+              className="flex-1 min-w-[8.5rem] min-h-[2.75rem] flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg bg-white/15 text-white hover:bg-white hover:text-primary text-xs font-bold no-underline transition-colors"
             >
               <BiSearch size={16} />
               <span>আর্কাইভ অনুসন্ধান</span>
@@ -298,7 +301,7 @@ const NavigationMenu = ({ onOpenDrawer }) => {
             <NextLink
               href="/lekha-patanur-niyomaboli"
               onClick={() => setMobileMenuOpen(false)}
-              className="flex-1 flex items-center justify-center py-2.5 px-4 rounded-lg bg-secondary text-primary hover:bg-white text-xs font-bold no-underline transition-colors"
+              className="flex-1 min-w-[8.5rem] min-h-[2.75rem] flex items-center justify-center py-2.5 px-4 rounded-lg bg-secondary text-primary hover:bg-white text-xs font-bold no-underline transition-colors"
             >
               লেখা পাঠান
             </NextLink>

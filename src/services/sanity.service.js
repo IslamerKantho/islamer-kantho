@@ -1,9 +1,21 @@
-import client, { previewClient, hasSanityConfig } from "./sanity";
+/**
+ * @fileoverview Sanity CMS Data Service Layer
+ * Provides GROQ query functions for articles, categories, galleries, search, and site settings,
+ * with automatic fallback to localized Bengali scholarly mock data when Sanity credentials are unconfigured.
+ */
+import { hasSanityConfig, sanityFetch } from "@/lib/sanity";
 
 // Initialization
-const MAX_POSTS = 10;
+const MAX_POSTS = 24;
 const MIN_POSTS = 0;
 
+/**
+ * Generates a Sanity Portable Text block array from plain paragraphs, an optional Quranic/Hadith verse, and a callout.
+ * @param {string[]} paragraphs - Array of Bengali paragraph strings.
+ * @param {{arabicText?: string, translation?: string, source?: string}} [verse] - Optional scriptural citation block.
+ * @param {{type?: string, title?: string, content?: string}} [callout] - Optional editorial callout block.
+ * @returns {Array<Object>} Portable Text blocks array.
+ */
 const createPortableText = (paragraphs, verse, callout) => {
   const blocks = paragraphs.map((text, idx) => ({
     _key: `block-${idx}`,
@@ -484,12 +496,33 @@ const getUniquePosts = (posts) => {
   });
 };
 
-// API Client.
-const getClient = (preview) => (preview ? previewClient : client);
-
-const postFields = `
+/**
+ * Lean GROQ projection for post cards, lists, sliders, and category archives.
+ * Projects only fields rendered by card components (eliminates body, references, seo, and unused metadata).
+ */
+const postCardFields = `
   _id,
-  name,
+  title,
+  publishedAt,
+  'category': categories[0]-> {
+    title,
+    'slug': slug.current
+  },
+  'date': {
+    'createdAt': _createdAt,
+    'updatedAt': _updatedAt
+  },
+  excerpt,
+  'slug': slug.current,
+  'coverImage': mainImage,
+  'author': author->{name, 'picture': image.asset->url}
+`;
+
+/**
+ * Full GROQ projection for single article detail views (/article/[slug]).
+ */
+const postDetailFields = `
+  _id,
   title,
   publishedAt,
   'category': categories[]-> {
@@ -498,7 +531,7 @@ const postFields = `
   },
   'date': {
     'createdAt': _createdAt, 
-  	'updatedAt': _updatedAt
+    'updatedAt': _updatedAt
   },
   excerpt,
   'slug': slug.current,
@@ -526,30 +559,17 @@ export async function getRecommendedPost(preview, range) {
   }
 
   try {
-    let dataRange = (n) => (n ? `[${n[0]}...${n[1]}]` : `[]`);
-    const dataQuery = `*[_type == "post" && recommended ] | order(publishedAt desc)`;
-    const dataParams = `
-      _id,
-      'date': {
-        'createdAt': _createdAt, 
-        'updatedAt': _updatedAt
-      },
-      'category': categories[0]-> {
-        title,
-        'slug': slug.current
-      },
-      'author': author->{name, 'picture': image.asset->url},
-      title,
-      'slug': slug.current,
-      excerpt,
-      'coverImage': mainImage,
-    `;
-    const featuredPost = await getClient(preview).fetch(
-      `${dataQuery} {
-        ${dataParams}
-      } ${dataRange(range)}`
-    );
-    return getUniquePosts(featuredPost);
+    const dataRange = (n) => (n ? `[${n[0]}...${n[1]}]` : `[]`);
+    const query = `*[_type == "post" && recommended] | order(publishedAt desc) {
+      ${postCardFields}
+    } ${dataRange(range)}`;
+
+    const recommendedPosts = await sanityFetch({
+      query,
+      tags: ["post", "recommended"],
+      preview,
+    });
+    return getUniquePosts(recommendedPosts);
   } catch (err) {
     console.warn("Sanity fetch failed in getRecommendedPost, using fallback:", err.message);
     return getUniquePosts(
@@ -570,29 +590,16 @@ export async function getFeaturedPost(preview, range) {
   }
 
   try {
-    let dataRange = (n) => (n ? `[${n[0]}...${n[1]}]` : `[]`);
-    const dataQuery = `*[_type == "post" && featured ] | order(publishedAt desc)`;
-    const dataParams = `
-      _id,
-      title,
-      'date': {
-        'createdAt': _createdAt, 
-        'updatedAt': _updatedAt
-      },
-      'category': categories[0]-> {
-        title,
-        'slug': slug.current
-      },
-      'author': author->{name, 'picture': image.asset->url},
-      'slug': slug.current,
-      excerpt,
-      'coverImage': mainImage,
-    `;
-    const featuredPost = await getClient(preview).fetch(
-      `${dataQuery} {
-        ${dataParams}
-      } ${dataRange(range)}`
-    );
+    const dataRange = (n) => (n ? `[${n[0]}...${n[1]}]` : `[]`);
+    const query = `*[_type == "post" && featured] | order(publishedAt desc) {
+      ${postCardFields}
+    } ${dataRange(range)}`;
+
+    const featuredPost = await sanityFetch({
+      query,
+      tags: ["post", "featured"],
+      preview,
+    });
     return getUniquePosts(featuredPost);
   } catch (err) {
     console.warn("Sanity fetch failed in getFeaturedPost, using fallback:", err.message);
@@ -615,15 +622,17 @@ export async function getCategoryList(preview) {
   }
 
   try {
-    const dataQuery = `*[_type=='category'] | order(publishedAt desc)`;
-    const featuredPost = await getClient(preview).fetch(
-      `${dataQuery} {
-        _id,
-        title,
-        'slug': slug.current
-      }`
-    );
-    return getUniquePosts(featuredPost);
+    const query = `*[_type == "category"] | order(publishedAt desc) {
+      _id,
+      title,
+      'slug': slug.current
+    }`;
+    const categories = await sanityFetch({
+      query,
+      tags: ["category"],
+      preview,
+    });
+    return getUniquePosts(categories);
   } catch {
     return [];
   }
@@ -634,13 +643,15 @@ export async function getPreviewPostBySlug(slug) {
     return MOCK_POSTS.find((p) => p.slug === slug) || MOCK_POSTS[0];
   }
   try {
-    const data = await getClient(true).fetch(
-      `*[_type == "post" && slug.current == $slug] | order(publishedAt desc){
-        ${postFields}
+    const data = await sanityFetch({
+      query: `*[_type == "post" && slug.current == $slug] | order(publishedAt desc){
+        ${postDetailFields}
         body
       }`,
-      { slug }
-    );
+      params: { slug },
+      tags: ["post", `post:${slug}`],
+      preview: true,
+    });
     return data?.[0] || null;
   } catch {
     return MOCK_POSTS.find((p) => p.slug === slug) || null;
@@ -652,7 +663,10 @@ export async function getAllPostsWithSlug() {
     return MOCK_POSTS.map((post) => ({ slug: post.slug }));
   }
   try {
-    const data = await client.fetch(`*[_type == "post"]{ 'slug': slug.current }`);
+    const data = await sanityFetch({
+      query: `*[_type == "post" && defined(slug.current)]{ 'slug': slug.current }`,
+      tags: ["post"],
+    });
     return data || [];
   } catch {
     return MOCK_POSTS.map((post) => ({ slug: post.slug }));
@@ -660,13 +674,13 @@ export async function getAllPostsWithSlug() {
 }
 
 /**
- * Get all posts.
+ * Get paginated posts with optional category filter using lean card projections.
  *
  * @param {boolean} preview
  * @param {number} offset
  * @param {number} limit
  * @param {string} category
- * @returns
+ * @returns {Promise<{data: Array, isPaginate: boolean, offset: number, length: number}>}
  */
 export async function getAllPosts(preview = false, offset, limit, category) {
   let offsetValue = parseInt(offset, 10);
@@ -684,8 +698,7 @@ export async function getAllPosts(preview = false, offset, limit, category) {
             p.categories?.some((c) => c.slug === category)
         )
       : MOCK_POSTS;
-    const list = filtered.length > 0 ? filtered : MOCK_POSTS;
-    const sliced = list.slice(offsetValue, offsetValue + limitValue + 1);
+    const sliced = filtered.slice(offsetValue, offsetValue + limitValue + 1);
     const isPaginate = sliced.length > limitValue;
     const pageItems = sliced.slice(0, limitValue);
     return {
@@ -701,28 +714,26 @@ export async function getAllPosts(preview = false, offset, limit, category) {
   }
 
   try {
-    let categoryValue = category
-      ? `&& "${category}" in (categories[]->slug.current)`
+    const categoryClause = category
+      ? `&& $category in (categories[]->slug.current)`
       : "";
     const range = `[${offsetValue}...${offsetValue + limitValue + 1}]`;
-    const query = `*[_type == "post" ${categoryValue}] | order(publishedAt desc) {
-        _id,
-        name,
-        title,
-        'category': categories[0]-> {
-          title,
-          'slug': slug.current
-        },
-        'date': {
-          'createdAt': _createdAt, 
-          'updatedAt': _updatedAt
-        },
-        excerpt,
-        'slug': slug.current,
-        'coverImage': mainImage,
-        'author': author->{_id, name, 'picture': image.asset->url},
-      } ${range}`;
-    const results = (await getClient(preview).fetch(query)) || [];
+    const query = `*[_type == "post" ${categoryClause}] | order(publishedAt desc) {
+      ${postCardFields}
+    } ${range}`;
+
+    const tags = category
+      ? ["post", "category", `category:${category}`]
+      : ["post"];
+
+    const results =
+      (await sanityFetch({
+        query,
+        params: category ? { category } : {},
+        tags,
+        preview,
+      })) || [];
+
     const totalPosts = results.length;
     results.splice(limitValue);
     const isPaginate = totalPosts > limitValue;
@@ -761,16 +772,21 @@ export async function getAllPostsByCategory(preview, category, range) {
   }
 
   try {
-    let dataRange = (n) => (n ? `[${n[0]}...${n[1]}]` : `[]`);
-    let filter = `_type == "post" && "${category}" in (categories[]->slug.current)`;
+    const dataRange = (n) => (n ? `[${n[0]}...${n[1]}]` : `[]`);
+    const filter = `_type == "post" && $category in (categories[]->slug.current)`;
     const query = `{
       "data": *[${filter}] | order(publishedAt desc){
-        ${postFields}
+        ${postCardFields}
       } ${dataRange(range)},
-     "length": count(*[${filter}])
-     }`;
+      "length": count(*[${filter}])
+    }`;
 
-    const results = await getClient(preview).fetch(query);
+    const results = await sanityFetch({
+      query,
+      params: { category },
+      tags: ["post", "category", `category:${category}`],
+      preview,
+    });
     return {
       length: results?.length || 0,
       data: getUniquePosts(results?.data || []),
@@ -792,17 +808,16 @@ export async function getPostAndMorePosts(slug, preview) {
   }
 
   try {
-    const curClient = getClient(preview);
     const [post, morePosts] = await Promise.all([
-      curClient
-        .fetch(
-          `*[_type == "post" && slug.current == $slug] | order(_updatedAt desc) {
-          ${postFields}
+      sanityFetch({
+        query: `*[_type == "post" && slug.current == $slug] | order(_updatedAt desc) {
+          ${postDetailFields}
           body,
           'comments': *[
-                        _type == "comment" && 
-                        post._ref == ^._id && 
-                        approved == true] {
+            _type == "comment" && 
+            post._ref == ^._id && 
+            approved == true
+          ] {
             _id, 
             name, 
             email, 
@@ -810,16 +825,18 @@ export async function getPostAndMorePosts(slug, preview) {
             _createdAt
           }
         }`,
-          { slug }
-        )
-        .then((res) => res?.[0]),
-      curClient.fetch(
-        `*[_type == "post" && slug.current != $slug] | order(publishedAt desc, _updatedAt desc){
-          ${postFields}
-          body,
+        params: { slug },
+        tags: ["post", `post:${slug}`],
+        preview,
+      }).then((res) => res?.[0]),
+      sanityFetch({
+        query: `*[_type == "post" && slug.current != $slug] | order(publishedAt desc, _updatedAt desc){
+          ${postCardFields}
         }[0...4]`,
-        { slug }
-      ),
+        params: { slug },
+        tags: ["post"],
+        preview,
+      }),
     ]);
     return { post: post || null, morePosts: getUniquePosts(morePosts || []) };
   } catch {
@@ -841,7 +858,13 @@ export async function getAllGalleries(preview = false) {
       videoUrl,
       'image': image.asset->url
     }`;
-    return (await getClient(preview).fetch(query)) || MOCK_GALLERIES;
+    return (
+      (await sanityFetch({
+        query,
+        tags: ["gallery"],
+        preview,
+      })) || MOCK_GALLERIES
+    );
   } catch {
     return MOCK_GALLERIES;
   }
@@ -861,7 +884,12 @@ export async function getGalleryBySlug(slug, preview = false) {
       videoUrl,
       'image': image.asset->url
     }`;
-    return await getClient(preview).fetch(query, { slug });
+    return await sanityFetch({
+      query,
+      params: { slug },
+      tags: ["gallery", `gallery:${slug}`],
+      preview,
+    });
   } catch {
     return MOCK_GALLERIES.find((g) => g.slug === slug) || MOCK_GALLERIES[0];
   }
@@ -888,25 +916,16 @@ export async function searchPosts(searchQuery, preview = false) {
 
   try {
     const query = `*[_type == "post" && (title match $searchQuery || excerpt match $searchQuery)] | order(publishedAt desc) {
-      _id,
-      name,
-      title,
-      'category': categories[0]-> {
-        title,
-        'slug': slug.current
-      },
-      'date': {
-        'createdAt': _createdAt, 
-        'updatedAt': _updatedAt
-      },
-      excerpt,
-      'slug': slug.current,
-      'coverImage': mainImage,
-      'author': author->{_id, name, 'picture': image.asset->url},
+      ${postCardFields}
     }[0...20]`;
 
-    const results = await getClient(preview).fetch(query, {
-      searchQuery: `*${searchQuery}*`,
+    const results = await sanityFetch({
+      query,
+      params: {
+        searchQuery: `*${searchQuery}*`,
+      },
+      tags: ["post"],
+      preview,
     });
     return getUniquePosts(results || []);
   } catch {
@@ -914,42 +933,115 @@ export async function searchPosts(searchQuery, preview = false) {
   }
 }
 
+const MOCK_PAGES = [
+  {
+    _id: "page-amader-porichithi",
+    title: "আমাদের পরিচিতি",
+    slug: "amader-porichithi",
+    body: createPortableText([
+      "‘ইসলামের কন্ঠ’ বাংলা ভাষায় বিশুদ্ধ ইসলামী জ্ঞান, গবেষণা ও সাহিত্য চর্চার একটি নির্ভরযোগ্য অনলাইন প্লাটফর্ম। পবিত্র কুরআন, সহীহ সুন্নাহ এবং আহলে সুন্নাত ওয়াল জামাআতের আক্বীদাহ ও আদর্শের আলোকে সর্বস্তরের পাঠকের কাছে ইসলামের শাশ্বত বাণী পৌঁছে দেওয়াই আমাদের মূল লক্ষ্য।",
+      "বিজ্ঞ ওলামায়ে কেরাম, মুহাদ্দিস, মুফাসসির ও গবেষকগণের তত্ত্বাবধানে আমরা নিয়মিত তাফসীর, হাদীস, সীরাত, ফিকহ, তাসাওউফ ও সমসাময়িক বিষয়ে প্রামাণ্য প্রবন্ধ প্রকাশ করে থাকি।",
+    ]),
+  },
+  {
+    _id: "page-sompadokiyo",
+    title: "সম্পাদকীয় নীতিমালা",
+    slug: "sompadokiyo",
+    body: createPortableText([
+      "ইসলামের কন্ঠে প্রকাশিত প্রতিটি প্রবন্ধ ও নিবন্ধ কুরআন-সুন্নাহর মূলনীতি এবং সালাফে সালেহীনদের অনুসৃত মানহাজ অনুযায়ী সম্পাদনা করা হয়। কোনো দলীয় বা গোষ্ঠীগত বিতর্ক নয়, বরং দলিলভিত্তিক বিশুদ্ধ ইলম ও উম্মাহর ঐক্যই আমাদের সম্পাদনার মূল ভিত্তি।",
+    ]),
+  },
+  {
+    _id: "page-lekha-patanur-niyomaboli",
+    title: "লেখা পাঠানোর নিয়মাবলী",
+    slug: "lekha-patanur-niyomaboli",
+    body: createPortableText([
+      "ইসলামের কন্ঠে প্রবন্ধ পাঠাতে হলে লেখাটি অবশ্যই মৌলিক, বিশুদ্ধ বাংলা বানানরীতি অনুসৃত এবং কুরআন-হাদীসের সঠিক তথ্যসূত্র (রেফারেন্স) সমৃদ্ধ হতে হবে। ইউনিকোড ফন্টে টাইপ করে আমাদের ইমেইল ঠিকানায় লেখা পাঠাতে পারেন।",
+    ]),
+  },
+  {
+    _id: "page-jugajuger-maddyom",
+    title: "যোগাযোগের মাধ্যম",
+    slug: "jugajuger-maddyom",
+    body: createPortableText([
+      "যেকোনো পরামর্শ, প্রশ্ন বা লেখা পাঠাতে আমাদের সাথে যোগাযোগ করুন: ইমেইল: info@islamerkantho.com | ঢাকা, বাংলাদেশ।",
+    ]),
+  },
+];
+
 export async function getPageBySlug(slug, preview = false) {
-  const query = `*[_type == "page" && slug.current == $slug][0] {
-    _id,
-    title,
-    'slug': slug.current,
-    body,
-    'seo': seo {
-      metaTitle,
-      metaDescription,
-      keywords,
-      'ogImageUrl': ogImage.asset->url,
-      noIndex
-    }
-  }`;
-  return await getClient(preview).fetch(query, { slug });
+  const fallbackPage = MOCK_PAGES.find((p) => p.slug === slug) || null;
+  if (!hasSanityConfig) return fallbackPage;
+  try {
+    const query = `*[_type == "page" && slug.current == $slug][0] {
+      _id,
+      title,
+      'slug': slug.current,
+      body,
+      'seo': seo {
+        metaTitle,
+        metaDescription,
+        keywords,
+        'ogImageUrl': ogImage.asset->url,
+        noIndex
+      }
+    }`;
+    return (
+      (await sanityFetch({
+        query,
+        params: { slug },
+        tags: ["page", `page:${slug}`],
+        preview,
+      })) || fallbackPage
+    );
+  } catch {
+    return fallbackPage;
+  }
 }
 
 export async function getAllPagesWithSlug(preview = false) {
-  const query = `*[_type == "page"] { 'slug': slug.current }`;
-  return await getClient(preview).fetch(query);
+  if (!hasSanityConfig) {
+    return MOCK_PAGES.map((p) => ({ slug: p.slug }));
+  }
+  try {
+    const query = `*[_type == "page" && defined(slug.current)] { 'slug': slug.current }`;
+    return (
+      (await sanityFetch({
+        query,
+        tags: ["page"],
+        preview,
+      })) || MOCK_PAGES.map((p) => ({ slug: p.slug }))
+    );
+  } catch {
+    return MOCK_PAGES.map((p) => ({ slug: p.slug }));
+  }
 }
 
 export async function getSiteSettings(preview = false) {
-  const query = `*[_type == "siteSettings"][0] {
-    primaryMenu[] {
-      title,
-      url
-    },
-    sidebarMenu[] {
-      title,
-      color,
-      items[] {
+  if (!hasSanityConfig) return null;
+  try {
+    const query = `*[_type == "siteSettings"][0] {
+      primaryMenu[] {
         title,
         url
+      },
+      sidebarMenu[] {
+        title,
+        color,
+        items[] {
+          title,
+          url
+        }
       }
-    }
-  }`;
-  return await getClient(preview).fetch(query);
+    }`;
+    return (
+      (await sanityFetch({
+        query,
+        tags: ["siteSettings"],
+        preview,
+      })) || null
+    );
+  } catch {
+    return null;
+  }
 }

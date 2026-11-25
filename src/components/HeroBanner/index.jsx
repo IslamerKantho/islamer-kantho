@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { memo } from "react";
-import { imageBuilder } from "../../pages/api/sanity";
+import { imageBuilder } from "@/lib/sanity";
 import clsx from "clsx";
 
 const HeroBanner = ({ className, post, ...rest }) => {
@@ -17,8 +17,15 @@ const HeroBanner = ({ className, post, ...rest }) => {
         {post?.coverImage && (
           <Image
             alt={post?.title || "Banner"}
-            src={imageBuilder(post?.coverImage).height(1080).width(1920).url()}
+            src={imageBuilder(post?.coverImage)
+              .width(1920)
+              .height(1080)
+              .auto("format")
+              .url()}
             fill
+            priority
+            fetchPriority="high"
+            sizes="100vw"
             className="object-cover object-center"
           />
         )}

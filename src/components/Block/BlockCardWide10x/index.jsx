@@ -1,40 +1,27 @@
-import CardFullWide from "../../card/CardFullWide";
-import SectionWidget from "../../SectionWidget";
 import { memo } from "react";
-import clsx from "clsx";
+import ArticlePreviewGrid from "../ArticlePreviewGrid";
 
 const BlockCardWide10x = ({
   className,
-  title,
+  title = "সাম্প্রতিক লেখাসমূহ",
+  subtitle = "ইসলামের কন্ঠে প্রকাশিত সর্বশেষ প্রবন্ধ, তাফসীর, হাদীস ও জীবন জিজ্ঞাসা",
   posts,
   isPaginate,
   loading,
   onLoadMore,
+  showCategoryFilter = true,
 }) => {
   return (
-    <SectionWidget className={clsx(className)} title="সাম্প্রতিক লেখাসমুহ">
-      {/* Post loop */}
-      <div className="flex flex-col gap-6">
-        {posts &&
-          posts.map((post, i) => (
-            <div key={post._id || i} className="w-full">
-              <CardFullWide postData={post} />
-            </div>
-          ))}
-      </div>
-
-      {isPaginate && (
-        <div className="w-full pt-10 flex justify-center items-center">
-          <button
-            className="h-12 w-full max-w-[320px] px-6 py-2.5 bg-[#055547] hover:bg-[#055547ee] text-white font-semibold rounded transition-colors disabled:opacity-50"
-            disabled={loading}
-            onClick={onLoadMore}
-          >
-            {loading ? "Loading..." : "Load more"}
-          </button>
-        </div>
-      )}
-    </SectionWidget>
+    <ArticlePreviewGrid
+      className={className}
+      title={title}
+      subtitle={subtitle}
+      posts={posts}
+      isPaginate={isPaginate}
+      loading={loading}
+      onLoadMore={onLoadMore}
+      showCategoryFilter={showCategoryFilter}
+    />
   );
 };
 

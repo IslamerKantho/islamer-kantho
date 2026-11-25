@@ -1,7 +1,9 @@
 import { useState } from "react";
+import Image from "next/image";
 import Layout from "../../components/Layout";
 import SEO from "../../components/SEO";
-import { getAllGalleries, getSiteSettings } from "../api/api";
+import { getAllGalleries, getSiteSettings } from "@/services/sanity.service";
+import { imageBuilder } from "@/lib/sanity";
 
 import dynamic from "next/dynamic";
 const ReactPlayer = dynamic( () => import( "react-player" ), { ssr: false } );
@@ -44,9 +46,12 @@ export default function GalleryPage({ galleries, settings }) {
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {galleries.map((item) => {
+              {galleries.map((item, idx) => {
                 const isVideo = item.mediaType === "video";
-                let videoUrl = item.videoUrl;
+                const videoUrl = item.videoUrl;
+                const optimizedImageUrl = item.image
+                  ? imageBuilder(item.image).width(800).height(450).auto("format").url()
+                  : null;
 
                 return (
                   <article
@@ -72,11 +77,15 @@ export default function GalleryPage({ galleries, settings }) {
                            </div>
                         </div>
                       </div>
-                    ) : item.image ? (
+                    ) : optimizedImageUrl ? (
                       <div className="absolute inset-0 w-full h-full cursor-pointer" onClick={() => openLightbox(item)}>
-                        <img
-                          src={item.image}
+                        <Image
+                          src={optimizedImageUrl}
                           alt={item.title || "Gallery Image"}
+                          width={800}
+                          height={450}
+                          priority={idx < 3}
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                         />
                         <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
@@ -156,10 +165,13 @@ export default function GalleryPage({ galleries, settings }) {
               </div>
             ) : (
               <div className="relative flex justify-center w-full h-full max-h-[90vh]">
-                <img
-                  src={lightboxData.image}
+                <Image
+                  src={imageBuilder(lightboxData.image).width(1600).height(900).auto("format").url()}
                   alt={lightboxData.title || "Gallery Image"}
-                  className="max-w-full max-h-[85vh] object-contain rounded shadow-2xl"
+                  width={1600}
+                  height={900}
+                  sizes="90vw"
+                  className="max-w-full max-h-[85vh] w-auto h-auto object-contain rounded shadow-2xl"
                 />
               </div>
             )}
@@ -184,6 +196,6 @@ export async function getStaticProps({ preview = false }) {
       galleries: galleries || [],
       settings: settings || null,
     },
-    revalidate: 1,
+    revalidate: 3600,
   };
 }

@@ -2,7 +2,6 @@ import {
   groq,
   createClient,
   createImageUrlBuilder,
-  createPreviewSubscriptionHook,
 } from "next-sanity";
 
 const rawProjectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID?.trim();
@@ -41,34 +40,43 @@ const createFallbackImageBuilder = (fallbackUrl = "/img/banner.jpg") => {
 };
 
 /**
- * Generates Sanity image URLs from a Sanity image source object,
- * falling back cleanly when local image paths or unconfigured credentials are used.
+ * Generates Sanity image URLs from a Sanity image source object with automatic
+ * format negotiation (.auto('format')) and max fit, falling back cleanly when
+ * local image paths or unconfigured credentials are used.
  */
 export const imageBuilder = (source) => {
   if (!source) {
     return createFallbackImageBuilder("/img/banner.jpg");
   }
   if (typeof source === "string") {
+    if (source.startsWith("https://cdn.sanity.io/")) {
+      const separator = source.includes("?") ? "&" : "?";
+      const optimizedUrl = source.includes("auto=format")
+        ? source
+        : `${source}${separator}auto=format&fit=max&q=80`;
+      return createFallbackImageBuilder(optimizedUrl);
+    }
     return createFallbackImageBuilder(source);
   }
   if (typeof source?.url === "string") {
-    return createFallbackImageBuilder(source.url);
+    return imageBuilder(source.url);
   }
-  if (typeof source?.asset?.url === "string") {
-    return createFallbackImageBuilder(source.asset.url);
+  if (typeof source?.asset?.url === "string" && !source?.asset?._ref) {
+    return imageBuilder(source.asset.url);
   }
   if (!hasSanityConfig) {
     return createFallbackImageBuilder("/img/banner.jpg");
   }
   try {
-    return createImageUrlBuilder(sanityConfig).image(source);
+    return createImageUrlBuilder(sanityConfig)
+      .image(source)
+      .auto("format")
+      .fit("max")
+      .quality(80);
   } catch {
     return createFallbackImageBuilder("/img/banner.jpg");
   }
 };
-
-export const usePreviewSubscription =
-  createPreviewSubscriptionHook(sanityConfig);
 
 const configuredClient = hasSanityConfig ? createClient(sanityConfig) : null;
 const configuredPreviewClient = hasSanityConfig
@@ -81,9 +89,12 @@ const configuredPreviewClient = hasSanityConfig
 
 const createSafeClient = (underlyingClient) => ({
   config: () => sanityConfig,
-  fetch: async (query, params = {}) => {
+  fetch: async (query, params = {}, options) => {
     if (!hasSanityConfig || !underlyingClient) {
       return null;
+    }
+    if (options) {
+      return await underlyingClient.fetch(query, params, options);
     }
     return await underlyingClient.fetch(query, params);
   },
@@ -96,15 +107,53 @@ export const getClient = (usePreview = false) =>
   usePreview ? previewClient : client;
 
 /**
- * Helper to fetch content from the configured Sanity project ID and dataset.
+ * Unified Sanity fetch wrapper supporting Next.js tag-based cache invalidation (`next: { tags }`).
+ *
+ * @param {Object} options
+ * @param {string} options.query - GROQ query string
+ * @param {Record<string, any>} [options.params] - Parameterized GROQ variables
+ * @param {string[]} [options.tags] - Cache tags for on-demand revalidation via revalidateTag()
+ * @param {boolean} [options.preview] - Whether to use the uncached preview client
+ * @returns {Promise<any>}
  */
-export async function fetchSanityContent(query, params = {}, usePreview = false) {
+export async function sanityFetch({
+  query,
+  params = {},
+  tags = [],
+  preview = false,
+}) {
   if (!hasSanityConfig) {
     return null;
   }
-  const activeClient = getClient(usePreview);
-  return await activeClient.fetch(query, params);
+  const activeClient = getClient(preview);
+  const fetchOptions = preview
+    ? { cache: "no-store", next: { revalidate: 0 } }
+    : {
+        next: {
+          tags: Array.isArray(tags) && tags.length > 0 ? tags : ["sanity"],
+        },
+      };
+
+  return await activeClient.fetch(query, params, fetchOptions);
+}
+
+/**
+ * Helper to fetch content from the configured Sanity project ID and dataset.
+ */
+export async function fetchSanityContent(
+  query,
+  params = {},
+  usePreview = false,
+  tags = []
+) {
+  return await sanityFetch({
+    query,
+    params,
+    tags,
+    preview: usePreview,
+  });
 }
 
 export { groq };
 export default client;
+

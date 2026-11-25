@@ -1,8 +1,8 @@
 import SEO, { SITE_CONFIG } from "@/components/SEO";
 import { useState, useCallback } from "react";
 import Layout from "../../components/Layout";
-import { getAllPosts, getSiteSettings } from "../api/api";
-import ArchivePostCard from "@/components/card/ArchivePostCard";
+import { getAllPosts, getSiteSettings } from "@/services/sanity.service";
+import ArticlePreviewGrid from "@/components/Block/ArticlePreviewGrid";
 import BlockPageHeader from "../../components/Block/BlockPageHeader";
 
 const PageArticles = ({ data, settings, preview }) => {
@@ -79,30 +79,23 @@ const PageArticles = ({ data, settings, preview }) => {
       />
 
       <Layout preview={preview} settings={settings}>
-        <BlockPageHeader 
-          title="আর্কাইভ" 
-          subtitle="ইসলামের কন্ঠ পত্রিকার সকল প্রবন্ধ ও লেখালেখির সংগ্রহশালা" 
+        <BlockPageHeader
+          title="আর্কাইভ"
+          subtitle="ইসলামের কন্ঠ পত্রিকার সকল প্রবন্ধ ও লেখালেখির সংগ্রহশালা"
         />
         <section className="w-full py-10 md:py-14">
           <div className="container">
-            <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10 mb-12">
-              {articles?.data.map((article) => (
-                <ArchivePostCard key={article.slug} article={article} />
-              ))}
-            </div>
-
-            {/* Pagination  */}
-            {articles.isPaginate && (
-              <div className="w-full flex justify-center items-center">
-                <button
-                  className="h-12 w-full max-w-[320px] py-2.5 px-4 bg-[#055547] hover:bg-[#055547ee] text-white font-semibold rounded transition-colors disabled:opacity-50"
-                  disabled={loading}
-                  onClick={loadMoreHandler}
-                >
-                  {loading ? "Loading..." : "Load more"}
-                </button>
-              </div>
-            )}
+            <ArticlePreviewGrid
+              title="প্রবন্ধ সংগ্রহশালা"
+              subtitle="বিভাগ অনুযায়ী প্রবন্ধ ফিল্টার করুন অথবা নিচে স্ক্রল করে আরও পড়ুন"
+              posts={articles?.data || []}
+              isPaginate={articles?.isPaginate}
+              initialOffset={articles?.offset || 12}
+              pageSize={12}
+              showCategoryFilter={true}
+              loading={loading}
+              onLoadMore={loadMoreHandler}
+            />
           </div>
         </section>
       </Layout>
@@ -111,7 +104,6 @@ const PageArticles = ({ data, settings, preview }) => {
 };
 
 export async function getServerSideProps({ res }) {
-  // Cache for 1 hour on CDN/browser, allow stale for 24 hours while revalidating
   res.setHeader(
     "Cache-Control",
     "public, s-maxage=3600, stale-while-revalidate=86400"

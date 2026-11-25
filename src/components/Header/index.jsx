@@ -10,7 +10,7 @@ const Header = () => {
 
   return (
     <>
-      <header className="sticky top-0 z-40 w-full bg-primary text-white shadow-sm">
+      <header className="sticky top-0 z-40 w-full max-w-full overflow-x-hidden bg-primary text-white shadow-sm">
         {/* Responsive Navigation Menu with Primary Background & Secondary/White Highlights */}
         <NavigationMenu onOpenDrawer={openHandler} />
 

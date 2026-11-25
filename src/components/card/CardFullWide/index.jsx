@@ -1,6 +1,6 @@
 import Image from "next/image";
 import NextLink from "next/link";
-import { imageBuilder } from "../../../pages/api/sanity";
+import { imageBuilder } from "@/lib/sanity";
 import { truncate } from "../../../utils/string.utils";
 import Link from "next/link";
 import clsx from "clsx";
@@ -21,15 +21,12 @@ const CardFullWide = ( { className, postData, ...rest } ) => {
                 src={ imageBuilder( postData?.coverImage )
                   .width( 330 )
                   .height( 208 )
+                  .auto( "format" )
                   .url() }
                 width={ 330 }
                 height={ 208 }
+                sizes="(max-width: 640px) 100vw, 330px"
                 alt={ postData?.title || "Article Image" }
-                placeholder="blur"
-                blurDataURL={ imageBuilder( postData?.coverImage )
-                  .width( 330 )
-                  .height( 208 )
-                  .url() }
               />
             </Link>
           </div>
