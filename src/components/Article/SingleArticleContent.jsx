@@ -1,6 +1,7 @@
 import markdownStyles from "../../styles/markdownStyles.module.css";
 import BlockContent from "@sanity/block-content-to-react";
 import dynamic from "next/dynamic";
+import { sanityConfig } from "../../lib/sanity";
 const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
 
 const serializers = {
@@ -109,8 +110,8 @@ export default function SingleArticleContent({ content }) {
         style={style.content}
         blocks={content || []}
         serializers={ serializers }
-        projectId={process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "mock-project-id"}
-        dataset={process.env.NEXT_PUBLIC_SANITY_DATASET || "production"}
+        projectId={sanityConfig.projectId}
+        dataset={sanityConfig.dataset}
       />
     </>
   );

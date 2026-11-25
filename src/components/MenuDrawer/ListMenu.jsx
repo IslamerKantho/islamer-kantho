@@ -1,50 +1,33 @@
 import NextLink from "next/link";
-import { IconContext } from "react-icons";
 import { ImBook } from "react-icons/im";
 import { memo } from "react";
 
-const ListMenu = ({ title, list, color, ...rest }) => {
-  const customColor = color || "#111";
-  const customBorderColor = color ? `${color}38` : "#eee";
-
+const ListMenu = ({ title, list, ...rest }) => {
   return (
-    <div className="mb-2.5" {...rest}>
+    <div className="mb-3" {...rest}>
       {/* Section Heading */}
-      <div className="pt-4 pb-2.5 pl-4 pr-4">
-        <h3
-          className="pb-2 text-base leading-4 font-bold border-b"
-          style={{ color: customColor, borderBottomColor: customBorderColor }}
-        >
+      <div className="pt-4 pb-2 px-4">
+        <h3 className="pb-2 text-sm leading-5 font-bold text-primary border-b-2 border-secondary/60">
           {title}
         </h3>
       </div>
 
-      {/* Categories*/}
+      {/* Categories */}
       <div className="w-full">
         <ul className="m-0 p-0 list-none grid grid-cols-2">
           {list.map((e, i) => (
-            <li key={i}>
+            <li key={i} className="m-0">
               <NextLink
                 href={e.slug ? `/category/${e.slug}` : e.url}
-                className="py-[7px] pl-4 pr-2 text-[#111] flex justify-start items-center text-sm leading-[36px] no-underline border-r border-[#eee] overflow-hidden hover:bg-gray-50 transition-colors"
+                className="py-2 pl-4 pr-2 text-slate-800 hover:text-primary flex justify-start items-center text-sm leading-8 no-underline border-r border-b border-slate-100 overflow-hidden hover:bg-secondary/15 transition-colors group"
               >
                 {/* Menu Icon */}
-                <span className="w-9 h-9 mr-3 flex justify-center items-center bg-[#E8E8E8] rounded-full shrink-0">
-                  <IconContext.Provider
-                    value={{
-                      color: color ? color : "#333",
-                      style: {
-                        width: "16px",
-                        height: "16px",
-                      },
-                    }}
-                  >
-                    <ImBook />
-                  </IconContext.Provider>
+                <span className="w-8 h-8 mr-2.5 flex justify-center items-center bg-secondary/25 text-primary group-hover:bg-primary group-hover:text-secondary rounded-lg shrink-0 transition-colors">
+                  <ImBook className="w-3.5 h-3.5" />
                 </span>
 
                 {/* Menu Title */}
-                <span className="truncate">{e.title}</span>
+                <span className="truncate font-medium">{e.title}</span>
               </NextLink>
             </li>
           ))}
