@@ -35,7 +35,7 @@ const ArticleCover = ({ className, src, title, ...rest }) => {
 
 ArticleCover.propTypes = {
   className: PropsType.string,
-  src: PropsType.object,
+  src: PropsType.oneOfType([PropsType.object, PropsType.string]),
   title: PropsType.string,
   rest: PropsType.object,
 };

@@ -1,5 +1,4 @@
-import Avatar from "../components/avatar";
-import Date from "../components/date";
+import FormatterDate from "./FormatterDate";
 import CoverImage from "./cover-image";
 import Link from "next/link";
 
@@ -29,12 +28,12 @@ export default function HeroPost({
             </Link>
           </h3>
           <div>
-            <Date dateString={date} />
+            <FormatterDate dateString={date} />
           </div>
         </div>
         <div>
           <p>{excerpt}</p>
-          <Avatar name={author?.name} picture={author?.picture} />
+          {author?.name && <span>{author.name}</span>}
         </div>
       </div>
     </section>

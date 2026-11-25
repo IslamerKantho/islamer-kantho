@@ -1,7 +1,7 @@
 import FormatterDate from "./FormatterDate";
 import CoverImage from "./cover-image";
 import Link from "next/link";
-import { imageBuilder } from "../lib/sanity";
+import { imageBuilder } from "../pages/api/sanity";
 export default function PostPreview({
   title,
   coverImage,

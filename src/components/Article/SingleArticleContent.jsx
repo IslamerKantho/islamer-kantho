@@ -101,10 +101,10 @@ export default function SingleArticleContent({ content }) {
       <BlockContent
         className={markdownStyles.markdown}
         style={style.content}
-        blocks={content}
+        blocks={content || []}
         serializers={ serializers }
-        projectId={process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}
-        dataset={process.env.NEXT_PUBLIC_SANITY_DATASET}
+        projectId={process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "mock-project-id"}
+        dataset={process.env.NEXT_PUBLIC_SANITY_DATASET || "production"}
       />
     </>
   );

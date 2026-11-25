@@ -1,6 +1,5 @@
-import { Divider } from "antd";
 import Link from "next/link";
-import Date from "./date";
+import FormatterDate from "./FormatterDate";
 
 export default function Comments({ comments = [] }) {
   return (
@@ -12,11 +11,11 @@ export default function Comments({ comments = [] }) {
             <hr className="mb-5" />
             <h4>
               <Link href={`mailto:${email}`}>
-                {name} (<Date dateString={_createdAt} />)
+                {name} (<FormatterDate dateString={_createdAt} />)
               </Link>
             </h4>
             <p>{comment}</p>
-            <Divider />
+            <hr className="my-3" />
           </li>
         ))}
       </ul>
