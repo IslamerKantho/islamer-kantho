@@ -60,7 +60,7 @@ const PostCard = ( { post, index } ) => {
 const TrendingPosts = ( { className, posts, ...rest } ) => {
   return (
     <section
-      className={ clsx( "py-10 bg-white", className ) }
+      className={ clsx( "pt-15 pb-10 bg-white", className ) }
       { ...rest }
     >
       <div className="container">

@@ -504,7 +504,7 @@ const postFields = `
   'slug': slug.current,
   'coverImage': mainImage,
   'author': author->{name, 'picture': image.asset->url, designation},
-  referenceLinks,
+  references,
   'seo': seo {
     metaTitle,
     metaDescription,
@@ -912,4 +912,44 @@ export async function searchPosts(searchQuery, preview = false) {
   } catch {
     return getFallback();
   }
+}
+
+export async function getPageBySlug(slug, preview = false) {
+  const query = `*[_type == "page" && slug.current == $slug][0] {
+    _id,
+    title,
+    'slug': slug.current,
+    body,
+    'seo': seo {
+      metaTitle,
+      metaDescription,
+      keywords,
+      'ogImageUrl': ogImage.asset->url,
+      noIndex
+    }
+  }`;
+  return await getClient(preview).fetch(query, { slug });
+}
+
+export async function getAllPagesWithSlug(preview = false) {
+  const query = `*[_type == "page"] { 'slug': slug.current }`;
+  return await getClient(preview).fetch(query);
+}
+
+export async function getSiteSettings(preview = false) {
+  const query = `*[_type == "siteSettings"][0] {
+    primaryMenu[] {
+      title,
+      url
+    },
+    sidebarMenu[] {
+      title,
+      color,
+      items[] {
+        title,
+        url
+      }
+    }
+  }`;
+  return await getClient(preview).fetch(query);
 }

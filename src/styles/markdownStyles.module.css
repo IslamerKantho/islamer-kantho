@@ -98,8 +98,26 @@
   font-weight: 600;
 }
 
+.markdown ul,
+.markdown ol {
+  font-size: 16px;
+  line-height: 32px;
+  margin-bottom: 20px;
+  padding-left: 40px;
+  color: #2A2A2A;
+  font-family: var(--font-hnt), "Arial", sans-serif;
+}
+
 .markdown ul {
-  font-size: 15px;
+  list-style-type: disc;
+}
+
+.markdown ol {
+  list-style-type: decimal;
+}
+
+.markdown li {
+  margin-bottom: 8px;
 }
 
 .markdown blockquote {

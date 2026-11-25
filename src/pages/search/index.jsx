@@ -5,6 +5,7 @@ import SEO from "../../components/SEO";
 import ArchivePostCard from "../../components/card/ArchivePostCard";
 import BlockPageHeader from "../../components/Block/BlockPageHeader";
 import { BiSearch } from "react-icons/bi";
+import { getSiteSettings } from "../api/api";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
@@ -16,7 +17,7 @@ const POPULAR_TAGS = [
   { name: "পারিবারিক জীবন", term: "পারিবারিক জীবন" },
 ];
 
-export default function SearchPage() {
+export default function SearchPage({ settings }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [debouncedTerm, setDebouncedTerm] = useState("");
 
@@ -39,7 +40,7 @@ export default function SearchPage() {
   };
 
   return (
-    <Layout>
+    <Layout settings={settings}>
       <SEO
         title="অনুসন্ধান"
         description="ইসলামের কন্ঠ ওয়েবসাইটে আপনার পছন্দের প্রবন্ধ ও জিজ্ঞাসা অনুসন্ধান করুন।"
@@ -143,4 +144,14 @@ export default function SearchPage() {
       </section>
     </Layout>
   );
+}
+
+export async function getStaticProps({ preview = false }) {
+  const settings = await getSiteSettings(preview);
+  return {
+    props: {
+      settings: settings || null,
+    },
+    revalidate: 1,
+  };
 }

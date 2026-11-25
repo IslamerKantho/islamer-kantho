@@ -1,13 +1,11 @@
 import NextLink from "next/link";
-import { SIDE_MENU } from "../../db/sidebar_menu.db";
 import { memo, useEffect } from "react";
-import { CATEGORIES } from "../../db/categories.db";
 import { IoCloseOutline } from "react-icons/io5";
 import clsx from "clsx";
 import ListMenu from "./ListMenu";
 import { useRouter } from "next/router";
 
-const MenuDrawer = ({ isVisible, closeHandler }) => {
+const MenuDrawer = ({ isVisible, closeHandler, sidebarMenu }) => {
   const router = useRouter();
 
   // Close drawer on route changes
@@ -88,29 +86,16 @@ const MenuDrawer = ({ isVisible, closeHandler }) => {
         {topBar}
         
         <div className="py-2">
-          {/* Categories */}
-          {Object.keys(CATEGORIES).map(
-            (k, i) =>
-              CATEGORIES[k].list && (
-                <ListMenu
-                  key={`cat-${i}`}
-                  title={CATEGORIES[k].title}
-                  list={CATEGORIES[k].list}
-                  color={CATEGORIES[k].color}
-                />
-              )
-          )}
-          {/* Menu */}
-          {Object.keys(SIDE_MENU).map(
-            (k, i) =>
-              SIDE_MENU[k].list && (
-                <ListMenu
-                  key={`menu-${i}`}
-                  title={SIDE_MENU[k].title}
-                  list={SIDE_MENU[k].list}
-                  color={SIDE_MENU[k].color}
-                />
-              )
+          {/* Dynamic Sidebar Menus */}
+          {sidebarMenu?.map((menuGroup, i) =>
+            menuGroup?.items && menuGroup.items.length > 0 && (
+              <ListMenu
+                key={`menu-${i}`}
+                title={menuGroup.title}
+                list={menuGroup.items}
+                color={menuGroup.color}
+              />
+            )
           )}
         </div>
         
