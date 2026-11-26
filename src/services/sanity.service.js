@@ -570,8 +570,7 @@ export async function getRecommendedPost(preview, range) {
       preview,
     });
     return getUniquePosts(recommendedPosts);
-  } catch (err) {
-    console.warn("Sanity fetch failed in getRecommendedPost, using fallback:", err.message);
+  } catch {
     return getUniquePosts(
       MOCK_POSTS.filter((p) => p.recommended).slice(sliceStart, sliceEnd)
     );
@@ -601,8 +600,7 @@ export async function getFeaturedPost(preview, range) {
       preview,
     });
     return getUniquePosts(featuredPost);
-  } catch (err) {
-    console.warn("Sanity fetch failed in getFeaturedPost, using fallback:", err.message);
+  } catch {
     return getUniquePosts(
       MOCK_POSTS.filter((p) => p.featured).slice(sliceStart, sliceEnd)
     );
@@ -744,8 +742,7 @@ export async function getAllPosts(preview = false, offset, limit, category) {
       offset: offsetValue + limitValue,
       length: results.length,
     };
-  } catch (err) {
-    console.warn("Sanity fetch failed in getAllPosts, using fallback:", err.message);
+  } catch {
     return getFallbackResult();
   }
 }

@@ -4,13 +4,15 @@ import SecondaryNavbar from "./SecondaryNavbar";
 
 const Header = () => {
   return (
-    <header className="sticky top-0 z-40 w-full max-w-full overflow-x-hidden bg-primary text-white shadow-sm">
-      {/* Responsive Navigation Menu with Primary Background & Secondary/White Highlights */}
-      <NavigationMenu />
+    <>
+      <header className="relative z-30 w-full max-w-full bg-primary text-white">
+        {/* Responsive Navigation Menu with Primary Background & Secondary/White Highlights */}
+        <NavigationMenu />
+      </header>
 
-      {/* Secondary Nav for Prayer Times & Hijri Calendar */}
+      {/* Fixed/Sticky Top Bar for Prayer Times & Hijri Calendar across every page view */}
       <SecondaryNavbar />
-    </header>
+    </>
   );
 };
 

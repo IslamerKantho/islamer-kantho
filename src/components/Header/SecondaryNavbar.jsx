@@ -185,19 +185,19 @@ const SecondaryNavbar = () => {
 
   return (
     <div
-      className="bg-primary text-white w-full max-w-full border-t border-white/10"
+      className="sticky top-0 z-40 bg-primary text-white w-full max-w-full border-t border-white/10 border-b border-secondary/30 shadow-sm"
       style={{ fontFamily: 'var(--font-hnt), "Arial", sans-serif' }}
     >
-      <div className="container-lg mx-auto w-full max-w-full px-3 sm:px-4 py-1.5 flex flex-col md:flex-row md:items-center md:justify-between gap-1 md:gap-4 text-[clamp(0.73rem,0.7rem+0.18vw,0.84rem)] leading-snug">
-        {/* Top Row on Mobile / Left Group on Desktop: Location & Five Daily Prayer Times */}
-        <div className="flex items-center gap-2.5 sm:gap-4 overflow-x-auto no-scrollbar whitespace-nowrap min-w-0">
+      <div className="container-lg mx-auto w-full max-w-full px-3 sm:px-4 py-1.5 flex flex-row items-center justify-between gap-4 overflow-x-auto no-scrollbar whitespace-nowrap text-[clamp(0.74rem,0.71rem+0.18vw,0.84rem)] leading-snug">
+        {/* Left Group: Location & Five Daily Prayer Times */}
+        <div className="flex items-center gap-3 sm:gap-4 shrink-0">
           {isLoading ? (
             <span className="animate-pulse bg-white/20 h-4 w-56 rounded" />
           ) : error ? (
             <span className="text-white/90">নামাজের সময়সূচি লোড করা যাচ্ছে না</span>
           ) : data?.prayers ? (
             <>
-              <span className="inline-flex items-center gap-1 text-secondary font-bold pr-2 border-r border-white/20 shrink-0">
+              <span className="inline-flex items-center gap-1 text-secondary font-bold pr-2 border-r border-white/20">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-3.5 w-3.5 shrink-0 text-secondary"
@@ -220,7 +220,7 @@ const SecondaryNavbar = () => {
                 <span>{cityBn}</span>
               </span>
 
-              <div className="flex items-center gap-2.5 sm:gap-4 text-white/95 font-medium shrink-0">
+              <div className="flex items-center gap-3 sm:gap-4 text-white/95 font-medium">
                 {prayerItems.map((item) => (
                   <span
                     key={item.key}
@@ -235,14 +235,14 @@ const SecondaryNavbar = () => {
           ) : null}
         </div>
 
-        {/* Second Compact Row on Mobile / Right Group on Desktop: Gregorian & Hijri Date in Bangla */}
-        <div className="flex items-center md:justify-end font-semibold text-white/90 shrink-0 md:pl-2 md:border-l md:border-white/15 text-[0.72rem] sm:text-[clamp(0.74rem,0.71rem+0.18vw,0.84rem)]">
+        {/* Right Group: Gregorian & Hijri Date in Bangla */}
+        <div className="flex items-center justify-end font-semibold text-white/95 shrink-0 pl-2 border-l border-white/15">
           {isLoading ? (
-            <span className="animate-pulse bg-white/20 h-3.5 w-40 rounded" />
+            <span className="animate-pulse bg-white/20 h-4 w-44 rounded" />
           ) : error ? (
             <span>তারিখ লোড করা যাচ্ছে না</span>
           ) : gregorianDateBn && hijriDateBn ? (
-            <span className="inline-flex items-center gap-1.5 truncate">
+            <span className="inline-flex items-center gap-1.5">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-3.5 w-3.5 shrink-0 text-secondary"
@@ -257,7 +257,7 @@ const SecondaryNavbar = () => {
                   d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
                 />
               </svg>
-              <span className="truncate">
+              <span>
                 {gregorianDateBn} · {hijriDateBn}
               </span>
             </span>
