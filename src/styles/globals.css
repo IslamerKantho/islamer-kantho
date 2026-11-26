@@ -90,11 +90,62 @@ img {
 }
 
 
+html,
+body {
+  max-width: 100vw;
+  overflow-x: clip;
+}
+
 /* Utilities */
 .container {
   @apply mx-auto w-full max-w-[1280px] px-4 sm:px-5;
-  }
+}
 
-  .container-lg {
-    @apply mx-auto w-full max-w-[1540px] px-4 sm:px-5;
+.container-lg {
+  @apply mx-auto w-full max-w-[1540px] px-4 sm:px-5;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+@keyframes lanternSway {
+  0%,
+  100% {
+    transform: rotate(-2.4deg);
+  }
+  50% {
+    transform: rotate(2.4deg);
+  }
+}
+
+.animate-lantern-slow {
+  transform-box: fill-box;
+  transform-origin: top center;
+  animation: lanternSway 5.2s ease-in-out infinite;
+}
+
+.animate-lantern-medium {
+  transform-box: fill-box;
+  transform-origin: top center;
+  animation: lanternSway 4.4s ease-in-out infinite -1.4s;
+}
+
+.animate-lantern-gentle {
+  transform-box: fill-box;
+  transform-origin: top center;
+  animation: lanternSway 4.8s ease-in-out infinite -2.6s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-lantern-slow,
+  .animate-lantern-medium,
+  .animate-lantern-gentle {
+    animation: none;
+  }
 }

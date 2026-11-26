@@ -1,11 +1,26 @@
 {
   "name": "islamer-kantho",
   "version": "1.0.0",
+  "description": "Islamer Kantho - Bengali Islamic Scholarly Publication & Digital Archive",
+  "main": "next.config.js",
   "scripts": {
-    "dev": "next dev ",
+    "dev": "next dev --turbopack -p 3000 -H 0.0.0.0",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "sanity:dev": "bunx sanity dev",
+    "sanity:deploy": "bunx sanity deploy",
+    "typegen": "bunx sanity schema extract && bunx sanity typegen generate"
+  },
+  "trustedDependencies": [
+    "sharp",
+    "esbuild",
+    "@sanity/cli",
+    "protobufjs"
+  ],
+  "engines": {
+    "node": ">=18.18.0",
+    "bun": ">=1.1.0"
   },
   "dependencies": {
     "@emotion/react": "^11.11.4",
@@ -46,18 +61,21 @@
     "prettier-plugin-tailwindcss": "^0.8.1",
     "tailwindcss": "^4.0.0"
   },
-  "description": "  ",
-  "main": "next.config.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/abutahermuammad/islamer-kantho-new.git"
   },
-  "keywords": [],
+  "keywords": [
+    "nextjs",
+    "sanity",
+    "bun",
+    "islamic-articles",
+    "bengali"
+  ],
   "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/abutahermuammad/islamer-kantho-new/issues"
   },
-  "homepage": "https://github.com/abutahermuammad/islamer-kantho-new#readme",
-  "packageManager": "yarn@4.18.0"
+  "homepage": "https://github.com/abutahermuammad/islamer-kantho-new#readme"
 }

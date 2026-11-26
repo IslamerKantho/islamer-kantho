@@ -3,7 +3,8 @@ import { useRouter } from "next/router";
 import Layout from "../components/Layout";
 import BlockPageHeader from "../components/Block/BlockPageHeader";
 import SingleArticleContent from "../components/Article/SingleArticleContent";
-import { getAllPagesWithSlug, getPageBySlug, getSiteSettings } from "./api/api";
+import ReadingProgressBar from "../components/Article/ReadingProgressBar";
+import { getAllPagesWithSlug, getPageBySlug, getSiteSettings } from "@/services/sanity.service";
 
 export default function Page({ page, settings, preview }) {
   const router = useRouter();
@@ -17,19 +18,22 @@ export default function Page({ page, settings, preview }) {
           <SEO
             title={page.seo?.metaTitle || page.title}
             description={page.seo?.metaDescription}
-            keywords={page.seo?.keywords?.join(', ')}
+            keywords={page.seo?.keywords?.join(", ")}
             canonicalUrl={`/${page.slug}`}
             ogType="website"
             ogImage={page.seo?.ogImageUrl}
             noIndex={page.seo?.noIndex}
           />
-          <BlockPageHeader title={page.title} />
+          <ReadingProgressBar targetId="page-reading-container" />
+          <div id="page-reading-container">
+            <BlockPageHeader title={page.title} />
 
-          <section className="py-8 md:py-11">
-            <div className="container max-w-4xl mx-auto text-justify">
-              <SingleArticleContent content={page.body} />
-            </div>
-          </section>
+            <section className="py-8 md:py-11">
+              <div className="container max-w-4xl mx-auto text-justify">
+                <SingleArticleContent content={page.body} />
+              </div>
+            </section>
+          </div>
         </>
       )}
     </Layout>
@@ -53,7 +57,7 @@ export async function getStaticProps({ params, preview = false }) {
       page: page || null,
       settings: settings || null,
     },
-    revalidate: 1,
+    revalidate: 3600,
   };
 }
 

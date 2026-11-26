@@ -1,4 +1,4 @@
-import { searchPosts } from "./api";
+import { searchPosts } from "@/services/sanity.service";
 
 export default async function handler(req, res) {
   if (req.method !== "GET") {

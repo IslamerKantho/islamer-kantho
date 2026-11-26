@@ -1,18 +1,20 @@
-import NextNProgress from "nextjs-progressbar";
+import dynamic from "next/dynamic";
 import "./../styles/globals.css";
 import "../styles/error404.css";
 import "../styles/index.css";
 import Meta from "../components/Meta";
-import { GoogleTagManager } from "@next/third-parties/google";
-import { hnt } from "../styles/fonts";
+import { fontVariables } from "../styles/fonts";
+
+const NextNProgress = dynamic(() => import("nextjs-progressbar"), {
+  ssr: false,
+});
 
 function App({ Component, pageProps }) {
   return (
-    <main className={hnt.variable}>
+    <main className={fontVariables}>
       <Meta />
-      <NextNProgress color="#D1BB9E" />
+      <NextNProgress color="#D1BB9E" options={{ showSpinner: false }} />
       <Component {...pageProps} />
-      <GoogleTagManager gtmId="GTM-MWLK3D76" />
     </main>
   );
 }

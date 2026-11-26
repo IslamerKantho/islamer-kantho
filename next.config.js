@@ -8,6 +8,8 @@ const nextPWA = require("next-pwa")({
 });
 
 const config = {
+  ...(process.env.VERCEL ? {} : { output: "standalone" }),
+  allowedDevOrigins: ["*.run.app"],
   turbopack: {},
   images: {
     remotePatterns: [
@@ -34,17 +36,9 @@ const config = {
       {
         source: '/(.*)',
         headers: [
-          // {
-          //   key: 'Strict-Transport-Security',
-          //   value: 'max-age=31536000; includeSubDomains; preload',
-          // },
           {
             key: 'X-DNS-Prefetch-Control',
             value: 'on',
-          },
-          {
-            key: 'X-Frame-Options',
-            value: 'SAMEORIGIN',
           },
           {
             key: 'X-XSS-Protection',

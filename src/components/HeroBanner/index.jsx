@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { memo } from "react";
-import { imageBuilder } from "../../pages/api/sanity";
+import { imageBuilder } from "@/lib/sanity";
 import clsx from "clsx";
 
 const HeroBanner = ({ className, post, ...rest }) => {
@@ -17,24 +17,31 @@ const HeroBanner = ({ className, post, ...rest }) => {
         {post?.coverImage && (
           <Image
             alt={post?.title || "Banner"}
-            src={imageBuilder(post?.coverImage).height(1080).width(1920).url()}
+            src={imageBuilder(post?.coverImage)
+              .width(1920)
+              .height(1080)
+              .auto("format")
+              .url()}
             fill
+            priority
+            fetchPriority="high"
+            sizes="100vw"
             className="object-cover object-center"
           />
         )}
       </div>
 
-      <div className="h-[350px] md:h-[calc(94vh-6px)] xl:h-[580px] max-h-[580px] bg-black/40">
-        <div className="container h-full min-h-[350px] sm:min-h-[calc(94vh-6px)] xl:min-h-[580px] max-h-[580px] pt-[20px] sm:pt-[40px] md:pt-[100px] pb-[20px] sm:pb-[40px] md:pb-[80px] flex flex-col justify-end items-start">
+      <div className="min-h-[320px] sm:min-h-[420px] md:min-h-[480px] xl:min-h-[540px] max-h-[580px] bg-gradient-to-t from-black/85 via-black/45 to-black/25 flex items-end">
+        <div className="container w-full py-7 sm:py-10 md:py-16 flex flex-col justify-end items-start">
           <Link
             href={`/article/${post?.slug}`}
             title={post?.title}
-            className="max-w-[825px] text-[26px] sm:text-[32px] md:text-[42px] leading-[26px] sm:leading-[55px] font-bold text-white no-underline hover:underline"
+            className="max-w-[825px] text-[22px] sm:text-[30px] md:text-[40px] leading-[1.45] sm:leading-[1.4] md:leading-[1.35] font-bold text-white no-underline hover:underline text-balance"
           >
             <h1>{post?.title}</h1>
           </Link>
 
-          <p className="max-w-[825px] mt-2.5 md:mt-5 text-[13px] sm:text-[15px] leading-[23px] sm:leading-[25px] text-white/80 line-clamp-3">
+          <p className="max-w-[780px] mt-2.5 md:mt-4 text-[13px] sm:text-[15px] leading-[1.65] text-white/85 line-clamp-3 mb-0">
             {post?.excerpt}
           </p>
         </div>

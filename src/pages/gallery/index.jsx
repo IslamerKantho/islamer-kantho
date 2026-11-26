@@ -1,7 +1,9 @@
 import { useState } from "react";
+import Image from "next/image";
 import Layout from "../../components/Layout";
 import SEO from "../../components/SEO";
-import { getAllGalleries, getSiteSettings } from "../api/api";
+import { getAllGalleries, getSiteSettings } from "@/services/sanity.service";
+import { imageBuilder } from "@/lib/sanity";
 
 import dynamic from "next/dynamic";
 const ReactPlayer = dynamic( () => import( "react-player" ), { ssr: false } );
@@ -44,9 +46,12 @@ export default function GalleryPage({ galleries, settings }) {
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {galleries.map((item) => {
+              {galleries.map((item, idx) => {
                 const isVideo = item.mediaType === "video";
-                let videoUrl = item.videoUrl;
+                const videoUrl = item.videoUrl;
+                const optimizedImageUrl = item.image
+                  ? imageBuilder(item.image).width(800).height(450).auto("format").url()
+                  : null;
 
                 return (
                   <article
@@ -72,17 +77,24 @@ export default function GalleryPage({ galleries, settings }) {
                            </div>
                         </div>
                       </div>
-                    ) : item.image ? (
+                    ) : optimizedImageUrl ? (
                       <div className="absolute inset-0 w-full h-full cursor-pointer" onClick={() => openLightbox(item)}>
-                        <img
-                          src={item.image}
+                        <Image
+                          src={optimizedImageUrl}
                           alt={item.title || "Gallery Image"}
+                          width={800}
+                          height={450}
+                          priority={idx < 3}
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                         />
-                        <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                          <div className="flex gap-3">
-                            <span className="px-4 py-2.5 bg-white/20 hover:bg-white/30 text-white font-medium rounded-lg backdrop-blur-sm transition-colors flex items-center gap-2 transform scale-95 group-hover:scale-100">
-                              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div className="absolute inset-x-0 bottom-0 sm:inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent sm:bg-black/50 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity flex items-end sm:items-center justify-between sm:justify-center p-3 sm:p-4">
+                          <span className="text-xs font-medium text-white truncate max-w-[45%] sm:hidden">
+                            {item.title}
+                          </span>
+                          <div className="flex gap-2 sm:gap-3">
+                            <span className="px-3 py-1.5 sm:px-4 sm:py-2.5 bg-white/20 hover:bg-white/30 text-white text-xs sm:text-sm font-medium rounded-lg backdrop-blur-sm transition-colors flex items-center gap-1.5 sm:gap-2">
+                              <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
                               </svg>
@@ -94,9 +106,9 @@ export default function GalleryPage({ galleries, settings }) {
                               target="_blank"
                               rel="noopener noreferrer"
                               onClick={(e) => e.stopPropagation()}
-                              className="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-medium rounded-lg shadow-lg flex items-center gap-2 transition-colors transform scale-95 group-hover:scale-100"
+                              className="px-3 py-1.5 sm:px-4 sm:py-2.5 bg-primary hover:bg-[#033b3b] text-white text-xs sm:text-sm font-medium rounded-lg shadow-lg flex items-center gap-1.5 sm:gap-2 transition-colors no-underline"
                             >
-                              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
                               </svg>
                               ডাউনলোড
@@ -109,10 +121,6 @@ export default function GalleryPage({ galleries, settings }) {
                         No Media Available
                       </div>
                     )}
-
-                    <span className="absolute top-3 right-3 px-3 py-1 text-xs font-semibold rounded-full bg-emerald-600/90 text-white shadow-sm pointer-events-none">
-                      {isVideo ? "ভিডিও" : "ছবি"}
-                    </span>
                   </article>
                 );
               })}
@@ -156,10 +164,13 @@ export default function GalleryPage({ galleries, settings }) {
               </div>
             ) : (
               <div className="relative flex justify-center w-full h-full max-h-[90vh]">
-                <img
-                  src={lightboxData.image}
+                <Image
+                  src={imageBuilder(lightboxData.image).width(1600).height(900).auto("format").url()}
                   alt={lightboxData.title || "Gallery Image"}
-                  className="max-w-full max-h-[85vh] object-contain rounded shadow-2xl"
+                  width={1600}
+                  height={900}
+                  sizes="90vw"
+                  className="max-w-full max-h-[85vh] w-auto h-auto object-contain rounded shadow-2xl"
                 />
               </div>
             )}
@@ -184,6 +195,6 @@ export async function getStaticProps({ preview = false }) {
       galleries: galleries || [],
       settings: settings || null,
     },
-    revalidate: 1,
+    revalidate: 3600,
   };
 }

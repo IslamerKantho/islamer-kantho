@@ -1,3 +1,9 @@
+/**
+ * Truncates a string to the specified maximum character length and appends an ellipsis.
+ * @param {string} string - Input text to truncate.
+ * @param {number} [len=205] - Maximum character length before truncation.
+ * @returns {string|undefined} Truncated string.
+ */
 export const truncate = (string, len = 205) => {
   if (!string) return;
 

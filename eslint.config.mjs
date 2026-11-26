@@ -1,21 +1,28 @@
 import { defineConfig, globalIgnores } from "eslint/config";
-import next from "eslint-config-next";
-import path from "node:path";
-import { fileURLToPath } from "node:url";
-import js from "@eslint/js";
-import { FlatCompat } from "@eslint/eslintrc";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const compat = new FlatCompat({
-    baseDirectory: __dirname,
-    recommendedConfig: js.configs.recommended,
-    allConfig: js.configs.all
-});
+import prettier from "eslint-config-prettier";
 
 export default defineConfig([
-    globalIgnores(["node_modules", "build", "**/*.stories.*", "**/.env", "**/*.env.*"]),
-    {
-        extends: [...next, ...compat.extends("prettier")],
+  globalIgnores([
+    "node_modules",
+    ".next",
+    "build",
+    "public/sw.js",
+    "public/workbox-*.js",
+    "**/*.stories.*",
+    "**/.env",
+    "**/*.env.*",
+  ]),
+  {
+    files: ["**/*.{js,jsx,mjs}"],
+    languageOptions: {
+      ecmaVersion: "latest",
+      sourceType: "module",
+      parserOptions: {
+        ecmaFeatures: {
+          jsx: true,
+        },
+      },
     },
+  },
+  prettier,
 ]);

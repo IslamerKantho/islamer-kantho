@@ -1,18 +1,22 @@
 import SEO, { SITE_CONFIG } from "../components/SEO";
 import { useCallback, useState } from "react";
-import BlockPostCarSlider from "../components/Block/BlockPostCarSlider";
-import BlockSidebar from "../components/Block/BlockSidebar";
 import TrendingPosts from "../components/Block/TrendingPosts";
 import HeroBanner from "../components/HeroBanner";
 import Layout from "../components/Layout";
-import { getAllPosts, getFeaturedPost, getRecommendedPost, getSiteSettings } from "./api/api";
+import ArticlePreviewGrid from "../components/Block/ArticlePreviewGrid";
+import {
+  getAllPosts,
+  getFeaturedPost,
+  getRecommendedPost,
+  getSiteSettings,
+} from "@/services/sanity.service";
 import DottedDivider from "../components/DottedDivider";
 import dynamic from "next/dynamic";
 
-const BlockBanner = dynamic(() => import("../components/Block/BlockBanner"));
-const BlockCardWide10x = dynamic(() =>
-  import("../components/Block/BlockCardWide10x")
+const BlockPostCarSlider = dynamic(
+  () => import("../components/Block/BlockPostCarSlider")
 );
+const BlockBanner = dynamic(() => import("../components/Block/BlockBanner"));
 
 const homepageJsonLd = [
   {
@@ -58,7 +62,7 @@ export default function Home({
    */
   const loadMoreHandler = useCallback(() => {
     setLoading(true);
-    fetch(`/api/articles?offset=${recentArticles.offset}&limit=10`)
+    fetch(`/api/articles?offset=${recentArticles.offset}&limit=9`)
       .then((data) => data.json())
       .then((data) => {
         setRecentArticles({
@@ -94,20 +98,20 @@ export default function Home({
         <BlockBanner />
         <DottedDivider />
 
-        <section className="w-full">
-          <div className="container py-8 md:py-12 flex flex-col md:flex-row gap-10">
-            <div className="flex-1">
-              <BlockCardWide10x
-                posts={recentArticles.data}
-                isPaginate={recentArticles.isPaginate}
-                loading={loading}
-                onLoadMore={loadMoreHandler}
-              />
-            </div>
-
-            <div className="w-full md:w-[340px] shrink-0">
-              <BlockSidebar />
-            </div>
+        {/* Responsive 3-Column Article Preview Grid Section */}
+        <section className="w-full py-10 md:py-14">
+          <div className="container">
+            <ArticlePreviewGrid
+              title="সাম্প্রতিক লেখাসমূহ"
+              subtitle="ইসলামের কন্ঠে প্রকাশিত সর্বশেষ প্রবন্ধ, তাফসীর, হাদীস ও জীবন জিজ্ঞাসা"
+              posts={recentArticles?.data || []}
+              isPaginate={recentArticles?.isPaginate}
+              initialOffset={recentArticles?.offset || 9}
+              pageSize={9}
+              showCategoryFilter={true}
+              loading={loading}
+              onLoadMore={loadMoreHandler}
+            />
           </div>
         </section>
       </Layout>
@@ -120,7 +124,7 @@ export async function getStaticProps({ preview = false }) {
 
   const featuredPosts = await getFeaturedPost(preview, featuredArticleRange);
   const recommendedPosts = await getRecommendedPost(preview, [0, 7]);
-  const allPosts = await getAllPosts(false, 0, 10);
+  const allPosts = await getAllPosts(false, 0, 9);
   const settings = await getSiteSettings(preview);
 
   return {

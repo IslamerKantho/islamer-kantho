@@ -84,7 +84,7 @@
 .markdown p[lang="ar"],
 .markdown span[lang="ar"],
 .markdown div[lang="ar"] {
-  font-family: "Amiri", "Scheherazade New", "Traditional Arabic", serif;
+  font-family: var(--font-amiri), var(--font-scheherazade), "Amiri", "Scheherazade New", "Traditional Arabic", serif;
   direction: rtl;
 }
 
@@ -130,3 +130,98 @@
   background: rgba(0, 0, 0, 0.05);
   border: 1px solid rgba(0, 0, 0, 0.12);
 }
+
+/* Reading Comfort Font Size Modifiers */
+.scaleSm p:not(p[lang="ar"]),
+.scaleSm ul,
+.scaleSm ol {
+  font-size: 14.5px !important;
+  line-height: 28px !important;
+}
+
+.scaleBase p:not(p[lang="ar"]),
+.scaleBase ul,
+.scaleBase ol {
+  font-size: 16px !important;
+  line-height: 32px !important;
+}
+
+.scaleLg p:not(p[lang="ar"]),
+.scaleLg ul,
+.scaleLg ol {
+  font-size: 18.5px !important;
+  line-height: 36px !important;
+}
+
+.scaleXl p:not(p[lang="ar"]),
+.scaleXl ul,
+.scaleXl ol {
+  font-size: 21px !important;
+  line-height: 40px !important;
+}
+
+/* High-Readability Distraction-Free Reading Mode Modifiers */
+.readingMode h1,
+.readingMode h2,
+.readingMode h3,
+.readingMode h4,
+.readingMode h5,
+.readingMode h6,
+.readingMode p,
+.readingMode ul,
+.readingMode ol,
+.readingMode blockquote {
+  width: 100% !important;
+  max-width: 580px !important;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.readingMode h1,
+.readingMode h2,
+.readingMode h3,
+.readingMode h4 {
+  font-size: 22px;
+  line-height: 36px;
+  margin-top: 36px;
+  margin-bottom: 22px;
+  color: #182222;
+}
+
+.readingMode p:not(p[lang="ar"]),
+.readingMode ul,
+.readingMode ol {
+  margin-bottom: 26px;
+  letter-spacing: 0.01em;
+  color: #1E2424;
+}
+
+.readingMode.scaleSm p:not(p[lang="ar"]),
+.readingMode.scaleSm ul,
+.readingMode.scaleSm ol {
+  font-size: 17px !important;
+  line-height: 34px !important;
+}
+
+.readingMode.scaleBase p:not(p[lang="ar"]),
+.readingMode.scaleBase ul,
+.readingMode.scaleBase ol {
+  font-size: 19.5px !important;
+  line-height: 39px !important;
+}
+
+.readingMode.scaleLg p:not(p[lang="ar"]),
+.readingMode.scaleLg ul,
+.readingMode.scaleLg ol {
+  font-size: 21.5px !important;
+  line-height: 43px !important;
+}
+
+.readingMode.scaleXl p:not(p[lang="ar"]),
+.readingMode.scaleXl ul,
+.readingMode.scaleXl ol {
+  font-size: 24px !important;
+  line-height: 48px !important;
+}
+
+

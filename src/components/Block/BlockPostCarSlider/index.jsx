@@ -4,16 +4,22 @@ import 'swiper/css/navigation';
 import SectionWidget from "../../SectionWidget";
 import { memo } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { imageBuilder } from "../../../pages/api/sanity";
+import { imageBuilder } from "@/lib/sanity";
 import Image from "next/image";
 import Link from "next/link";
 import { truncate } from "../../../utils/string.utils";
 import { Grid, Navigation } from "swiper/modules";
-import { ChevronLeft, ChevronRight } from '@mui/icons-material';
 import { BiChevronLeft, BiChevronRight } from 'react-icons/bi';
 
 const PostCard = ({ cardData }) => {
   const article = cardData;
+  const imageUrl = article?.coverImage
+    ? imageBuilder(article.coverImage)
+        .width(286)
+        .height(161)
+        .auto("format")
+        .url()
+    : null;
 
   return (
     <article
@@ -23,20 +29,13 @@ const PostCard = ({ cardData }) => {
     >
       <Link href={ `/article/${article.slug}` } className="">
         <div className="flex border-b-[8px] border-b-[#055547]">
-          {article.coverImage && (
+          {imageUrl && (
             <Image
-              src={imageBuilder(article?.coverImage)
-                .width(286)
-                .height(161)
-                .url()}
+              src={imageUrl}
               width={286}
               height={161}
-              alt={article.title}
-              placeholder="blur"
-              blurDataURL={imageBuilder(article?.coverImage)
-                .width(286)
-                .height(161)
-                .url()}
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+              alt={article.title || "প্রবন্ধের ছবি"}
               className="w-full h-auto object-cover"
             />
           )}
@@ -44,14 +43,14 @@ const PostCard = ({ cardData }) => {
 
         <div className="min-h-30.5 p-4 bg-white">
           {article?.author?.name && (
-            <span className="inline-block px-2 py-0.5 bg-gray-100 text-gray-800 text-xs rounded font-medium">
+            <span className="block text-xs text-slate-500 font-semibold">
               {article.author.name}
             </span>
           )}
 
           <h3
             title={article.title}
-            className="mt-2 text-sm leading-6 font-bold text-[#055547]"
+            className="mt-1.5 text-sm leading-6 font-bold text-[#055547]"
           >
             {truncate(article.title, 50)}
           </h3>
@@ -90,16 +89,18 @@ const PostGrid = ({ posts }) => {
 
       {/* Navigation */}
       <button
+        type="button"
         aria-label="Previous slide"
-        className="slider-prev-btn absolute top-1/2 -translate-y-1/2 -left-3 sm:-left-5 z-10 flex items-center justify-center bg-white text-primary hover:text-primary/75 w-10 h-10 sm:w-11 sm:h-11 rounded-full shadow-md opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto group-hover:disabled:opacity-30 group-hover:disabled:pointer-events-none transition-all duration-300 cursor-pointer active:scale-95 border border-white/20"
+        className="slider-prev-btn absolute top-1/2 -translate-y-1/2 left-1.5 sm:-left-4 z-10 flex items-center justify-center bg-white text-primary hover:text-primary/75 w-10 h-10 sm:w-11 sm:h-11 rounded-full shadow-md opacity-90 sm:opacity-0 sm:pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto disabled:opacity-0 disabled:pointer-events-none transition-all duration-200 cursor-pointer active:scale-95 border border-slate-200/80"
       >
         <BiChevronLeft className="text-2xl sm:text-3xl" />
       </button>
       <button
+        type="button"
         aria-label="Next slide"
-        className="slider-next-btn absolute top-1/2 -translate-y-1/2 -right-3 sm:-right-5 z-10 flex items-center justify-center bg-white text-primary hover:text-primary/75 w-10 h-10 sm:w-11 sm:h-11 rounded-full shadow-md opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto group-hover:disabled:opacity-30 group-hover:disabled:pointer-events-none transition-all duration-300 cursor-pointer active:scale-95 border border-white/20"
+        className="slider-next-btn absolute top-1/2 -translate-y-1/2 right-1.5 sm:-right-4 z-10 flex items-center justify-center bg-white text-primary hover:text-primary/75 w-10 h-10 sm:w-11 sm:h-11 rounded-full shadow-md opacity-90 sm:opacity-0 sm:pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto disabled:opacity-0 disabled:pointer-events-none transition-all duration-200 cursor-pointer active:scale-95 border border-slate-200/80"
       >
-        <BiChevronRight className=" text-2xl sm:text-3xl" />
+        <BiChevronRight className="text-2xl sm:text-3xl" />
       </button>
     </div>
   );
@@ -107,7 +108,7 @@ const PostGrid = ({ posts }) => {
 
 const BlockPostCarSlider = ({ className, posts, title, ...rest }) => {
   return (
-    <section className="bg-[#ECECEC] w-full group">
+    <section className="bg-[#ECECEC] w-full overflow-hidden group">
       <div className="container">
         <SectionWidget title={title} {...rest}>
           <PostGrid posts={posts} />

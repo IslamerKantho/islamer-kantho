@@ -5,14 +5,24 @@ export default class MyDocument extends Document {
     return (
       <Html lang="bn">
         <Head>
-          <meta name="theme-color" content="#000" />
-          <meta name="manifest" content="/manifest.json" />
-          <link rel="preconnect" href="https://fonts.googleapis.com" />
-          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-          <link
-            href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Scheherazade+New:wght@400;600;700&display=swap"
-            rel="stylesheet"
+          {/* Google tag (GTM-TP7L22JN) */}
+          <script
+            async
+            src="https://www.googletagmanager.com/gtm.js?id=GTM-TP7L22JN"
           />
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+`,
+            }}
+          />
+          <meta name="theme-color" content="#044f4f" />
+          <meta name="manifest" content="/manifest.json" />
+          <link rel="dns-prefetch" href="https://cdn.sanity.io" />
+          <link rel="preconnect" href="https://cdn.sanity.io" crossOrigin="anonymous" />
         </Head>
 
         <body>
